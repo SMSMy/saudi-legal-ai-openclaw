@@ -98,6 +98,7 @@ The Saudi legal system has a distinct foundation that most AI models handle poor
 | **التحكيم التجاري** | تحليل اتفاقيات التحكيم وإجراءات SCCA ومدد الطعن في الأحكام وفق نظام التحكيم م/34 | Arbitration agreement analysis, SCCA procedures, and award challenge timelines under Saudi law |
 | **عقود العقارات والإيجار** | مراجعة عقود الإيجار التجاري والسكني والتحقق من الالتزامات النظامية ومنصة إيجار | Commercial and residential lease review, statutory obligations, and Ejar platform compliance |
 | **حماية المبلغين والشهود** | اطار تشريعي متكامل لحماية المبلغين والشهود والخبراء والضحايا وفق نظام م/148 لعام 1445هـ واللائحة التنفيذية 2026م | Comprehensive protection framework for whistleblowers, witnesses, experts and victims under Royal Decree M/148 1445H and 2026 implementing regulations |
+| **مهنة المحاماة والتحقق من الترخيص** | التحقق من ترخيص المحامين عبر دليل الهيئة السعودية للمحامين، شروط المزاولة، حدود الصلاحيات، عقد المحاماة الموحد، الأتعاب، الشكاوى ضد المحامين | Lawyer license verification via SBA directory, practice conditions, scope of authority, standard legal services contract, fees, and complaint procedures against lawyers |
 
 ---
 
@@ -145,7 +146,7 @@ saudi-legal-ai-framework/
 │   ├── compliance-check.md
 │   └── legal-drafting.md
 │
-├── sources/                               # ملخصات مرجعية للانظمة السعودية الرئيسية (8 ملفات)
+├── sources/                               # ملخصات مرجعية للانظمة السعودية الرئيسية (10 ملفات)
 │   ├── regulation-index.md                # سجل الاستشهادات المعتمد لجميع الانظمة
 │   ├── saudi-laws.md
 │   ├── labor-law.md
@@ -154,7 +155,9 @@ saudi-legal-ai-framework/
 │   ├── commercial-courts.md
 │   ├── pdpl.md
 │   ├── e-commerce-law.md
+│   ├── evidence-law.md
 │   ├── whistleblower-protection.md        # م/148 1445هـ — نظام حماية المبلغين والشهود والخبراء والضحايا
+│   ├── legal-profession-law.md            # الهيئة السعودية للمحامين — ترخيص المحامين، التحقق، الأتعاب، الشكاوى
 │   ├── open-data-judicial-sources.md      # بيانات مفتوحة سعودية، احصاءات تكميلية فقط
 │   ├── fiqh-judicial-references/          # المراجع الفقهية الكلاسيكية المستشهد بها في الاحكام
 │   │   ├── README.md                      # حدود الطبقة وقواعد الاضافة
@@ -464,6 +467,7 @@ Long-term (v3.0): a web interface for legal professionals and organizations to u
 | سدايا | [sdaia.gov.sa](https://sdaia.gov.sa) | Data and AI authority — PDPL regulator |
 | منصة البيانات المفتوحة السعودية | [open.data.gov.sa](https://open.data.gov.sa) | Judicial & government open datasets — statistics, patterns, metadata (supplementary only) |
 | البوابة القانونية — وزارة العدل | [laws.moj.gov.sa](https://laws.moj.gov.sa) | أنظمة تشريعية + أحكام المحاكم + سوابق قضائية — Ministry of Justice legal portal — legislation and judicial decisions |
+| الهيئة السعودية للمحامين (SBA) | [sba.gov.sa](https://sba.gov.sa) | ترخيص المحامين — دليل التحقق — عقد المحاماة الموحد — حاسبة الأتعاب — Lawyer licensing, verification directory, standard contract, fee calculator |
 
 ---
 
