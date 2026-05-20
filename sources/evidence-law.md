@@ -50,7 +50,7 @@ This draft focuses on civil and commercial transactions, consistent with Article
 
 تركز هذه المسودة على المعاملات المدنية والتجارية وفقًا للمادة الأولى. ولا تتناول الإجراءات الجزائية إلا إذا ثبت وجود إحالة نظامية خاصة.
 
-*Article mapping:* **Article 1 — Verified from BOE**.
+*Article mapping:* **Article 1 — Verified from official Arabic text**.
 
 - The Law concerns evidentiary rules applicable in civil and commercial disputes.
 - It is directly relevant to civil and commercial litigation and court-facing workflows.
@@ -80,7 +80,7 @@ The following concepts are summarized at a high educational level only. Article-
 - The party asserting a fact generally bears the burden of proving it.
 - The burden may shift in defined circumstances based on the nature of the claim or defense.
 - AI workflows must distinguish between an allegation and a proven fact.
-- *Article mapping:* **Article 2 — Verified from BOE**.
+- *Article mapping:* **Article 2 — Verified from official Arabic text**.
 
 ### 2. Agreement on evidence rules / الاتفاق على قواعد الإثبات
 
@@ -118,7 +118,7 @@ High-level concepts include:
 - Challenge mechanisms for documents (e.g., forgery claims) — governed by the official text and procedural rules.
 - Document production requests between parties or by court order.
 
-*Article mappings:* **TO VERIFY**.
+*Article mappings:* Official documents — **Article 26 — Verified from official Arabic text**; private documents and document production remain **TO VERIFY**.
 
 ### 6. Electronic evidence / الدليل الرقمي
 
@@ -131,7 +131,7 @@ Includes (as workflow examples only, not as legal definitions):
 
 > Caution: Authenticity, relevance, and admissibility of electronic evidence must be evaluated under the official Saudi text and applicable court rules — and read together with related frameworks (e.g., Electronic Transactions Law) where relevant. Existence of a digital artifact is not the same as admissible, weighed, and decisive evidence.
 
-*Article mapping:* **Article 53 — Verified from official Arabic text**.
+*Article mapping:* **Article 55 — Verified from official Arabic text**.
 
 ### 7. Witness testimony / الشهادة
 
@@ -210,19 +210,19 @@ This section is a **verification scaffold**, not an article-level reference yet.
 
 | Topic | Article / range | Arabic note | English note | Verification status |
 |------|-----------------|-------------|--------------|--------------------|
-| Scope and general principles | Article 1 | تسري أحكام النظام على المعاملات المدنية والتجارية. | The Law applies to civil and commercial transactions. | Verified from BOE |
-| Burden of proof | Article 2 | على المدعي أن يثبت ما يدعيه من حق، وللمدعى عليه نفيه. | The claimant bears the burden of proving the asserted right, and the defendant may deny it. | Verified from BOE |
-| Agreement on evidence rules | Article 6 | إذا اتفق الخصوم على قواعد محددة في الإثبات فتُعمل المحكمة اتفاقهم؛ ما لم يخالف النظام العام. | The court gives effect to the parties' agreement on specific evidence rules unless it conflicts with public order. | Verified from official Arabic text |
+| Scope and applicability | Article 1 | تسري أحكام النظام على المعاملات المدنية والتجارية. | The Law applies to civil and commercial transactions. | Verified from official Arabic text |
+| Burden of proof | Article 2 | على المدعي أن يثبت ما يدعيه من حق، وللمدعى عليه نفيه. | The claimant bears the burden of proving the asserted right, and the defendant may deny it. | Verified from official Arabic text |
+| Agreement on evidence rules | Article 6 | إذا اتفق الخصوم على قواعد محددة في الإثبات فتُعمِل المحكمة اتفاقهم؛ ما لم يخالف النظام العام. | The court gives effect to parties' agreement on specific evidence rules unless it conflicts with public order. | Verified from official Arabic text |
 | Admission | TO VERIFY | الإقرار | Admission | TO VERIFY |
 | Interrogation of parties | Article 20 | للمحكمة -من تلقاء نفسها أو بناءً على طلب أحد الخصوم- أن تستجوب من يكون حاضرًا من الخصوم، ولأي من الخصوم استجواب خصمه مباشرة. | The court may interrogate a present party on its own initiative or at a party's request, and each party may directly interrogate the other party. | Verified from official Arabic text |
-| Official documents | TO VERIFY | المحررات الرسمية | Official documents | TO VERIFY |
+| Official documents | Article 26 | المحرر الرسمي حجة على الكافة بما دُوّن فيه من أمور قام بها محرره في حدود مهمته، أو حدثت من ذوي الشأن في حضوره؛ ما لم يثبت تزويره بالطرق المقررة نظامًا. | An official document is evidence against all persons regarding matters recorded by its issuer within official duties or occurring in the presence of concerned parties, unless forgery is established through the prescribed legal methods. | Verified from official Arabic text |
 | Private documents | TO VERIFY | المحررات العادية | Private documents | TO VERIFY |
 | Document production | TO VERIFY | تقديم المستندات | Production of documents | TO VERIFY |
-| Electronic evidence / digital evidence | Article 53 | يكون للإثبات بالدليل الرقمي حكم الإثبات بالكتابة. | Digital evidence has the effect of written evidence. | Verified from official Arabic text |
+| Electronic evidence / digital evidence | Article 55 | يكون للإثبات بالدليل الرقمي حكم الإثبات بالكتابة الوارد في هذا النظام. | Digital evidence has the effect of written evidence under the Law. | Verified from official Arabic text |
 | Witness testimony | TO VERIFY | الشهادة | Witness testimony | TO VERIFY |
 | Presumptions | TO VERIFY | القرائن | Presumptions | TO VERIFY |
 | Custom | TO VERIFY | العرف | Custom | TO VERIFY |
-| Expert evidence | Article 110 | للمحكمة -من تلقاء نفسها أو بناءً على طلب أحد الخصوم- أن تقرر ندب خبير أو أكثر لإبداء رأيه في المسائل الفنية التي يستلزمها الفصل في الدعوى. | The court may appoint one or more experts, on its own initiative or at a party's request, to provide an opinion on technical matters required to decide the case. | Verified from official Arabic text |
+| Expert evidence | Article 110 | للمحكمة -من تلقاء نفسها أو بناءً على طلب أحد الخصوم- أن تقرر ندب خبير أو أكثر؛ لإبداء رأيه في المسائل الفنية التي يستلزمها الفصل في الدعوى. | The court may appoint one or more experts, on its own initiative or at a party's request, to provide an opinion on technical matters required to decide the case. | Verified from official Arabic text |
 | Inspection | TO VERIFY | المعاينة | Inspection | TO VERIFY |
 | Oaths | TO VERIFY | اليمين | Oaths | TO VERIFY |
 | Procedural timing and applicable evidentiary law | TO VERIFY | الزمن الإجرائي والنظام الواجب التطبيق | Procedural timing and applicable evidentiary law | TO VERIFY |
@@ -320,28 +320,28 @@ This draft is suitable for early maintainer review because it separates source-b
 - Article 2 — burden of proof
 - Article 6 — agreement on evidence rules
 - Article 20 — interrogation of parties
-- Article 53 — digital evidence
+- Article 26 — official documents
+- Article 55 — digital evidence
 - Article 110 — expert evidence
 
 ### Remaining article mappings to verify
 
 1. Admission
-2. Official documents
-3. Private documents
-4. Document production
-5. Witness testimony
-6. Presumptions
-7. Custom
-8. Inspection
-9. Oaths
-10. Procedural timing and applicable evidentiary law
-11. Final provisions / implementing rules (if present)
+2. Private documents
+3. Document production
+4. Witness testimony
+5. Presumptions
+6. Custom
+7. Inspection
+8. Oaths
+9. Procedural timing and applicable evidentiary law
+10. Final provisions / implementing rules (if present)
 
-**Remaining article-mapping topics to verify: 11.**
+**Remaining article-mapping topics to verify: 10.**
 
-Six article-level mappings are currently verified against the official Arabic text. The remaining article-mapping topics stay marked as `TO VERIFY` pending direct review of the official Arabic text.
+Seven article-level mappings are currently verified against the official Arabic text. The remaining article-mapping topics stay marked as `TO VERIFY` pending direct review of the official Arabic text.
 
-تم التحقق حاليًا من ست إحالات على مستوى المواد. وتبقى بقية موضوعات إحالات المواد معلّمة بـ `TO VERIFY` إلى حين مراجعة النص العربي الرسمي مباشرة.
+تم التحقق حاليًا من سبع إحالات على مستوى المواد. وتبقى بقية موضوعات إحالات المواد معلّمة بـ `TO VERIFY` إلى حين مراجعة النص العربي الرسمي مباشرة.
 
 ---
 
