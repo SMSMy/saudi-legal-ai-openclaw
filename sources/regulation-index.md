@@ -174,6 +174,23 @@ When citing any regulation in any other project file, use the **Common Citation 
 
 ---
 
+### 11. نظام حماية المبلغين والشهود والخبراء والضحايا
+
+| الحقل | القيمة |
+|-------|-------|
+| **الاسم العربي** | نظام حماية المبلغين والشهود والخبراء والضحايا |
+| **الاسم الإنجليزي** | Whistleblower, Witness, Expert and Victim Protection Law |
+| **رقم المرسوم الملكي** | م/148 |
+| **سنة الإصدار** | 1445هـ (2024م) |
+| **تاريخ النشر** | 20/8/1445هـ — 1/3/2024م |
+| **تاريخ النفاذ** | بعد 120 يوما من تاريخ النشر — حوالي 29/6/2024م |
+| **صيغة الاستشهاد** | `Whistleblower Protection Law (Royal Decree M/148 1445H)` |
+| **المصدر الرسمي** | laws.boe.gov.sa — uqn.gov.sa — pp.gov.sa |
+| **ملفات المشروع ذات الصلة** | `sources/whistleblower-protection.md` |
+| **ملاحظات** | يُنشئ برنامج حماية في النيابة العامة لحماية المبلغين والشهود والخبراء والضحايا — اللائحة التنفيذية صدرت 2026م |
+
+---
+
 ## جدول مرجع سريع / Quick Reference Table
 
 | الاسم الإنجليزي | رقم المرسوم | السنة | صيغة الاستشهاد المختصرة |
@@ -188,6 +205,7 @@ When citing any regulation in any other project file, use the **Common Citation 
 | Intellectual Property Protection Law | M/41 | 1424H | `Intellectual Property Protection Law (Royal Decree M/41 1424H)` |
 | Saudi Bankruptcy Law | M/50 | 1439H | `Saudi Bankruptcy Law (Royal Decree M/50 1439H)` |
 | Electronic Transactions Law | M/18 | 1428H | `Electronic Transactions Law (Royal Decree M/18 1428H)` |
+| Whistleblower Protection Law | M/148 | 1445H | `Whistleblower Protection Law (Royal Decree M/148 1445H)` |
 
 ---
 
