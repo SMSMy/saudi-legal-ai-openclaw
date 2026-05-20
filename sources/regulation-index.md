@@ -191,6 +191,24 @@ When citing any regulation in any other project file, use the **Common Citation 
 
 ---
 
+### 12. الهيئة السعودية للمحامين — نظام المحاماة
+
+| الحقل | القيمة |
+|-------|-------|
+| **الاسم العربي** | الهيئة السعودية للمحامين — نظام المحاماة |
+| **الاسم الإنجليزي** | Saudi Bar Association (SBA) — Legal Profession Law |
+| **الاختصار** | SBA |
+| **النوع** | جهة تنظيمية مهنية |
+| **رقم المرسوم الملكي** | [يحتاج تحقق من النص الرسمي عبر boe.gov.sa] |
+| **الموقع الرسمي** | https://sba.gov.sa |
+| **صيغة الاستشهاد** | `Saudi Legal Profession Law / Saudi Bar Association (SBA) — sba.gov.sa` |
+| **المصدر الرسمي** | sba.gov.sa — eservice.sba.gov.sa/lawyers — boe.gov.sa |
+| **ملفات المشروع ذات الصلة** | `sources/legal-profession-law.md` |
+| **يغطي** | تنظيم مهنة المحاماة — الترخيص — التحقق من ترخيص المحامي — الأتعاب — الشكاوى — عقد المحاماة الموحد |
+| **ملاحظات** | دليل المحامين المرخصين: eservice.sba.gov.sa/lawyers — حاسبة الأتعاب: sba.gov.sa/sba-fee-calculator/ — تقديم بلاغ: sba.gov.sa/violation-report/ |
+
+---
+
 ## جدول مرجع سريع / Quick Reference Table
 
 | الاسم الإنجليزي | رقم المرسوم | السنة | صيغة الاستشهاد المختصرة |
@@ -206,6 +224,7 @@ When citing any regulation in any other project file, use the **Common Citation 
 | Saudi Bankruptcy Law | M/50 | 1439H | `Saudi Bankruptcy Law (Royal Decree M/50 1439H)` |
 | Electronic Transactions Law | M/18 | 1428H | `Electronic Transactions Law (Royal Decree M/18 1428H)` |
 | Whistleblower Protection Law | M/148 | 1445H | `Whistleblower Protection Law (Royal Decree M/148 1445H)` |
+| Saudi Legal Profession Law / SBA | [يحتاج تحقق] | — | `Saudi Legal Profession Law / Saudi Bar Association (SBA) — sba.gov.sa` |
 
 ---
 
