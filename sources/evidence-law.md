@@ -1,5 +1,8 @@
 # Saudi Evidence Law / نظام الإثبات
 
+**المرجع الرسمي:** نظام الإثبات الصادر بالمرسوم الملكي م/43 بتاريخ 26/5/1443هـ
+**Official Reference:** Saudi Evidence Law issued by Royal Decree م/43 dated 26/5/1443H
+
 > **Status:** Draft educational/reference file — Work in Progress
 > **الحالة:** ملف تعليمي/مرجعي مسودة — قيد العمل
 
@@ -10,7 +13,7 @@
 **Arabic name / الاسم بالعربية:** نظام الإثبات
 **English name:** Saudi Evidence Law
 
-**Royal Decree / المرسوم الملكي:** No. M/43 — رقم م/43
+**Royal Decree / المرسوم الملكي:** م/43
 **Hijri issue date / تاريخ الإصدار الهجري:** 26/05/1443H
 **Gregorian issue date / تاريخ الإصدار الميلادي:** 30/12/2021
 **Publication date / تاريخ النشر:** 04/06/1443H — 07/01/2022
@@ -33,11 +36,11 @@ This file is designed for legal workflow mapping, AI evaluation, litigation-docu
 
 صُمم هذا الملف لدعم رسم مسارات العمل القانونية، وتقييم مخرجات الذكاء الاصطناعي، ومراجعة مستندات التقاضي، والتحليل القانوني المتعلق بالإثبات — وليس لتقديم استشارة قانونية مباشرة.
 
-### Disclaimer / إخلاء مسؤولية
+### ⚠️ تحذير / Warning
 
-> **Warning:** This file is an educational/reference draft only. It is not legal advice. Review the official Arabic text and applicable procedural rules before making litigation, evidence, contracting, or compliance decisions.
+> هذا ملخص مرجعي تعليمي. النص القانوني الرسمي والسارية هو المعتمد. يجب الرجوع إلى محامٍ مرخّص في أي مسألة تتعلق بالإثبات.
 >
-> **تحذير:** هذا الملف مسودة تعليمية/مرجعية فقط، ولا يُعد استشارة قانونية. يجب مراجعة النص العربي الرسمي والقواعد الإجرائية ذات الصلة قبل اتخاذ أي قرار يتعلق بالتقاضي أو الإثبات أو التعاقد أو الامتثال.
+> This is an educational reference summary. The official current legal text prevails. Consult a licensed attorney for any evidence-related matter.
 
 ---
 
