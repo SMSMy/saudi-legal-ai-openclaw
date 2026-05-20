@@ -89,7 +89,7 @@ The following concepts are summarized at a high educational level only. Article-
 - This is especially relevant for contracts, commercial disputes, platform terms, and document-heavy workflows.
 - قد تكون لاتفاقات الخصوم أو مواقفهم الإجرائية أثر في طريقة التعامل مع الإثبات، وفقًا للنص الرسمي وحدود النظام العام والقواعد الإجرائية المنطبقة.
 - لا ينبغي افتراض أن شرطًا تعاقديًا متعلقًا بالإثبات صحيح أو باطل أو حاسم تلقائيًا دون مراجعة نظام الإثبات والقواعد الإجرائية.
-- *Article mapping:* **TO VERIFY**.
+- *Article mapping:* **Article 6 — Verified from official Arabic text**.
 
 ### 3. Admission / الإقرار
 
@@ -103,7 +103,7 @@ The following concepts are summarized at a high educational level only. Article-
 - The court may question a party regarding disputed facts.
 - Interrogation is related to, but distinct from, admissions: it is a procedural mechanism for eliciting positions on factual matters.
 - The mechanism, conditions, and consequences are governed by the official text and applicable procedural rules.
-- *Article mapping:* **TO VERIFY**.
+- *Article mapping:* **Article 20 — Verified from official Arabic text**.
 
 ### 5. Written evidence / المحررات
 
@@ -131,7 +131,7 @@ Includes (as workflow examples only, not as legal definitions):
 
 > Caution: Authenticity, relevance, and admissibility of electronic evidence must be evaluated under the official Saudi text and applicable court rules — and read together with related frameworks (e.g., Electronic Transactions Law) where relevant. Existence of a digital artifact is not the same as admissible, weighed, and decisive evidence.
 
-*Article mapping:* **TO VERIFY**.
+*Article mapping:* **Article 53 — Verified from official Arabic text**.
 
 ### 7. Witness testimony / الشهادة
 
@@ -158,7 +158,7 @@ Includes (as workflow examples only, not as legal definitions):
 - Courts may rely on experts (court-appointed or party-submitted) for technical, accounting, engineering, digital forensics, valuation, and similar matters.
 - An expert report informs the court but is not, by itself, automatically conclusive.
 - The court evaluates the expert's methodology, qualifications, and the report's persuasive weight under applicable rules.
-- *Article mapping:* **TO VERIFY**.
+- *Article mapping:* **Article 110 — Verified from official Arabic text**.
 
 ### 11. Inspection / المعاينة
 
@@ -212,17 +212,17 @@ This section is a **verification scaffold**, not an article-level reference yet.
 |------|-----------------|-------------|--------------|--------------------|
 | Scope and general principles | Article 1 | تسري أحكام النظام على المعاملات المدنية والتجارية. | The Law applies to civil and commercial transactions. | Verified from BOE |
 | Burden of proof | Article 2 | على المدعي أن يثبت ما يدعيه من حق، وللمدعى عليه نفيه. | The claimant bears the burden of proving the asserted right, and the defendant may deny it. | Verified from BOE |
-| Agreement on evidence rules | TO VERIFY | الاتفاق على قواعد الإثبات | Agreement on evidence rules | TO VERIFY |
+| Agreement on evidence rules | Article 6 | إذا اتفق الخصوم على قواعد محددة في الإثبات فتُعمل المحكمة اتفاقهم؛ ما لم يخالف النظام العام. | The court gives effect to the parties' agreement on specific evidence rules unless it conflicts with public order. | Verified from official Arabic text |
 | Admission | TO VERIFY | الإقرار | Admission | TO VERIFY |
-| Interrogation of parties | TO VERIFY | استجواب الخصوم | Interrogation of parties | TO VERIFY |
+| Interrogation of parties | Article 20 | للمحكمة -من تلقاء نفسها أو بناءً على طلب أحد الخصوم- أن تستجوب من يكون حاضرًا من الخصوم، ولأي من الخصوم استجواب خصمه مباشرة. | The court may interrogate a present party on its own initiative or at a party's request, and each party may directly interrogate the other party. | Verified from official Arabic text |
 | Official documents | TO VERIFY | المحررات الرسمية | Official documents | TO VERIFY |
 | Private documents | TO VERIFY | المحررات العادية | Private documents | TO VERIFY |
 | Document production | TO VERIFY | تقديم المستندات | Production of documents | TO VERIFY |
-| Electronic evidence / digital evidence | TO VERIFY | الدليل الرقمي / الإلكتروني | Electronic / digital evidence | TO VERIFY |
+| Electronic evidence / digital evidence | Article 53 | يكون للإثبات بالدليل الرقمي حكم الإثبات بالكتابة. | Digital evidence has the effect of written evidence. | Verified from official Arabic text |
 | Witness testimony | TO VERIFY | الشهادة | Witness testimony | TO VERIFY |
 | Presumptions | TO VERIFY | القرائن | Presumptions | TO VERIFY |
 | Custom | TO VERIFY | العرف | Custom | TO VERIFY |
-| Expert evidence | TO VERIFY | الخبرة | Expert evidence | TO VERIFY |
+| Expert evidence | Article 110 | للمحكمة -من تلقاء نفسها أو بناءً على طلب أحد الخصوم- أن تقرر ندب خبير أو أكثر لإبداء رأيه في المسائل الفنية التي يستلزمها الفصل في الدعوى. | The court may appoint one or more experts, on its own initiative or at a party's request, to provide an opinion on technical matters required to decide the case. | Verified from official Arabic text |
 | Inspection | TO VERIFY | المعاينة | Inspection | TO VERIFY |
 | Oaths | TO VERIFY | اليمين | Oaths | TO VERIFY |
 | Procedural timing and applicable evidentiary law | TO VERIFY | الزمن الإجرائي والنظام الواجب التطبيق | Procedural timing and applicable evidentiary law | TO VERIFY |
@@ -314,29 +314,34 @@ This draft is suitable for early maintainer review because it separates source-b
 
 تصلح هذه المسودة للمراجعة الأولية من المشرفين لأنها تفصل بين البيانات الأساسية المدعومة بالمصدر وإحالات المواد غير المتحققة، وتتجنب تخمين أرقام المواد، وتحدد مسارات الإثبات التي تحتاج إلى تحقق لاحق.
 
+### Article-level mappings currently verified
+
+- Article 1 — scope and applicability
+- Article 2 — burden of proof
+- Article 6 — agreement on evidence rules
+- Article 20 — interrogation of parties
+- Article 53 — digital evidence
+- Article 110 — expert evidence
+
 ### Remaining article mappings to verify
 
-1. Agreement on evidence rules
-2. Admission
-3. Interrogation of parties
-4. Official documents
-5. Private documents
-6. Document production
-7. Electronic / digital evidence
-8. Witness testimony
-9. Presumptions
-10. Custom
-11. Expert evidence
-12. Inspection
-13. Oaths
-14. Procedural timing and applicable evidentiary law
-15. Final provisions / implementing rules (if present)
+1. Admission
+2. Official documents
+3. Private documents
+4. Document production
+5. Witness testimony
+6. Presumptions
+7. Custom
+8. Inspection
+9. Oaths
+10. Procedural timing and applicable evidentiary law
+11. Final provisions / implementing rules (if present)
 
-**Remaining article-mapping topics to verify: 15.**
+**Remaining article-mapping topics to verify: 11.**
 
-Two mappings are currently article-level mapped from BOE: Article 1 for scope and Article 2 for burden of proof. All other article mappings remain `TO VERIFY` pending direct review of the official Arabic text.
+Six article-level mappings are currently verified against the official Arabic text. The remaining article-mapping topics stay marked as `TO VERIFY` pending direct review of the official Arabic text.
 
-تم ربط موضعين فقط بإحالات مواد من هيئة الخبراء: المادة (1) للنطاق، والمادة (2) لعبء الإثبات. وتبقى بقية إحالات المواد `TO VERIFY` إلى حين مراجعة النص العربي الرسمي مباشرة.
+تم التحقق حاليًا من ست إحالات على مستوى المواد. وتبقى بقية موضوعات إحالات المواد معلّمة بـ `TO VERIFY` إلى حين مراجعة النص العربي الرسمي مباشرة.
 
 ---
 
