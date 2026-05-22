@@ -32,3 +32,8 @@ desktop.ini
 # Generated dataset build output — run build_dataset.py to regenerate locally
 datasets/build/*.generated.csv
 experiments/ocr-scan/
+
+# Claude Code / agents
+.agents/
+.claude/
+skills-lock.json
