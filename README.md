@@ -86,31 +86,31 @@ The Saudi legal system has a distinct foundation that most AI models handle poor
 
 ## المميزات / Features
 
-| المميزة | الوصف بالعربية | Description in English |
-|---------|----------------|------------------------|
-| **تاسيس سعودي** | المهارات والقوالب مبنية على القانون السعودي، لا مقتبسة من نماذج غربية | Skills and prompts grounded in Saudi law, not adapted from Western templates |
-| **ثنائي اللغة** | جميع المحتوى منظم بالعربية والانجليزية | All content structured in Arabic and English |
-| **متوافق مع عدة نماذج** | يعمل مع Claude وChatGPT وGemini واي نموذج يتبع التعليمات | Works with Claude, ChatGPT, Gemini, and any instruction-following LLM |
-| **هيكل معياري** | استخدم المكونات ذات الصلة بمهمتك فقط | Use only the components relevant to your task |
-| **مصادر موثقة** | كل ادعاء قانوني يشير الى مصدر سعودي رسمي | Every legal claim points to an official Saudi source |
-| **اخلاء مسؤولية دائم** | كل قالب مخرجات يتضمن نص اخلاء المسؤولية القانوني | Every output template includes mandatory legal disclaimer language |
-| **لا يحتاج برمجة** | توثيق خالص، قابل للاستخدام دون اي اعداد تقني | Pure documentation, usable without any technical setup |
-| **التحكيم التجاري** | تحليل اتفاقيات التحكيم وإجراءات SCCA ومدد الطعن في الأحكام وفق نظام التحكيم م/34 | Arbitration agreement analysis, SCCA procedures, and award challenge timelines under Saudi law |
-| **عقود العقارات والإيجار** | مراجعة عقود الإيجار التجاري والسكني والتحقق من الالتزامات النظامية ومنصة إيجار | Commercial and residential lease review, statutory obligations, and Ejar platform compliance |
-| **حماية المبلغين والشهود** | اطار تشريعي متكامل لحماية المبلغين والشهود والخبراء والضحايا وفق نظام م/148 لعام 1445هـ واللائحة التنفيذية 2026م | Comprehensive protection framework for whistleblowers, witnesses, experts and victims under Royal Decree M/148 1445H and 2026 implementing regulations |
-| **مهنة المحاماة والتحقق من الترخيص** | التحقق من ترخيص المحامين عبر دليل الهيئة السعودية للمحامين، شروط المزاولة، حدود الصلاحيات، عقد المحاماة الموحد، الأتعاب، الشكاوى ضد المحامين | Lawyer license verification via SBA directory, practice conditions, scope of authority, standard legal services contract, fees, and complaint procedures against lawyers |
+| Description in English | الوصف بالعربية | المميزة |
+|------------------------|----------------|---------|
+| Skills and prompts grounded in Saudi law, not adapted from Western templates | المهارات والقوالب مبنية على القانون السعودي، لا مقتبسة من نماذج غربية | **تاسيس سعودي** |
+| All content structured in Arabic and English | جميع المحتوى منظم بالعربية والانجليزية | **ثنائي اللغة** |
+| Works with Claude, ChatGPT, Gemini, and any instruction-following LLM | يعمل مع Claude وChatGPT وGemini واي نموذج يتبع التعليمات | **متوافق مع عدة نماذج** |
+| Use only the components relevant to your task | استخدم المكونات ذات الصلة بمهمتك فقط | **هيكل معياري** |
+| Every legal claim points to an official Saudi source | كل ادعاء قانوني يشير الى مصدر سعودي رسمي | **مصادر موثقة** |
+| Every output template includes mandatory legal disclaimer language | كل قالب مخرجات يتضمن نص اخلاء المسؤولية القانوني | **اخلاء مسؤولية دائم** |
+| Pure documentation, usable without any technical setup | توثيق خالص، قابل للاستخدام دون اي اعداد تقني | **لا يحتاج برمجة** |
+| Arbitration agreement analysis, SCCA procedures, and award challenge timelines under Saudi law | تحليل اتفاقيات التحكيم وإجراءات SCCA ومدد الطعن في الأحكام وفق نظام التحكيم م/34 | **التحكيم التجاري** |
+| Commercial and residential lease review, statutory obligations, and Ejar platform compliance | مراجعة عقود الإيجار التجاري والسكني والتحقق من الالتزامات النظامية ومنصة إيجار | **عقود العقارات والإيجار** |
+| Comprehensive protection framework for whistleblowers, witnesses, experts and victims under Royal Decree M/148 1445H and 2026 implementing regulations | اطار تشريعي متكامل لحماية المبلغين والشهود والخبراء والضحايا وفق نظام م/148 لعام 1445هـ واللائحة التنفيذية 2026م | **حماية المبلغين والشهود** |
+| Lawyer license verification via SBA directory, practice conditions, scope of authority, standard legal services contract, fees, and complaint procedures against lawyers | التحقق من ترخيص المحامين عبر دليل الهيئة السعودية للمحامين، شروط المزاولة، حدود الصلاحيات، عقد المحاماة الموحد، الأتعاب، الشكاوى ضد المحامين | **مهنة المحاماة والتحقق من الترخيص** |
 
 ---
 
 ## حالة المشروع / Project Status
 
-| المرحلة | الحالة | Phase | Status |
-|---------|--------|-------|--------|
-| المرحلة 1: الاساس | مكتملة — 90% (skills/ 7 ملفات) | Phase 1: Foundation | Complete — 90% (skills/ 7 files) |
-| المرحلة 2: قاعدة المعرفة | جارية، متقدمة | Phase 2: Knowledge Base | Advanced, In Progress |
-| المرحلة 3: سير عمل الذكاء الاصطناعي | جارية، مرحلة اولية | Phase 3: AI Workflows | Foundation Established |
-| المرحلة 4: تكامل MCP | تخطيط مبكر | Phase 4: MCP Integration | Research / Early Planning |
-| المرحلة 5: طبقة المنتج | مخطط لها | Phase 5: Product Layer | Planned |
+| Phase | Status | المرحلة | الحالة |
+|-------|--------|---------|--------|
+| Phase 1: Foundation | Complete — 90% (skills/ 7 files) | المرحلة 1: الاساس | مكتملة — 90% (skills/ 7 ملفات) |
+| Phase 2: Knowledge Base | Advanced, In Progress | المرحلة 2: قاعدة المعرفة | جارية، متقدمة |
+| Phase 3: AI Workflows | Foundation Established | المرحلة 3: سير عمل الذكاء الاصطناعي | جارية، مرحلة اولية |
+| Phase 4: MCP Integration | Research / Early Planning | المرحلة 4: تكامل MCP | تخطيط مبكر |
+| Phase 5: Product Layer | Planned | المرحلة 5: طبقة المنتج | مخطط لها |
 
 **المرحلة 1 تشمل:** هيكل المستودع، الحوكمة، pipeline التحقق، CI/CD، سير عمل المساهمين، الاختبار الآلي، دورة حياة التحقق، هيكل مجموعات البيانات القابل للتوسع.
 
@@ -455,19 +455,19 @@ Long-term (v3.0): a web interface for legal professionals and organizations to u
 
 ## المصادر الرسمية / Official Sources
 
-| Source | URL | Content |
-|--------|-----|---------|
-| هيئة الخبراء بمجلس الوزراء | [boe.gov.sa](https://boe.gov.sa) | Official regulations and laws |
-| الجريدة الرسمية (أم القرى) | [uqn.gov.sa](https://uqn.gov.sa) | Official Gazette — authoritative text |
-| منصة استطلاع | [istitlaa.ncc.gov.sa](https://istitlaa.ncc.gov.sa) | Draft regulations under public consultation |
-| وزارة العدل | [moj.gov.sa](https://www.moj.gov.sa) | Ministry of Justice |
-| منصة ناجز | [najiz.sa](https://www.najiz.sa) | Electronic judicial services |
-| وزارة الموارد البشرية والتنمية الاجتماعية | [hrsd.gov.sa](https://www.hrsd.gov.sa) | Labor and HR regulations |
-| هيئة السوق المالية | [cma.org.sa](https://www.cma.org.sa) | Capital Markets Authority |
-| سدايا | [sdaia.gov.sa](https://sdaia.gov.sa) | Data and AI authority — PDPL regulator |
-| منصة البيانات المفتوحة السعودية | [open.data.gov.sa](https://open.data.gov.sa) | Judicial & government open datasets — statistics, patterns, metadata (supplementary only) |
-| البوابة القانونية — وزارة العدل | [laws.moj.gov.sa](https://laws.moj.gov.sa) | أنظمة تشريعية + أحكام المحاكم + سوابق قضائية — Ministry of Justice legal portal — legislation and judicial decisions |
-| الهيئة السعودية للمحامين (SBA) | [sba.gov.sa](https://sba.gov.sa) | ترخيص المحامين — دليل التحقق — عقد المحاماة الموحد — حاسبة الأتعاب — Lawyer licensing, verification directory, standard contract, fee calculator |
+| Content | URL | Source |
+|---------|-----|--------|
+| Official regulations and laws | [boe.gov.sa](https://boe.gov.sa) | هيئة الخبراء بمجلس الوزراء |
+| Official Gazette — authoritative text | [uqn.gov.sa](https://uqn.gov.sa) | الجريدة الرسمية (أم القرى) |
+| Draft regulations under public consultation | [istitlaa.ncc.gov.sa](https://istitlaa.ncc.gov.sa) | منصة استطلاع |
+| Ministry of Justice | [moj.gov.sa](https://www.moj.gov.sa) | وزارة العدل |
+| Electronic judicial services | [najiz.sa](https://www.najiz.sa) | منصة ناجز |
+| Labor and HR regulations | [hrsd.gov.sa](https://www.hrsd.gov.sa) | وزارة الموارد البشرية والتنمية الاجتماعية |
+| Capital Markets Authority | [cma.org.sa](https://www.cma.org.sa) | هيئة السوق المالية |
+| Data and AI authority — PDPL regulator | [sdaia.gov.sa](https://sdaia.gov.sa) | سدايا |
+| Judicial & government open datasets — statistics, patterns, metadata (supplementary only) | [open.data.gov.sa](https://open.data.gov.sa) | منصة البيانات المفتوحة السعودية |
+| أنظمة تشريعية + أحكام المحاكم + سوابق قضائية — Ministry of Justice legal portal — legislation and judicial decisions | [laws.moj.gov.sa](https://laws.moj.gov.sa) | البوابة القانونية — وزارة العدل |
+| ترخيص المحامين — دليل التحقق — عقد المحاماة الموحد — حاسبة الأتعاب — Lawyer licensing, verification directory, standard contract, fee calculator | [sba.gov.sa](https://sba.gov.sa) | الهيئة السعودية للمحامين (SBA) |
 
 ---
 
