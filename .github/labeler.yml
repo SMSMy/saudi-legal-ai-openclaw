@@ -1,26 +1,31 @@
-dataset:
-  - changed-files:
-    - any-glob-to-any-file: 'datasets/**'
-
-saudi-law:
-  - changed-files:
-    - any-glob-to-any-file: 'sources/**'
-
-ai-workflow:
-  - changed-files:
-    - any-glob-to-any-file:
-      - 'skills/**'
-      - 'prompts/**'
-      - 'examples/**'
-
-enhancement:
-  - changed-files:
-    - any-glob-to-any-file:
-      - 'scripts/**'
-      - '.github/**'
-
 documentation:
   - changed-files:
     - any-glob-to-any-file:
       - '*.md'
       - 'docs/**'
+      - 'CHANGELOG*'
+      - 'LICENSE*'
+
+legal-sources:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'sources/**'
+      - 'datasets/**'
+
+prompts:
+  - changed-files:
+    - any-glob-to-any-file: 'prompts/**'
+
+examples:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'examples/**'
+      - 'skills/**'
+
+scripts:
+  - changed-files:
+    - any-glob-to-any-file: 'scripts/**'
+
+github-actions:
+  - changed-files:
+    - any-glob-to-any-file: '.github/**'
