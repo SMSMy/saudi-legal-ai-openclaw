@@ -393,6 +393,24 @@ Medium-term (v2.0): MCP server integrations connecting AI assistants directly to
 Long-term (v3.0): a web interface for legal professionals and organizations to upload documents, run structured analyses, and generate formatted review reports without technical knowledge.
 
 ---
+## دليل للمبتدئين
+
+إذا كنت جديد على GitHub أو عالم AI Coding فهذا الدليل سيساعدك تبدأ بالطريقة الصحيحة.
+
+📘 [تحميل الدليل الشامل للمبتدئين](guides/github-beginner-blueprint.pdf)
+
+يشمل:
+
+* إنشاء حساب GitHub
+* إنشاء أول Repository
+* رفع الملفات
+* شرح README
+* أوامر Git الأساسية
+* تفعيل الحماية الثنائية 2FA
+* أشهر الأخطاء وحلولها
+* أدوات مفيدة للمبتدئين
+
+دليل عربي عملي خطوة بخطوة.
 
 ## دليل المساهمة / Contribution Guide
 
