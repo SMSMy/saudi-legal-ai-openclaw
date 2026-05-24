@@ -189,6 +189,17 @@ Legislative sources do not replace judicial decisions, and vice versa.
 
 ---
 
+### 🆕 جديد على GitHub؟ ابدأ من هنا
+
+إذا كنت محاميا او مستشارا قانونيا ولا تعرف GitHub، لا تقلق.
+اعددنا دليلا عربيا شاملا يشرح كل شيء خطوة بخطوة:
+
+👉 [دليل GitHub للمبتدئين بالعربي](https://samix2026.github.io/github-beginner-guide-ar/)
+
+بعد قراءة الدليل، عد هنا وابدأ مساهمتك.
+
+---
+
 ## Contribution Workflow
 
 ```

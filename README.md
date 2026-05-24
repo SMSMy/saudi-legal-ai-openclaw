@@ -400,6 +400,8 @@ Long-term (v3.0): a web interface for legal professionals and organizations to u
 
 راجع [CONTRIBUTING.md](CONTRIBUTING.md) للدليل الكامل بما يشمل معايير مجموعات البيانات وصيغ الاستشهاد ومتطلبات اخفاء الهوية وقائمة التحقق قبل التقديم.
 
+> جديد على GitHub؟ اقرأ [الدليل العربي للمبتدئين](https://samix2026.github.io/github-beginner-guide-ar/) اولا.
+
 اقرأ [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) قبل المساهمة. للابلاغ عن مشكلة امنية (مثل بيانات غير معماة)، راجع [SECURITY.md](SECURITY.md).
 
 ### مسارات المساهمة
