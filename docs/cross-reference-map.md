@@ -401,6 +401,10 @@ sources/fiqh-judicial-references/  ≠  sources/regulation-index.md
 
 ---
 
+<<<<<<< HEAD
 *آخر تحديث / Last updated: 2026-05-25 — إضافة § Skill → Example Coverage + تحديث §3 + validate_example_coverage.py*
+=======
+*آخر تحديث / Last updated: 2026-05-25 — إضافة Section 1b (reverse index) + validate_cross_refs.py*
+>>>>>>> origin/main
 
 *حدّث هذا التاريخ عند كل مراجعة للخريطة. / Update this date on every map revision.*
