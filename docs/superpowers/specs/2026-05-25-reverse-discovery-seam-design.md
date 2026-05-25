@@ -118,35 +118,46 @@ New script. Runs standalone; no new dependencies beyond the Python stdlib alread
 ### What it parses
 
 **From each `skills/*.md`:**
-Extract the §11 section (heading contains "Relevant Regulations" or "الأنظمة المرتبطة"). Within that section, collect every `sources/` path mentioned (via regex on backtick-quoted paths or markdown links).
+Locate the "regulations" section using flexible heading detection — match any heading that contains one of the recognized aliases (case-insensitive, ignoring leading `##`, section numbers like `§11`, and surrounding whitespace):
+
+```python
+REGULATIONS_HEADING_ALIASES = [
+    "relevant regulations",
+    "الأنظمة المرتبطة",
+    # add future aliases here — script must not hardcode §11
+]
+```
+
+The section ends at the next same-level heading. Within the matched section, collect every `sources/` path mentioned via backtick-quoted paths (`` `sources/foo.md` ``) or markdown links (`[text](../sources/foo.md)`).
 
 **From each `sources/*.md`:**
-Detect whether a `## See also` section exists. If it does, extract every `skills/` path listed in it.
+Detect whether a `## See also` section (or `## See also / انظر أيضًا`) exists. If it does, extract every `skills/` path listed in it using the same dual-format regex.
 
 ### Checks (in order)
 
 **Check 1 — Missing "See also" (invariant)**
-For every `(source_file, skill_file)` pair found in skills §11: if `source_file` has no `## See also` section → **FAIL**.
+For every `(source_file, skill_file)` pair found in the regulations section: if `source_file` has no `## See also` section → **FAIL**.
 
 ```
-ERROR: sources/labor-law.md is cited by skills/labor-law-analysis.md §11
-       but has no "## See also" section.
+ERROR: sources/labor-law.md is cited by skills/labor-law-analysis.md
+       (regulations section) but has no "## See also" section.
 ```
 
 **Check 2 — Missing reverse link**
-For every `(source_file, skill_file)` pair found in skills §11: if `source_file`'s "See also" does not list `skill_file` → **FAIL**.
+For every `(source_file, skill_file)` pair found in the regulations section: if `source_file`'s "See also" does not list `skill_file` → **FAIL**.
 
 ```
 ERROR: sources/labor-law.md "See also" is missing skills/compliance-check.md
-       (cited in skills/compliance-check.md §11).
+       (cited in its regulations section).
 ```
 
 **Check 3 — Phantom reference**
-For every `skill_file` listed in a `source_file`'s "See also": if that skill's §11 does not cite the source → **FAIL**.
+For every `skill_file` listed in a `source_file`'s "See also": if that skill's regulations section does not cite the source → **FAIL**.
 
 ```
 ERROR: sources/labor-law.md "See also" lists skills/legal-drafting.md
-       but skills/legal-drafting.md §11 does not cite sources/labor-law.md.
+       but skills/legal-drafting.md regulations section does not cite
+       sources/labor-law.md.
 ```
 
 **Check 4 — Cross-reference-map.md sync**
@@ -156,6 +167,24 @@ For every `(source_file, skill_file)` pair confirmed by checks 1–3: if Section
 WARNING: cross-reference-map.md Section 1b is missing row:
          sources/pdpl.md → skills/compliance-check.md
 ```
+
+### `--fix` mode (future)
+
+The script accepts `--fix` as a future flag:
+
+```
+python scripts/validate_cross_refs.py --fix
+```
+
+Behaviour when `--fix` is passed:
+- For every Check 1 failure: create a `## See also / انظر أيضًا` section in the source file with the correct rows.
+- For every Check 2 failure: append the missing skill row to the existing "See also" section.
+- For every Check 4 warning: append the missing row to Section 1b of `cross-reference-map.md`.
+- Check 3 (phantom references) is never auto-fixed — removal requires human judgment.
+- Prints a summary of every file modified.
+- Exits 0 if all fixes applied cleanly; exits 1 if any phantom references remain.
+
+`--fix` is not implemented in the initial version. The flag is reserved so future callers don't break when it is added.
 
 ### Exit codes
 
