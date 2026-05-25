@@ -219,3 +219,112 @@ def test_coverage_status_strong_two():
 
 def test_coverage_status_strong_many():
     assert vec.coverage_status(5) == "Strong"
+
+
+# ── run_checks integration ─────────────────────────────────────────────────────
+
+def _make_dirs(tmp_path):
+    skills_dir = tmp_path / "skills"
+    examples_dir = tmp_path / "examples"
+    skills_dir.mkdir()
+    examples_dir.mkdir()
+    docs_dir = tmp_path / "docs"
+    docs_dir.mkdir()
+    return skills_dir, examples_dir, docs_dir
+
+
+def test_run_checks_passes_all_valid(tmp_path):
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text(
+        "## Skill → Example Coverage\n"
+        "| `skills/labor-law-analysis.md` | 1 | ... | Partial |\n",
+        encoding="utf-8",
+    )
+    _write_example(examples_dir / "labor-dispute.md")
+    _write_skill_with_examples(
+        skills_dir / "labor-law-analysis.md",
+        ["examples/labor-dispute.md"],
+    )
+    errors, warnings = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert errors == []
+    assert warnings == []
+
+
+def test_run_checks_check1_malformed_item_is_error(tmp_path):
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text("", encoding="utf-8")
+    _write_skill_malformed_item(skills_dir / "skill.md")
+    errors, _ = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert any("malformed" in e for e in errors)
+
+
+def test_run_checks_check2_broken_path_is_error(tmp_path):
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text("", encoding="utf-8")
+    _write_skill_with_examples(
+        skills_dir / "skill.md",
+        ["examples/does-not-exist.md"],
+    )
+    errors, _ = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert any("not found" in e for e in errors)
+
+
+def test_run_checks_check3_no_section_is_warning(tmp_path):
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text("", encoding="utf-8")
+    _write_skill_no_section(skills_dir / "skill.md")
+    errors, warnings = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert errors == []
+    assert any("no '## Related examples'" in w for w in warnings)
+
+
+def test_run_checks_check4_zero_examples_is_warning(tmp_path):
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text("", encoding="utf-8")
+    (skills_dir / "skill.md").write_text(
+        "## Related examples / أمثلة مرتبطة\n\n## Next\n",
+        encoding="utf-8",
+    )
+    errors, warnings = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert errors == []
+    assert any("0 valid examples" in w for w in warnings)
+
+
+def test_run_checks_check5_map_missing_row_is_warning(tmp_path):
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text(
+        "## Skill → Example Coverage\n| some-other-skill | ...\n",
+        encoding="utf-8",
+    )
+    _write_example(examples_dir / "example.md")
+    _write_skill_with_examples(skills_dir / "skill.md", ["examples/example.md"])
+    errors, warnings = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert errors == []
+    assert any("cross-reference-map" in w for w in warnings)
+
+
+def test_run_checks_missing_skills_dir_is_error(tmp_path):
+    errors, _ = vec.run_checks(
+        tmp_path / "nonexistent-skills",
+        tmp_path / "examples",
+        tmp_path / "map.md",
+    )
+    assert any("not found" in e for e in errors)
+
+
+def test_run_checks_broken_path_does_not_suppress_warning_for_other_skills(tmp_path):
+    """Check 2 error in skill-a does not suppress Check 3 warning for skill-b."""
+    skills_dir, examples_dir, docs_dir = _make_dirs(tmp_path)
+    cross_ref = docs_dir / "cross-reference-map.md"
+    cross_ref.write_text("", encoding="utf-8")
+    _write_skill_with_examples(skills_dir / "skill-a.md", ["examples/missing.md"])
+    _write_skill_no_section(skills_dir / "skill-b.md")
+    errors, warnings = vec.run_checks(skills_dir, examples_dir, cross_ref)
+    assert any("missing.md" in e for e in errors)
+    assert any("skill-b.md" in w for w in warnings)

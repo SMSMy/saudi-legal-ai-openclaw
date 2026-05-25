@@ -139,3 +139,106 @@ def coverage_status(count: int) -> str:
     if count == COVERAGE_PARTIAL:
         return "Partial"
     return "Missing"
+
+
+def run_checks(
+    skills_dir: Path = SKILLS_DIR,
+    examples_dir: Path = EXAMPLES_DIR,
+    cross_ref_map: Path = CROSS_REF_MAP,
+) -> tuple:
+    """
+    Run all checks. Returns (errors, warnings).
+    errors   → CI-blocking (broken paths, malformed sections)
+    warnings → non-blocking (missing sections, zero coverage, map drift)
+
+    Check 1: Malformed bullet item in Related examples section
+    Check 2: Referenced example file does not exist on disk
+    Check 3: Skill has no ## Related examples section
+    Check 4: Skill has 0 valid examples listed
+    Check 5: cross-reference-map.md coverage table missing a row for this skill
+    """
+    errors: list = []
+    warnings: list = []
+
+    for d in (skills_dir, examples_dir):
+        if not d.exists():
+            errors.append(f"ERROR: required directory not found: {d}")
+    if errors:
+        return errors, warnings
+
+    map_text = cross_ref_map.read_text(encoding="utf-8") if cross_ref_map.exists() else ""
+
+    for skill_file in sorted(skills_dir.glob("*.md")):
+        skill_path = f"skills/{skill_file.name}"
+        has_section, example_paths, malformed = parse_skill(skill_file)
+
+        # Check 3: No section at all
+        if not has_section:
+            warnings.append(
+                f"WARNING: {skill_path} has no '## Related examples' section."
+            )
+            continue
+
+        # Check 1: Malformed items
+        for item in malformed:
+            errors.append(
+                f"ERROR: {skill_path} 'Related examples': malformed list item: {item!r}"
+            )
+
+        # Check 2: Broken paths
+        for ex_path in example_paths:
+            if not (examples_dir.parent / ex_path).exists():
+                errors.append(
+                    f"ERROR: {skill_path} references {ex_path} but file not found."
+                )
+
+        # Check 4: Zero coverage (section present but lists nothing valid)
+        valid_paths = [p for p in example_paths if (examples_dir.parent / p).exists()]
+        if len(valid_paths) == 0:
+            warnings.append(
+                f"WARNING: {skill_path} 'Related examples' lists 0 valid examples."
+            )
+
+        # Check 5: Map drift
+        row_present = (skill_path in map_text) and ("Example Coverage" in map_text)
+        if not row_present:
+            warnings.append(
+                f"WARNING: cross-reference-map.md 'Skill → Example Coverage' "
+                f"may be missing row for {skill_path}."
+            )
+
+    return errors, warnings
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Validate skill→example coverage in skills/."
+    )
+    parser.add_argument(
+        "--fix",
+        action="store_true",
+        help="Auto-fix missing Related examples sections (not yet implemented).",
+    )
+    args = parser.parse_args()
+
+    if args.fix:
+        print("--fix mode is not yet implemented.")
+        sys.exit(0)
+
+    errors, warnings = run_checks()
+
+    for w in warnings:
+        print(w)
+    for e in errors:
+        print(e)
+
+    if not errors and not warnings:
+        print("✓ All example coverage checks passed.")
+    elif not errors:
+        print("✓ No errors. See warnings above.")
+
+    sys.exit(1 if errors else 0)
+
+
+if __name__ == "__main__":
+    main()
