@@ -37,6 +37,36 @@ This map shows the relationships between project files. The goal: every contribu
 
 ---
 
+## 1b. Sources → Skills — Reverse Index / المصادر → المهارات (فهرس عكسي)
+
+> هذا الجدول مصدر الحقيقة للـ CI — يُشغِّل `scripts/validate_cross_refs.py` في كل push.
+> أي تغيير في §11 لأي skill يستلزم تحديث هذا الجدول.
+> This table is the CI source of truth. Any change to a skill's §11 requires updating it.
+
+| Source File | Cited by Skill | Section | طبيعة الاستخدام |
+|---|---|---|---|
+| `sources/civil-transactions-law.md` | `skills/labor-law-analysis.md` | §11 | مبادئ العقود التكميلية |
+| `sources/civil-transactions-law.md` | `skills/commercial-dispute.md` | §11 | العقود والالتزامات — أساس المطالبات |
+| `sources/civil-transactions-law.md` | `skills/compliance-check.md` | §11 | التزامات تعاقدية تنظيمية |
+| `sources/civil-transactions-law.md` | `skills/legal-drafting.md` | §11 | الإطار العام للعقود والالتزامات |
+| `sources/civil-transactions-law.md` | `skills/arbitration.md` | §11 | مبادئ العقود والالتزامات في النزاعات |
+| `sources/civil-transactions-law.md` | `skills/real-estate-contracts.md` | §11 | مبادئ العقود والالتزامات العامة |
+| `sources/labor-law.md` | `skills/labor-law-analysis.md` | §11 | الإطار الحاكم الأساسي |
+| `sources/labor-law.md` | `skills/compliance-check.md` | §11 | السعودة، WPS، GOSI |
+| `sources/labor-law.md` | `skills/legal-drafting.md` | §11 | عقود العمل — أحكام آمرة |
+| `sources/companies-law.md` | `skills/commercial-dispute.md` | §11 | نزاعات المساهمين والشركاء |
+| `sources/companies-law.md` | `skills/compliance-check.md` | §11 | هيكل الملكية ومتطلبات الإفصاح |
+| `sources/companies-law.md` | `skills/legal-drafting.md` | §11 | وثائق الشركات والمساهمين |
+| `sources/companies-law.md` | `skills/real-estate-contracts.md` | §11 | عقارات الشركات والتصرف فيها |
+| `sources/pdpl.md` | `skills/labor-law-analysis.md` | §11 | بنود السرية في عقود العمل |
+| `sources/pdpl.md` | `skills/compliance-check.md` | §11 | PDPL — نقل البيانات والخصوصية |
+| `sources/pdpl.md` | `skills/legal-drafting.md` | §11 | بنود السرية ومعالجة البيانات |
+| `sources/commercial-courts.md` | `skills/commercial-dispute.md` | §11 | الإطار الإجرائي الأساسي |
+| `sources/commercial-courts.md` | `skills/compliance-check.md` | §11 | فض النزاعات التنظيمية |
+| `sources/commercial-courts.md` | `skills/arbitration.md` | §11 | الرقابة القضائية على التحكيم وتنفيذ الاحكام |
+
+---
+
 ## 2. Skills ← → Prompts / المهارات ← → قوالب المطالبات
 
 | Skill | Related Prompts | طبيعة العلاقة |
@@ -251,6 +281,17 @@ Every change to a core file requires updating this map and the files linked to i
 
 ---
 
+### عند تعديل §11 في Skill / When Editing a Skill's §11
+
+```
+✅ حدّث Section 1b في:           docs/cross-reference-map.md
+✅ حدّث "See also" في:           كل sources/ file أُضيف أو حُذف من §11
+✅ شغّل محليًا:                  python scripts/validate_cross_refs.py
+✅ تأكد من خروج 0 قبل الـ commit
+```
+
+---
+
 ### عند إضافة Enum جديد / When Adding a New Enum Value
 
 ```
@@ -337,6 +378,6 @@ sources/fiqh-judicial-references/  ≠  sources/regulation-index.md
 
 ---
 
-*آخر تحديث / Last updated: 2026-05-17 — يعكس حالة المشروع في v0.3 (fiqh reference layer + judicial extractions batch 1)*
+*آخر تحديث / Last updated: 2026-05-25 — إضافة Section 1b (reverse index) + validate_cross_refs.py*
 
 *حدّث هذا التاريخ عند كل مراجعة للخريطة. / Update this date on every map revision.*
