@@ -43,6 +43,12 @@ def test_is_see_also_heading_plain():
 def test_is_see_also_heading_unrelated():
     assert not vcr._is_see_also_heading("## Overview")
 
+def test_is_regulations_heading_arabic_alt():
+    assert vcr._is_regulations_heading("## الأنظمة ذات الصلة")
+
+def test_is_see_also_heading_arabic_only():
+    assert vcr._is_see_also_heading("## انظر أيضًا")
+
 
 # ── Path extraction ────────────────────────────────────────────────────────────
 
