@@ -412,3 +412,9 @@ What AI cannot assess in this context:
 - **تنفيذ الأحكام الأجنبية:** تختلف بحسب الدولة واتفاقيات المعاملة بالمثل — **TO VERIFY** لكل دولة.
 - **عتبات اختصاص هيئة المنافسة:** تتغير — تحقق من اللوائح الحالية.
 - **جداول التقاضي في المحاكم التجارية:** تتغير — استعلم من najiz.sa.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/commercial-dispute-example.md](../examples/commercial-dispute-example.md) — commercial dispute analysis under Saudi commercial courts framework

@@ -83,11 +83,34 @@ This map shows the relationships between project files. The goal: every contribu
 
 | Skill | Related Examples | ملاحظة |
 |---|---|---|
-| `skills/contract-review.md` | `examples/employment-contract-review.md` · `examples/nda-review.md` · `examples/saudi-contract-review-demo.md` | الـ demo هو التطبيق الكامل لـ §8 |
-| `skills/labor-law-analysis.md` | `examples/employment-contract-review.md` | المثال يُطبِّق تحليل نظام العمل |
-| `skills/commercial-dispute.md` | — | لا يوجد مثال تطبيقي بعد |
-| `skills/compliance-check.md` | — | لا يوجد مثال تطبيقي بعد |
-| `skills/legal-drafting.md` | — | لا يوجد مثال تطبيقي بعد |
+| `skills/arbitration.md` | `examples/arbitration-example.md` | نزاع توريد عابر للحدود |
+| `skills/commercial-dispute.md` | `examples/commercial-dispute-example.md` | تحليل نزاع تجاري |
+| `skills/compliance-check.md` | `examples/compliance-example.md` · `examples/pdpl-data-breach-example.md` | فحص امتثال SaaS + اختراق بيانات طبية |
+| `skills/contract-review.md` | `examples/contract-review-example.md` · `examples/employment-contract-review.md` · `examples/nda-review.md` · `examples/saudi-contract-review-demo.md` | الـ demo هو التطبيق الكامل لـ §8 |
+| `skills/labor-law-analysis.md` | `examples/employment-contract-review.md` · `examples/labor-dispute-job-change-example.md` · `examples/labor-law-example.md` | يتضمن حساب EOSB ونزاع تغيير المسمى |
+| `skills/legal-drafting.md` | `examples/legal-drafting-example.md` | صياغة عقد خدمات برمجيات |
+| `skills/real-estate-contracts.md` | `examples/commercial-lease-exit-example.md` · `examples/real-estate-example.md` | إيجار تجاري + سكني |
+
+---
+
+## Skill → Example Coverage
+
+> هذا الجدول مُولَّد من `## Related examples` في كل ملف `skills/*.md`.
+> يُشغَّل `scripts/validate_example_coverage.py` في كل push للتحقق منه.
+> This table is derived from `## Related examples` in each `skills/*.md` file.
+> `scripts/validate_example_coverage.py` runs on every push to verify it.
+
+| Skill | Example Count | Example Files | Coverage Status |
+|---|---|---|---|
+| `skills/arbitration.md` | 1 | `examples/arbitration-example.md` | Partial |
+| `skills/commercial-dispute.md` | 1 | `examples/commercial-dispute-example.md` | Partial |
+| `skills/compliance-check.md` | 2 | `examples/compliance-example.md` · `examples/pdpl-data-breach-example.md` | Strong |
+| `skills/contract-review.md` | 4 | `examples/contract-review-example.md` · `examples/employment-contract-review.md` · `examples/nda-review.md` · `examples/saudi-contract-review-demo.md` | Strong |
+| `skills/labor-law-analysis.md` | 3 | `examples/employment-contract-review.md` · `examples/labor-dispute-job-change-example.md` · `examples/labor-law-example.md` · | Strong |
+| `skills/legal-drafting.md` | 1 | `examples/legal-drafting-example.md` | Partial |
+| `skills/real-estate-contracts.md` | 2 | `examples/commercial-lease-exit-example.md` · `examples/real-estate-example.md` | Strong |
+
+**Coverage rules:** 0 examples → Missing | 1 example → Partial | 2+ examples → Strong
 
 ---
 
@@ -378,6 +401,10 @@ sources/fiqh-judicial-references/  ≠  sources/regulation-index.md
 
 ---
 
+<<<<<<< HEAD
+*آخر تحديث / Last updated: 2026-05-25 — إضافة § Skill → Example Coverage + تحديث §3 + validate_example_coverage.py*
+=======
 *آخر تحديث / Last updated: 2026-05-25 — إضافة Section 1b (reverse index) + validate_cross_refs.py*
+>>>>>>> origin/main
 
 *حدّث هذا التاريخ عند كل مراجعة للخريطة. / Update this date on every map revision.*

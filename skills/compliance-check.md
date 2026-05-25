@@ -391,3 +391,10 @@ What AI cannot assess in this context:
 - **ضريبة الاستقطاع (WHT):** تختلف نسبها حسب نوع الخدمة والدولة — **TO VERIFY** مع مستشار ضريبي.
 - **عتبات التسجيل في VAT:** راجع آخر تعليمات ZATCA على zatca.gov.sa.
 - **اشتراطات AML/CFT القطاعية:** تختلف حسب القطاع — تحقق من وحدة الاستخبارات المالية.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/compliance-example.md](../examples/compliance-example.md) — SaaS startup compliance assessment (PDPL, Nitaqat, WPS)
+* [examples/pdpl-data-breach-example.md](../examples/pdpl-data-breach-example.md) — medical data breach: PDPL notification obligations and response workflow

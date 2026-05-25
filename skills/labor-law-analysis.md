@@ -409,3 +409,11 @@ What AI cannot assess in this context:
 - **نسب نطاقات الحالية:** تتغير دوريًا — تحقق من منصة مسار دائمًا.
 - **أحكام التأمينات للوافدين:** في تطور — راجع آخر لوائح GOSI على gosi.gov.sa.
 - **تعديلات نظام العمل:** تصدر قرارات وزارية بانتظام — تحقق من النص الساري على boe.gov.sa.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/employment-contract-review.md](../examples/employment-contract-review.md) — employment contract review: mandatory elements check under Saudi Labour Law
+* [examples/labor-dispute-job-change-example.md](../examples/labor-dispute-job-change-example.md) — unilateral job title and salary change without employee consent
+* [examples/labor-law-example.md](../examples/labor-law-example.md) — EOSB calculation and wrongful termination analysis (7-year employee)

@@ -27,6 +27,11 @@ jobs:
       - name: Validate cross-references
         run: python3 scripts/validate_cross_refs.py
 
+
+      - name: Validate example coverage
+        run: python3 scripts/validate_example_coverage.py
+
+
       - name: Validate main dataset
         run: python3 scripts/validate_dataset.py
 
