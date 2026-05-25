@@ -194,6 +194,17 @@ def test_parse_skill_section_not_bleed_into_next(tmp_path):
     assert "examples/foo.md" in paths
     assert "examples/bar.md" not in paths
 
+def test_parse_skill_deduplicates_paths(tmp_path):
+    skill = tmp_path / "skill.md"
+    skill.write_text(
+        "## Related examples / أمثلة مرتبطة\n\n"
+        "* [examples/foo.md](../examples/foo.md) — ok\n"
+        "* [examples/foo.md](../examples/foo.md) — duplicate\n",
+        encoding="utf-8",
+    )
+    _, paths, _ = vec.parse_skill(skill)
+    assert len(paths) == 1
+
 
 # ── coverage_status ────────────────────────────────────────────────────────────
 

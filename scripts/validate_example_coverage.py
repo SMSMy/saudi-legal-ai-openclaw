@@ -21,7 +21,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent.parent
 SKILLS_DIR = REPO_ROOT / "skills"
 EXAMPLES_DIR = REPO_ROOT / "examples"
-CROSS_REF_MAP = REPO_ROOT / "docs" / "cross-reference-map.md"
+CROSS_REF_MAP = REPO_ROOT / "docs" / "cross-reference-map.md"  # used in run_checks
 
 # Heading aliases — add future multilingual aliases here.
 # Matching is case-insensitive and strips leading #, digits, §, and whitespace.
@@ -90,7 +90,7 @@ def _extract_example_paths(section_text: str) -> list:
         normalized = re.sub(r"^\.\./", "", raw_path)
         if normalized.startswith("examples/"):
             paths.append(normalized)
-    return paths
+    return list(dict.fromkeys(paths))
 
 
 def _find_malformed_items(section_text: str) -> list:
