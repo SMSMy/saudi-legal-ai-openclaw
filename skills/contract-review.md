@@ -450,3 +450,12 @@ What AI cannot assess in this context:
 - **الشروط التعليقية المعقدة:** التوافق مع أحكام الفقه الإسلامي يستلزم متخصصًا شرعيًا.
 - **التحكيم التجاري مع طرف أجنبي:** ليس ممنوعًا كليًا — لكن يحتاج تقييمًا قانونيًا للحالة.
 - **اشتراطات التوثيق والتسجيل:** تتطور — تحقق من الجهة المختصة عند صياغة كل وثيقة.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/contract-review-example.md](../examples/contract-review-example.md) — professional services contract review: foreign governing law clause, interest, IP transfer
+* [examples/employment-contract-review.md](../examples/employment-contract-review.md) — employment contract review: Saudi national, full §8 output demonstration
+* [examples/nda-review.md](../examples/nda-review.md) — NDA review: confidentiality scope, PDPL alignment, enforceability
+* [examples/saudi-contract-review-demo.md](../examples/saudi-contract-review-demo.md) — full 9-section contract review workflow demo (authoritative §8 reference)

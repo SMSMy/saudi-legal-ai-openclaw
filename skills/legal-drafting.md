@@ -401,3 +401,9 @@ What automated drafting cannot guarantee:
 - **بنود التحكيم الخارجي في العقود التجارية:** مسموح به مع قيود — **TO VERIFY** في كل حالة.
 - **نظام حماية الملكية الفكرية م/41:** صدرت تعديلات — تحقق من النص الساري على boe.gov.sa.
 - **الترجمة المعتمدة:** يستلزم مترجمًا قانونيًا معتمدًا من وزارة العدل لأغراض التقاضي.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/legal-drafting-example.md](../examples/legal-drafting-example.md) — software services contract drafting: milestone-linked payments, IP, PDPL clauses

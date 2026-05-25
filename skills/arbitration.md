@@ -400,3 +400,9 @@ What AI cannot assess in this context:
 - **قواعد SCCA المحدثة:** تتغير - راجع scca.org.sa دائما.
 - **قائمة المسائل غير القابلة للتحكيم:** في تطور - يرجى التحقق مع محامٍ متخصص.
 - **تنفيذ الاحكام الاجنبية:** يختلف بحسب الدولة وطبيعة النزاع - **TO VERIFY** في كل حالة.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/arbitration-example.md](../examples/arbitration-example.md) — cross-border supply dispute: enforcing a DIAC arbitration clause under Saudi law

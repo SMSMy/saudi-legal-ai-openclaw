@@ -404,3 +404,10 @@ What AI cannot assess in this context:
 - **تسجيل الملكية العينية:** يختلف التطبيق بحسب المنطقة والوضع الراهن - استفسر من وزارة العدل.
 - **قيود تملك الاجانب:** تتطور - راجع آخر ضوابط هيئة الاستثمار (investsaudi.gov.sa).
 - **لجان الفصل في منازعات الايجار:** الاجراءات وامكنة اللجان في تطور - راجع rega.gov.sa.
+
+---
+
+## Related examples / أمثلة مرتبطة
+
+* [examples/commercial-lease-exit-example.md](../examples/commercial-lease-exit-example.md) — early exit from commercial lease: penalty clause enforceability
+* [examples/real-estate-example.md](../examples/real-estate-example.md) — residential lease renewal dispute: Ejar platform registration and rent increase limits
