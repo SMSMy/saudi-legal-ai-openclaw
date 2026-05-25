@@ -11,6 +11,38 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 import validate_cross_refs as vcr
 
 
+# ── Helpers ────────────────────────────────────────────────────────────────────
+
+def _write_skill(path: Path, name: str, sources: list) -> None:
+    rows = "\n".join(f"| reg | ref | desc | `{s}` |" for s in sources)
+    path.write_text(
+        f"## Introduction\nIntro.\n\n"
+        f"## 11. Relevant Regulations / الأنظمة ذات الصلة\n"
+        f"{rows}\n"
+        f"راجع `sources/regulation-index.md` للصيغ الرسمية.\n\n"
+        f"## 12. Next\nOther.\n",
+        encoding="utf-8",
+    )
+
+def _write_source_with_see_also(path: Path, skill_names: list) -> None:
+    # skill_names: bare filenames only, e.g. "labor-law-analysis.md" (no "skills/" prefix)
+    rows = "\n".join(
+        f"| [skills/{s}](../skills/{s}) | §11 | desc |"
+        for s in skill_names
+    )
+    path.write_text(
+        f"## Overview\nContent.\n\n---\n\n"
+        f"## See also / انظر أيضًا\n\n"
+        f"| Skill | Section | طبيعة الاستخدام |\n"
+        f"|-------|---------|----------------|\n"
+        f"{rows}\n",
+        encoding="utf-8",
+    )
+
+def _write_source_no_see_also(path: Path) -> None:
+    path.write_text("## Overview\nContent.\n", encoding="utf-8")
+
+
 # ── Heading detection ──────────────────────────────────────────────────────────
 
 def test_normalize_heading_strips_hashes():
@@ -69,8 +101,10 @@ def test_extract_source_paths_deduplicates():
     assert vcr._extract_source_paths(text) == {"sources/labor-law.md"}
 
 def test_extract_source_paths_excludes_regulation_index():
-    text = "راجع `sources/regulation-index.md` للصيغ الرسمية"
-    assert "sources/regulation-index.md" not in vcr._extract_source_paths(text)
+    text = "راجع `sources/regulation-index.md` للصيغ الرسمية و`sources/labor-law.md`"
+    result = vcr._extract_source_paths(text)
+    assert "sources/regulation-index.md" not in result
+    assert "sources/labor-law.md" in result  # confirms regex still works
 
 def test_extract_skill_paths_backtick():
     text = "Implemented in `skills/contract-review.md`"
@@ -181,35 +215,6 @@ def test_parse_source_with_see_also_markdown_link(tmp_path):
 
 # ── run_checks integration ─────────────────────────────────────────────────────
 
-def _write_skill(path: Path, name: str, sources: list) -> None:
-    rows = "\n".join(f"| reg | ref | desc | `{s}` |" for s in sources)
-    path.write_text(
-        f"## Introduction\nIntro.\n\n"
-        f"## 11. Relevant Regulations / الأنظمة ذات الصلة\n"
-        f"{rows}\n"
-        f"راجع `sources/regulation-index.md` للصيغ الرسمية.\n\n"
-        f"## 12. Next\nOther.\n",
-        encoding="utf-8",
-    )
-
-def _write_source_with_see_also(path: Path, skills: list) -> None:
-    rows = "\n".join(
-        f"| [skills/{s}](../skills/{s}) | §11 | desc |"
-        for s in skills
-    )
-    path.write_text(
-        f"## Overview\nContent.\n\n---\n\n"
-        f"## See also / انظر أيضًا\n\n"
-        f"| Skill | Section | طبيعة الاستخدام |\n"
-        f"|-------|---------|----------------|\n"
-        f"{rows}\n",
-        encoding="utf-8",
-    )
-
-def _write_source_no_see_also(path: Path) -> None:
-    path.write_text("## Overview\nContent.\n", encoding="utf-8")
-
-
 def test_run_checks_passes_when_all_correct(tmp_path):
     skills_dir = tmp_path / "skills"
     sources_dir = tmp_path / "sources"
@@ -267,6 +272,8 @@ def test_run_checks_check3_phantom_reference(tmp_path):
     cross_ref = tmp_path / "cross-reference-map.md"
     cross_ref.write_text("", encoding="utf-8")
 
+    # legal-drafting.md cites sources/pdpl.md — NOT sources/labor-law.md.
+    # labor-law.md's See also lists legal-drafting.md anyway → phantom reference.
     _write_skill(skills_dir / "legal-drafting.md", "legal-drafting", ["sources/pdpl.md"])
     (sources_dir / "pdpl.md").write_text("## Overview\n", encoding="utf-8")
     _write_source_with_see_also(sources_dir / "labor-law.md", ["legal-drafting.md"])
