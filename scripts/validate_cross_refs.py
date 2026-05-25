@@ -120,9 +120,21 @@ def run_checks(
     Run all four checks. Returns (errors, warnings).
     errors   → Check 1 / 2 / 3 (CI-blocking)
     warnings → Check 4 (documentation drift, non-blocking)
+
+    Check 3 scans all sources/*.md files — not just those cited by skills —
+    so a source file that lists a skill in its See also section without being
+    cited by that skill's regulations section will produce an error even if
+    no skill currently cites the source.
     """
     errors: list = []
     warnings: list = []
+
+    # Guard: required directories must exist before any glob
+    for d in (skills_dir, sources_dir):
+        if not d.exists():
+            errors.append(f"ERROR: required directory not found: {d}")
+    if errors:
+        return errors, warnings
 
     # Build (source_path → set of citing skill_paths) from all skills
     skill_citations: dict = {}
@@ -137,8 +149,9 @@ def run_checks(
     for source_path_str, citing_skills in skill_citations.items():
         source_file = sources_dir / Path(source_path_str).name
         if not source_file.exists():
+            citing = ", ".join(sorted(citing_skills))
             errors.append(
-                f"ERROR: {source_path_str} is referenced in skills but file not found."
+                f"ERROR: {source_path_str} is referenced in {citing} but file not found."
             )
             continue
 
@@ -184,9 +197,11 @@ def run_checks(
 
     # Check 4: cross-reference-map.md Section 1b sync (warn only)
     map_text = cross_ref_map.read_text(encoding="utf-8") if cross_ref_map.exists() else ""
+    map_lines = map_text.splitlines() if cross_ref_map.exists() else []
     for source_path_str, citing_skills in skill_citations.items():
         for skill in sorted(citing_skills):
-            if source_path_str not in map_text or skill not in map_text:
+            pair_found = any(source_path_str in line and skill in line for line in map_lines)
+            if not pair_found:
                 warnings.append(
                     f"WARNING: cross-reference-map.md Section 1b may be missing row: "
                     f"{source_path_str} → {skill}"
