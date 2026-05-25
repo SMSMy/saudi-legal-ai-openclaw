@@ -492,3 +492,20 @@ Western "force majeure" clauses do not necessarily mirror Article 96. The defini
 <!-- TODO: يحتاج تحقق — رقم مادة مسؤولية المتبوع عن التابع وحارس الشيء (132 ام 134) -->
 <!-- TODO: يحتاج تحقق — مدة طلب ابطال العقد لعيوب الإرادة ورقم مادتها -->
 <!-- TODO: يحتاج تحقق — نطاقات مواد العقود المسماة (إيجار ووكالة ومقاولة وغيرها) -->
+
+---
+
+## See also / انظر أيضًا
+
+المهارات التي تستند إلى هذا المصدر / Skills that cite this source:
+
+| Skill | Section | طبيعة الاستخدام |
+|-------|---------|----------------|
+| [skills/labor-law-analysis.md](../skills/labor-law-analysis.md) | §11 الأنظمة ذات الصلة | مبادئ العقود التكميلية |
+| [skills/commercial-dispute.md](../skills/commercial-dispute.md) | §11 الأنظمة ذات الصلة | العقود والالتزامات — أساس المطالبات |
+| [skills/compliance-check.md](../skills/compliance-check.md) | §11 الأنظمة ذات الصلة | التزامات تعاقدية تنظيمية |
+| [skills/legal-drafting.md](../skills/legal-drafting.md) | §11 الأنظمة ذات الصلة | الإطار العام للعقود والالتزامات |
+| [skills/arbitration.md](../skills/arbitration.md) | §11 الأنظمة ذات الصلة | مبادئ العقود والالتزامات في النزاعات |
+| [skills/real-estate-contracts.md](../skills/real-estate-contracts.md) | §11 الأنظمة ذات الصلة | مبادئ العقود والالتزامات العامة |
+
+> للاطلاع على الفهرس الكامل: [`docs/cross-reference-map.md`](../docs/cross-reference-map.md)

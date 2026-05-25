@@ -306,3 +306,17 @@ The Ministry of Justice Legal Portal is the official reference for regulations a
 | **نوع المصدر** | رسمي |
 | **الاستخدام في هذا المشروع** | فهرسة الأحكام القضائية التجارية في `datasets/judicial-decisions/commercial/` |
 <!-- TODO: يحتاج تحقق — إجراءات التنفيذ الحديثة عبر ناجز وهل تغيرت بعد 1441هـ -->
+
+---
+
+## See also / انظر أيضًا
+
+المهارات التي تستند إلى هذا المصدر / Skills that cite this source:
+
+| Skill | Section | طبيعة الاستخدام |
+|-------|---------|----------------|
+| [skills/commercial-dispute.md](../skills/commercial-dispute.md) | §11 الأنظمة ذات الصلة | الإطار الإجرائي الأساسي |
+| [skills/compliance-check.md](../skills/compliance-check.md) | §11 الأنظمة ذات الصلة | فض النزاعات التنظيمية |
+| [skills/arbitration.md](../skills/arbitration.md) | §11 الأنظمة ذات الصلة | الرقابة القضائية على التحكيم وتنفيذ الاحكام |
+
+> للاطلاع على الفهرس الكامل: [`docs/cross-reference-map.md`](../docs/cross-reference-map.md)

@@ -391,3 +391,17 @@ The 15-day-per-year figure is a statutory floor, not a cap. Labor courts may awa
 <!-- TODO: يحتاج تحقق من النص النظامي الرسمي — أرقام المواد الدقيقة لجميع الأحكام الإلزامية أعلاه -->
 <!-- TODO: يحتاج تحقق — مدة إشعار الإنهاء للعمال غير ذوي الأجر الشهري -->
 <!-- TODO: يحتاج تحقق — البنود الإلزامية التي أضافتها تعديلات نظام العمل بعد 1426هـ -->
+
+---
+
+## See also / انظر أيضًا
+
+المهارات التي تستند إلى هذا المصدر / Skills that cite this source:
+
+| Skill | Section | طبيعة الاستخدام |
+|-------|---------|----------------|
+| [skills/labor-law-analysis.md](../skills/labor-law-analysis.md) | §11 الأنظمة ذات الصلة | الإطار الحاكم الأساسي |
+| [skills/compliance-check.md](../skills/compliance-check.md) | §11 الأنظمة ذات الصلة | السعودة، WPS، GOSI |
+| [skills/legal-drafting.md](../skills/legal-drafting.md) | §11 الأنظمة ذات الصلة | عقود العمل — أحكام آمرة |
+
+> للاطلاع على الفهرس الكامل: [`docs/cross-reference-map.md`](../docs/cross-reference-map.md)

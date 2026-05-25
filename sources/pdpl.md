@@ -330,3 +330,17 @@ Some service agreements require users to maintain consent as a condition of cont
 <!-- TODO: يحتاج تحقق من النص النظامي الرسمي — أرقام المواد لجميع الأحكام الإلزامية في نظام PDPL م/19 1443هـ -->
 <!-- TODO: يحتاج تحقق — المعايير الدقيقة لإلزامية تعيين مسؤول حماية البيانات (DPO) -->
 <!-- TODO: يحتاج تحقق — التزامات الإفصاح للمعالجين من الباطن (sub-processors) ومتطلبات عقود المعالجة -->
+
+---
+
+## See also / انظر أيضًا
+
+المهارات التي تستند إلى هذا المصدر / Skills that cite this source:
+
+| Skill | Section | طبيعة الاستخدام |
+|-------|---------|----------------|
+| [skills/labor-law-analysis.md](../skills/labor-law-analysis.md) | §11 الأنظمة ذات الصلة | بنود السرية في عقود العمل |
+| [skills/compliance-check.md](../skills/compliance-check.md) | §11 الأنظمة ذات الصلة | PDPL — نقل البيانات والخصوصية |
+| [skills/legal-drafting.md](../skills/legal-drafting.md) | §11 الأنظمة ذات الصلة | بنود السرية ومعالجة البيانات |
+
+> للاطلاع على الفهرس الكامل: [`docs/cross-reference-map.md`](../docs/cross-reference-map.md)

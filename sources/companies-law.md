@@ -300,3 +300,18 @@ The single-person company form is new under the 2022 Companies Law; judicial and
 <!-- TODO: يحتاج تحقق من النص النظامي الرسمي — أرقام المواد الدقيقة لجميع الأحكام الإلزامية في نظام الشركات م/132 1443هـ -->
 <!-- TODO: يحتاج تحقق — هل الحد الأدنى لرأس المال لشركة المساهمة محدد في النظام أم مترك للنظام الأساسي؟ -->
 <!-- TODO: يحتاج تحقق — اشتراطات الأعضاء المستقلين في مجلس إدارة الشركات المحدودة غير المدرجة -->
+
+---
+
+## See also / انظر أيضًا
+
+المهارات التي تستند إلى هذا المصدر / Skills that cite this source:
+
+| Skill | Section | طبيعة الاستخدام |
+|-------|---------|----------------|
+| [skills/commercial-dispute.md](../skills/commercial-dispute.md) | §11 الأنظمة ذات الصلة | نزاعات المساهمين والشركاء |
+| [skills/compliance-check.md](../skills/compliance-check.md) | §11 الأنظمة ذات الصلة | هيكل الملكية ومتطلبات الإفصاح |
+| [skills/legal-drafting.md](../skills/legal-drafting.md) | §11 الأنظمة ذات الصلة | وثائق الشركات والمساهمين |
+| [skills/real-estate-contracts.md](../skills/real-estate-contracts.md) | §11 الأنظمة ذات الصلة | عقارات الشركات والتصرف فيها |
+
+> للاطلاع على الفهرس الكامل: [`docs/cross-reference-map.md`](../docs/cross-reference-map.md)

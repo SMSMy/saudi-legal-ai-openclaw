@@ -24,6 +24,9 @@ jobs:
       - name: Run tests
         run: pytest
 
+      - name: Validate cross-references
+        run: python3 scripts/validate_cross_refs.py
+
       - name: Validate main dataset
         run: python3 scripts/validate_dataset.py
 
