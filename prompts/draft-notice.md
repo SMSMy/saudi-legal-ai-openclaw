@@ -6,7 +6,7 @@
 
 ---
 
-## ⚠️ تحذير / Warning
+## ⚠️ تحذير مُدمج (يجب تضمينه في المخرجات) / Embedded Warning
 
 > **تحذير:** هذا تحليل أولي بمساعدة الذكاء الاصطناعي ولا يعد استشارة قانونية. يجب مراجعة مختص قانوني مرخص في المملكة العربية السعودية قبل اتخاذ أي إجراء.
 >
@@ -25,6 +25,9 @@
 ---
 
 ## القالب العام / General Template
+
+> **مرجع هيكل التقرير:** القالب أدناه يُنتج مخرجًا بـ 4 أقسام موحَّدة — المصدر الرسمي لهذا الهيكل هو `skills/legal-drafting.md §8`.
+> **Report format reference:** The template below produces a 4-section standardised output — the authoritative definition lives in `skills/legal-drafting.md §8`.
 
 ```
 أنت متخصص في الصياغة القانونية السعودية. أنشئ إشعارًا قانونيًا رسميًا وفق المعايير الآتية:

@@ -6,7 +6,7 @@
 
 ---
 
-## ⚠️ تحذير / Warning
+## ⚠️ تحذير مُدمج (يجب تضمينه في المخرجات) / Embedded Warning
 
 > **تحذير:** هذا تحليل أولي بمساعدة الذكاء الاصطناعي ولا يعد استشارة قانونية. يجب مراجعة مختص قانوني مرخص في المملكة العربية السعودية قبل اتخاذ أي إجراء.
 >
@@ -15,6 +15,9 @@
 ---
 
 ## القالب الأساسي / Base Template
+
+> **مرجع هيكل التقرير:** القالب أدناه يُنتج مخرجًا بـ 9 أقسام موحَّدة — المصدر الرسمي لهذا الهيكل هو `skills/compliance-check.md §8`.
+> **Report format reference:** The template below produces a 9-section standardised output — the authoritative definition lives in `skills/compliance-check.md §8`.
 
 ```
 أنت مستشار قانوني متخصص في القانون السعودي مهمتك تحليل المخاطر القانونية.

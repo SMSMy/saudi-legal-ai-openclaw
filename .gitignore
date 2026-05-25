@@ -33,6 +33,11 @@ desktop.ini
 datasets/build/*.generated.csv
 experiments/ocr-scan/
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
 # Claude Code / agents
 .agents/
 .claude/
