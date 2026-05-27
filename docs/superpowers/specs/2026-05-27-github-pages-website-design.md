@@ -6,6 +6,16 @@
 
 ---
 
+## Canonical Directory Rule
+
+`docs/` is the **only production directory** for the website. Every HTML, CSS, JS, and asset file that ships to GitHub Pages lives under `docs/`. Nothing else.
+
+`.superpowers/brainstorm/` contains mockups and design experiments created during brainstorming. It is **never deployed**, never referenced from production HTML, and should be added to `.gitignore`. The final implementation does not use, reference, or depend on any file under `.superpowers/`.
+
+Existing markdown files in `docs/` (architectural docs, cross-reference map, usage guides) remain untouched. They are developer-facing internal documentation and are not part of the public website navigation.
+
+---
+
 ## 1. Visual Direction
 
 ### Color Palette
@@ -142,7 +152,7 @@ Sections in order:
 - Active page link: full white (`rgba(255,255,255,.92)`).
 - Inactive links: `rgba(255,255,255,.65)`.
 - GitHub link: teal-bordered pill button.
-- No hamburger menu in Phase 1 (desktop-first, mobile wrapping acceptable).
+- No hamburger menu in Phase 1. On narrow viewports (≤600px) the nav links wrap or collapse to a single visible item — see §12 for mobile behavior.
 - No dropdown menus.
 
 ### Active state
@@ -157,48 +167,62 @@ GitHub (opens in new tab), CONTRIBUTING.md, LICENSE — all open in new tab as a
 
 ## 4. Arabic-First UX Rules
 
+### Direction and language
+
 1. **`<html lang="ar" dir="rtl">`** on every page.
-2. **RTL layout everywhere.** No LTR islands except English sub-labels (which use `font-family: 'Segoe UI', sans-serif` and `font-size: 11px`).
-3. **Text alignment: `text-align: right`** by default via CSS reset.
-4. **Disclaimer border emphasis on the right** (not left) to match RTL reading direction.
-5. **Search input: `direction: rtl; text-align: right`**. Placeholder in Arabic.
-6. **Navigation order:** Arabic links precede the English GitHub CTA.
-7. **Card titles in Arabic first**, English subtitle in smaller muted text below.
-8. **Card tag chips** (e.g. "12 مصدراً رسمياً", "7 مهارات") in Arabic.
-9. **Tajawal font** loaded from Google Fonts for every page. No system-font-only fallback for Arabic.
-10. **No mixed-direction paragraphs.** Arabic text and English text are in separate `<span>` or `<p>` elements.
+2. **RTL layout everywhere.** No LTR islands except English sub-labels, which use `dir="ltr"` inline and `font-family: 'Segoe UI', sans-serif` at 11px.
+3. **CSS reset sets `text-align: right`** on `body`. No LTR overrides unless explicitly required for a code snippet or URL.
+4. **Navigation order (RTL):** Brand on the far right, links progressing left, GitHub CTA on the far left.
+
+### RTL spacing rules
+
+5. **Logical CSS properties.** Use `padding-inline-start` / `padding-inline-end` and `margin-inline-*` in preference to explicit `left`/`right` padding — this makes RTL/LTR switching safe.
+6. **Disclaimer accent border** on `border-inline-start: 4px solid var(--amber)` — maps to the right edge in RTL (reading entry side).
+7. **Card icon** sits at `inline-end` (left visually in RTL) of the card header. Arrow sits at `inline-start` (right visually in RTL).
+8. **Flex row direction.** All `display: flex` rows that depend on order use `flex-direction: row` — no `row-reverse` tricks. RTL flipping is handled by `dir="rtl"` on the HTML element.
+9. **Search input** uses `direction: rtl; text-align: right`. The search icon is positioned at `left: 16px` (the visually trailing side in RTL).
+
+### Typography rules
+
+10. **Card titles in Arabic first.** English subtitle is a `<span>` with `dir="ltr"` below the Arabic title, at `font-size: 11px`, `color: var(--text-muted)`.
+11. **Card tag chips** (e.g. "12 مصدراً رسمياً") are in Arabic. No English-only chips.
+12. **Tajawal font** is loaded via Google Fonts on every page. The system-font fallback stack handles the unlikely case Google Fonts is unreachable, but Tajawal is required for correct Arabic spacing.
+13. **No mixed-direction paragraphs.** If a paragraph contains both Arabic and English sentences, they are split into separate `<p>` elements, each with appropriate `dir` attribute.
+14. **Numerals.** Use Arabic-Indic numerals (٠١٢٣) only where the content itself is Arabic-language prose. Use Western numerals (0123) for counts in card chips and in English-language inline labels.
 
 ---
 
-## 5. Search Behavior
+## 5. Search Behavior (Intentionally Limited)
 
-**Phase 1 implementation:** Client-side, single-file `search.js`. No server, no API.
+Phase 1 search is **deliberately simple**. Its purpose is discoverability, not full-text retrieval. It does not search document bodies, datasets, or examples. It does not require a backend, build step, or index generation script.
 
-**What it searches:** A static in-memory index built from:
-- 7 skills (name_ar, name_en, keywords)
-- 12+ sources (name_ar, name_en, authority, url)
-- 3 prompts (name_ar, name_en, keywords)
+**Implementation:** Single `search.js` file. Hardcoded in-memory array. No external dependency.
 
-**Index format:**
+**Scope (explicit ceiling — do not expand in Phase 1):**
+- 7 skills — `name_ar`, `name_en`, `keywords[]`
+- ~12 official sources — `name_ar`, `name_en`, `authority`, `url`
+- 3 prompt templates — `name_ar`, `name_en`, `keywords[]`
+
+**What is NOT searched in Phase 1:** dataset files, example files, source regulation text, judicial templates, full skill body text. These are future phases.
+
+**Index format (hardcoded in `search.js`):**
 ```js
 const SEARCH_INDEX = [
-  { type: 'skill', title_ar: '...', title_en: '...', keywords: ['...'], url: 'skills.html#slug' },
-  { type: 'source', title_ar: '...', title_en: '...', keywords: ['...'], url: 'https://...' },
-  ...
+  { type: 'skill',   title_ar: '...', title_en: '...', keywords: ['...'], url: 'skills.html#slug' },
+  { type: 'source',  title_ar: '...', title_en: '...', keywords: ['...'], url: 'https://...' },
+  { type: 'prompt',  title_ar: '...', title_en: '...', keywords: ['...'], url: 'templates.html' },
 ];
 ```
 
-**Search trigger:** `input` event on the search box (no form submit required).
+**Behavior:**
+- Trigger: `input` event (live, no submit required)
+- Minimum query: 2 characters — below this, dropdown is hidden
+- Match: case-insensitive substring on `title_ar`, `title_en`, and each keyword
+- Results: max 6 items, inline dropdown, type badge + Arabic title + muted English label
+- No result: "لا توجد نتائج مطابقة" + link to sources page and skills page
+- Dismiss: click outside dropdown, or press Escape
 
-**Minimum query length:** 2 characters.
-
-**Match strategy:** Case-insensitive substring match against `title_ar`, `title_en`, and `keywords[]`. No fuzzy matching in Phase 1.
-
-**Result display:** Inline dropdown below the search box, max 6 results, showing type badge + Arabic title + English subtitle. Each result is a clickable link.
-
-**No results state:** "لا توجد نتائج مطابقة" with a suggestion to check the sources or skills pages directly.
-
-**Dropdown dismiss:** Click outside or press Escape.
+**Not in scope:** fuzzy matching, ranked results, query highlighting, search history, autocomplete suggestions.
 
 ---
 
@@ -330,16 +354,77 @@ The following are **explicitly out of scope for Phase 1** and must appear only a
 
 ---
 
-## 10. GitHub Pages Configuration
+## 10. GitHub Pages Deployment
 
-- **Source:** `docs/` folder on `main` branch (configured in repo Settings → Pages).
-- **No Jekyll.** Add an empty `.nojekyll` file at `docs/.nojekyll` to prevent Jekyll processing.
-- **All asset paths are relative** (e.g. `href="styles.css"` not `href="/docs/styles.css"`) so the site works both on `github.io/repo/` paths and locally by opening `index.html` directly.
-- The `.superpowers/brainstorm/` directory is for mockups only. Nothing inside it is part of the production website.
+### Step-by-step setup (one-time)
+
+1. Go to **Settings → Pages** in the GitHub repository.
+2. Under "Build and deployment", set Source to **"Deploy from a branch"**.
+3. Set Branch to **`main`**, folder to **`/docs`**.
+4. Click **Save**. GitHub will publish within 1–2 minutes.
+5. The site URL will be `https://samix2026.github.io/saudi-legal-ai-framework/`.
+
+### Required file: `docs/.nojekyll`
+
+Create an empty file at `docs/.nojekyll`. This tells GitHub Pages not to run Jekyll, which would otherwise ignore files starting with `_` and may interfere with directory structure. No content needed — the file's presence is the signal.
+
+### Asset path rule
+
+All paths in HTML and CSS must be **relative**, not absolute:
+- `href="styles.css"` ✓ — works on GitHub Pages subpath and locally
+- `href="/docs/styles.css"` ✗ — breaks locally
+- `href="https://..."` ✓ — allowed only for external resources (Google Fonts, GitHub links)
+
+### Artifact isolation
+
+`.superpowers/brainstorm/` must be listed in `.gitignore`. It contains only mockup HTML used during the design phase. It is never served by GitHub Pages and must not be referenced from any production file.
+
+If `.superpowers/` is already tracked, add it to `.gitignore` and remove it from git tracking with `git rm -r --cached .superpowers/`.
+
+### Local preview
+
+Open `docs/index.html` directly in a browser — no local server required. Relative paths mean the full site works without any dev server. For accurate GitHub Pages subpath testing, use `python3 -m http.server` from the repo root and navigate to `http://localhost:8000/docs/`.
 
 ---
 
-## 11. README Update
+## 11. Mobile Behavior
+
+Phase 1 is mobile-aware but not mobile-first in design priority. It must be usable on phones without horizontal scrolling or broken layouts. No JavaScript is used for responsive behavior — CSS only.
+
+### Breakpoints
+
+| Breakpoint | Width | Changes |
+|---|---|---|
+| Desktop | > 768px | Default layout as specified in §2 |
+| Tablet | 601–768px | Card grid collapses to 1-column. Hero padding reduces to 40px top. |
+| Mobile | ≤ 600px | Nav links hidden except brand and GitHub CTA. Hero title reduces to 22px. Search bar full-width. Cards single column. |
+
+### Mobile nav rule
+
+At ≤600px: show only the brand monogram + name and the GitHub CTA button. All four nav links are hidden with `display: none`. This is intentional — a hamburger menu is a Phase 2 addition. Users on mobile can reach all pages via the homepage navigation cards.
+
+### Mobile typography adjustments
+
+| Element | Desktop | Mobile (≤600px) |
+|---|---|---|
+| Hero title | 30px | 22px |
+| Hero subtitle | 15px | 14px |
+| Section heading | 20px | 17px |
+| Body/description | 13–14px | 13px (unchanged) |
+
+### Mobile touch targets
+
+- All navigation links and card links: minimum 44px tap height
+- Search input: minimum 48px height on mobile
+- Card padding on mobile: 16px (reduced from 22px desktop)
+
+### No horizontal scroll
+
+The `max-width: 780px` centered container must not cause horizontal overflow on any viewport. Use `width: 100%; max-width: 780px` with `padding: 0 20px` on mobile (reduced from `0 40px` desktop).
+
+---
+
+## 12. README Update
 
 Add a "Website" section to `README.md` above the existing structure section:
 
@@ -356,12 +441,31 @@ The site is built with plain HTML/CSS/JS and served via GitHub Pages from the `d
 
 ## Non-Goals (Phase 1)
 
-- No build step, bundler, or framework
-- No server-side rendering
-- No authentication
-- No form submissions
-- No external APIs
-- No cookies or local storage
-- No analytics
+This is a **static knowledge platform**, not an application. The following are explicitly out of scope and must not appear in the implementation:
+
+**Infrastructure:**
+- No build step, bundler, or framework (no React, Vue, Webpack, Vite, etc.)
+- No server-side rendering or static site generator (no Jekyll, Hugo, Next.js)
+- No package.json, node_modules, or npm scripts
+- No cookies, local storage, or session state
+- No external API calls at runtime
+- No analytics or tracking scripts
 - No PWA / service worker
-- No i18n toggle (English version is a later phase)
+
+**Features:**
+- No authentication or user accounts
+- No form submissions or user-generated content
+- No dark mode (Phase 2)
+- No language toggle / English version (Phase 2)
+- No hamburger nav menu (Phase 2)
+- No pagination (card counts are small enough to show all items)
+- No infinite scroll or lazy loading
+
+**Content:**
+- No judicial template JSON system (Phase 2)
+- No legal calculators (Phase 2)
+- No dataset browser (Phase 2)
+- No full skill body text rendered in the browser (link to GitHub source file instead)
+- No AI integrations (Phase 3+)
+
+If any feature not listed in §2–§12 seems like a good addition during implementation, it should be documented in a follow-up issue rather than added to this PR.
