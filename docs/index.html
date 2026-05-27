@@ -4,11 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="إطار الذكاء الاصطناعي للبيئة القانونية السعودية — مرجع منظَّم للمصادر القانونية الرسمية ومهارات التحليل القانوني." />
+  <meta name="theme-color" content="#1a2e3b" />
   <title>إطار الذكاء الاصطناعي القانوني السعودي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script src="search.js" defer></script>
 </head>
 <body data-page="home">
+
+  <a href="#main-content" class="skip-link">تخطّ إلى المحتوى الرئيسي</a>
 
   <!-- ── Topbar ── -->
   <header class="topbar">
@@ -22,9 +29,11 @@
       <a href="skills.html"    data-nav="skills">المهارات القانونية</a>
       <a href="templates.html" data-nav="templates">الصياغة القضائية</a>
       <a href="https://github.com/Samix2026/saudi-legal-ai-framework"
-         target="_blank" rel="noopener" class="nav-cta">GitHub ↗</a>
+         target="_blank" rel="noopener noreferrer" class="nav-cta">GitHub ↗</a>
     </nav>
   </header>
+
+  <main id="main-content">
 
   <!-- ── Hero ── -->
   <section class="hero">
@@ -54,7 +63,7 @@
     <p class="search-hint">مثال: نظام العمل · شرط جزائي · محكمة تجارية · عقد إيجار</p>
   </section>
 
-  <div class="section-divider" role="separator"></div>
+  <hr class="section-divider" />
 
   <!-- ── Navigation cards ── -->
   <section class="cards-section" aria-label="أقسام المنصة">
@@ -66,7 +75,7 @@
           <span class="card-arrow" aria-hidden="true">←</span>
         </div>
         <div class="card-body">
-          <div class="card-title">المصادر الرسمية</div>
+          <h2 class="card-title">المصادر الرسمية</h2>
           <span class="card-title-en" dir="ltr">Official Legal Sources</span>
           <p class="card-desc">
             بوابة هيئة الخبراء، أم القرى، ناجز، وزارة العدل، الموارد البشرية،
@@ -82,7 +91,7 @@
           <span class="card-arrow" aria-hidden="true">←</span>
         </div>
         <div class="card-body">
-          <div class="card-title">المهارات القانونية بالذكاء الاصطناعي</div>
+          <h2 class="card-title">المهارات القانونية بالذكاء الاصطناعي</h2>
           <span class="card-title-en" dir="ltr">Legal AI Skills</span>
           <p class="card-desc">
             مهارات تحليلية موجَّهة: مراجعة العقود، النزاعات التجارية،
@@ -98,7 +107,7 @@
           <span class="card-arrow" aria-hidden="true">←</span>
         </div>
         <div class="card-body">
-          <div class="card-title">القوالب الإرشادية والصياغة القضائية</div>
+          <h2 class="card-title">القوالب الإرشادية والصياغة القضائية</h2>
           <span class="card-title-en" dir="ltr">Prompt Templates</span>
           <p class="card-desc">
             نماذج موجَّهة جاهزة الاستخدام لكلود وجيمني وتشات جي بي تي،
@@ -110,13 +119,13 @@
 
       <a class="nav-card"
          href="https://github.com/Samix2026/saudi-legal-ai-framework/tree/main/datasets"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="card-header">
           <div class="card-icon" style="background:#f0eef7;" aria-hidden="true">🗂️</div>
           <span class="card-arrow" aria-hidden="true">↗</span>
         </div>
         <div class="card-body">
-          <div class="card-title">مجموعات البيانات القانونية</div>
+          <h2 class="card-title">مجموعات البيانات القانونية</h2>
           <span class="card-title-en" dir="ltr">Legal Datasets</span>
           <p class="card-desc">
             بيانات منظَّمة: مخاطر العقود، الأنظمة المقارنة،
@@ -149,16 +158,18 @@
     </div>
   </section>
 
+  </main>
+
   <!-- ── Footer ── -->
   <footer class="footer">
     <span class="footer-text">إطار الذكاء الاصطناعي القانوني السعودي — مفتوح المصدر</span>
     <nav class="footer-links" aria-label="روابط ثانوية">
       <a href="https://github.com/Samix2026/saudi-legal-ai-framework"
-         target="_blank" rel="noopener">GitHub</a>
+         target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://github.com/Samix2026/saudi-legal-ai-framework/blob/main/CONTRIBUTING.md"
-         target="_blank" rel="noopener">المساهمة</a>
+         target="_blank" rel="noopener noreferrer">المساهمة</a>
       <a href="https://github.com/Samix2026/saudi-legal-ai-framework/blob/main/LICENSE"
-         target="_blank" rel="noopener">الترخيص</a>
+         target="_blank" rel="noopener noreferrer">الترخيص</a>
     </nav>
   </footer>
 

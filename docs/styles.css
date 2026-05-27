@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
-
 /* ── CSS Custom Properties ──────────────────────────────── */
 :root {
   --navy:          #1a2e3b;
@@ -10,7 +8,7 @@
   --border-light:  #ebe9e2;
   --text:          #1a1a1a;
   --text-mid:      #3a3a3a;
-  --text-muted:    #7a7a78;
+  --text-muted:    #696766;
   --teal:          #2e8b7a;
   --amber:         #b5651d;
   --amber-bg:      #fdf6ec;
@@ -27,6 +25,12 @@
   padding: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
 html, body {
   font-family: 'Tajawal', 'Segoe UI', Tahoma, Arial, sans-serif;
   background: var(--cream);
@@ -37,6 +41,37 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ── Skip link (keyboard a11y) ──────────────────────────── */
+.skip-link {
+  position: absolute;
+  inset-inline-start: -9999px;
+  inset-block-start: 8px;
+  background: var(--navy);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 200;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  inset-inline-start: 8px;
+}
+
+/* ── Focus styles ───────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Search input has its own box-shadow focus style */
+.search-input:focus-visible {
+  outline: none;
+}
 
 /* ── Topbar ─────────────────────────────────────────────── */
 .topbar {
@@ -164,7 +199,7 @@ body[data-page="templates"] [data-nav="templates"] {
 
 .search-input {
   width: 100%;
-  padding: 13px 20px 13px 52px;
+  padding: 13px 52px 13px 20px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
   background: var(--white);
@@ -186,7 +221,7 @@ body[data-page="templates"] [data-nav="templates"] {
 
 .search-icon {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: 50%;
   transform: translateY(-50%);
   color: #9a9890;
@@ -285,6 +320,7 @@ body[data-page="templates"] [data-nav="templates"] {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--page-padding);
+  border: none;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -438,7 +474,7 @@ body[data-page="templates"] [data-nav="templates"] {
 
 .footer-text {
   font-size: 12px;
-  color: rgba(255, 255, 255, .4);
+  color: rgba(255, 255, 255, .75);
 }
 
 .footer-links {
@@ -448,11 +484,11 @@ body[data-page="templates"] [data-nav="templates"] {
 
 .footer-links a {
   font-size: 12px;
-  color: rgba(255, 255, 255, .4);
+  color: rgba(255, 255, 255, .75);
   transition: color .15s;
 }
 
-.footer-links a:hover { color: rgba(255, 255, 255, .7); }
+.footer-links a:hover { color: #fff; }
 
 /* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
@@ -476,4 +512,9 @@ body[data-page="templates"] [data-nav="templates"] {
 
   .footer        { flex-direction: column; gap: 12px; text-align: center; }
   .footer-links  { justify-content: center; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nav-card { transition: none; }
 }
