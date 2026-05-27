@@ -42,3 +42,6 @@ __pycache__/
 .agents/
 .claude/
 skills-lock.json
+
+# Brainstorming mockups (design artifacts, never production)
+.superpowers/
