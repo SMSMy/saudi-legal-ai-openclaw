@@ -34,6 +34,17 @@ Most large AI models are trained predominantly on Western legal material. When a
 
 ---
 
+## 🌐 Website
+
+The framework is available as a browsable website built with plain HTML/CSS/JS,
+served via GitHub Pages from the `docs/` directory:
+
+**https://samix2026.github.io/saudi-legal-ai-framework/**
+
+Features: Arabic-first interface · official sources directory · legal AI skills browser · client-side search
+
+---
+
 ## كيف تستخدم هذا الاطار
 
 1. **اختر المجال القانوني** المناسب وافتح ملف المهارة المقابل في مجلد `skills/`
