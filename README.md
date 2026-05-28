@@ -159,13 +159,13 @@ The Saudi legal system has a distinct foundation that most AI models handle poor
 | Directory | File Types | Count | Description |
 |-----------|------------|-------|-------------|
 | `skills/` | `.md` | 8 | Domain-specific legal reasoning guides for AI assistants |
-| `sources/` | `.md` | 12 | Reference summaries of official Saudi regulations |
+| `sources/` | `.md` | 13 | Reference summaries of official Saudi regulations |
 | `datasets/` | `.md`, `.csv` | 11 | Structured legal datasets, schemas, and risk data |
 | `examples/` | `.md` | 13 | Annotated worked examples across legal domains |
 | `prompts/` | `.md` | 3 | Ready-to-use, model-neutral prompt templates |
 | `docs/` | `.md` | 8 | Architecture, governance, and planning documentation |
 | `scripts/` | `.py`, `.sql` | 8 | Validation, build automation, and database sync scripts |
-| **Total** | | **63** | |
+| **Total** | | **64** | |
 
 > Counts reflect top-level files only (subdirectories excluded). Updated automatically by the [weekly README sync check](.github/workflows/readme-sync-check.yml).
 
