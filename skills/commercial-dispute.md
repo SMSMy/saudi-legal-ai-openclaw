@@ -368,7 +368,7 @@ What AI cannot assess in this context:
 | نظام المعاملات المدنية | م/191 لعام 1444هـ | العقود والالتزامات — أساس المطالبات | `sources/civil-transactions-law.md` | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/655fdb42-8c96-422b-b8c4-b04f0095c94c/1) |
 | نظام الشركات | م/132 لعام 1443هـ | نزاعات المساهمين والشركاء | `sources/companies-law.md` | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a8c6e3d2-1234-4567-89ab-cdef01234567/1) |
 | نظام التحكيم | م/34 لعام 1433هـ (معدَّل بم/21 لعام 1447هـ) | شروط التحكيم والإجراءات | — | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/5535039e-13da-43f6-8f53-a9a700f26485/1) |
-| نظام الإفلاس | م/50 لعام 1439هـ | إعادة الهيكلة والتصفية | — | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/68204119-84f1-4789-8fad-a9ec014c3788/1) |
+| نظام الإفلاس | م/50 لعام 1439هـ | إعادة الهيكلة والتصفية | `sources/bankruptcy-law.md` | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/68204119-84f1-4789-8fad-a9ec014c3788/1) |
 | نظام الأوراق التجارية | م/37 لعام 1383هـ | الشيكات والكمبيالات والسندات | — | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4763eb94-047b-46f1-9697-a9a700f1b7ed/1) |
 | نظام الوكالة التجارية | م/11 لعام 1382هـ | نزاعات الوكلاء التجاريين | — | <!-- TO VERIFY: تحقق من رابط boe.gov.sa --> |
 **صيغ الاستشهاد:** راجع `sources/regulation-index.md` للصيغ الرسمية المعتمدة.
