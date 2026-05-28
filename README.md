@@ -134,7 +134,7 @@ The Saudi legal system has a distinct foundation that most AI models handle poor
 
 | Phase | Status | المرحلة | الحالة |
 |-------|--------|---------|--------|
-| Phase 1: Foundation | Complete — 90% (skills/ 7 files) | المرحلة 1: الاساس | مكتملة — 90% (skills/ 7 ملفات) |
+| Phase 1: Foundation | Complete — 90% (skills/ 8 files) | المرحلة 1: الاساس | مكتملة — 90% (skills/ 8 ملفات) |
 | Phase 2: Knowledge Base | Advanced, In Progress | المرحلة 2: قاعدة المعرفة | جارية، متقدمة |
 | Phase 3: AI Workflows | Foundation Established | المرحلة 3: سير عمل الذكاء الاصطناعي | جارية، مرحلة اولية |
 | Phase 4: MCP Integration | Research / Early Planning | المرحلة 4: تكامل MCP | تخطيط مبكر |
@@ -151,6 +151,23 @@ The Saudi legal system has a distinct foundation that most AI models handle poor
 **المرحلة 4 - التخطيط المبكر يشمل:** استراتيجية OCR، خطوط استيعاب مستقبلية، تكاملات API مستقبلية، هيكل استرجاع مستقبلي.
 
 راجع [ROADMAP.md](ROADMAP.md) للخطة الكاملة وتفاصيل المهام.
+
+---
+
+## فهرس الملفات / File Inventory
+
+| Directory | File Types | Count | Description |
+|-----------|------------|-------|-------------|
+| `skills/` | `.md` | 8 | Domain-specific legal reasoning guides for AI assistants |
+| `sources/` | `.md` | 12 | Reference summaries of official Saudi regulations |
+| `datasets/` | `.md`, `.csv` | 11 | Structured legal datasets, schemas, and risk data |
+| `examples/` | `.md` | 13 | Annotated worked examples across legal domains |
+| `prompts/` | `.md` | 3 | Ready-to-use, model-neutral prompt templates |
+| `docs/` | `.md` | 8 | Architecture, governance, and planning documentation |
+| `scripts/` | `.py`, `.sql` | 8 | Validation, build automation, and database sync scripts |
+| **Total** | | **63** | |
+
+> Counts reflect top-level files only (subdirectories excluded). Updated automatically by the [weekly README sync check](.github/workflows/readme-sync-check.yml).
 
 ---
 
@@ -174,7 +191,7 @@ saudi-legal-ai-framework/
 │   ├── compliance-check.md
 │   └── legal-drafting.md
 │
-├── sources/                               # ملخصات مرجعية للانظمة السعودية الرئيسية (10 ملفات)
+├── sources/                               # ملخصات مرجعية للانظمة السعودية الرئيسية (12 ملفات)
 │   ├── regulation-index.md                # سجل الاستشهادات المعتمد لجميع الانظمة
 │   ├── saudi-laws.md
 │   ├── labor-law.md
