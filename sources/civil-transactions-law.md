@@ -507,5 +507,5 @@ Western "force majeure" clauses do not necessarily mirror Article 96. The defini
 | [skills/legal-drafting.md](../skills/legal-drafting.md) | §11 الأنظمة ذات الصلة | الإطار العام للعقود والالتزامات |
 | [skills/arbitration.md](../skills/arbitration.md) | §11 الأنظمة ذات الصلة | مبادئ العقود والالتزامات في النزاعات |
 | [skills/real-estate-contracts.md](../skills/real-estate-contracts.md) | §11 الأنظمة ذات الصلة | مبادئ العقود والالتزامات العامة |
-
+| [skills/sports-dispute.md](../skills/sports-dispute.md) | §11 الأنظمة ذات الصلة | مبادئ العقود والالتزامات في النزاعات الرياضية |
 > للاطلاع على الفهرس الكامل: [`docs/cross-reference-map.md`](../docs/cross-reference-map.md)
