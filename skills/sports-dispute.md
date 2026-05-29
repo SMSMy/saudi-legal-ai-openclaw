@@ -376,11 +376,11 @@ What AI cannot assess in this context:
 ## Related skills / مهارات مرتبطة
 
 * [arbitration.md](../skills/arbitration.md)
-  — relationship: adjacent
+  — relationship: cross_checks
   — التحكيم التجاري بديل لتسوية النزاعات التجارية؛ CAS هو نظير التحكيم في الفضاء الرياضي
 
 * [commercial-dispute.md](../skills/commercial-dispute.md)
-  — relationship: adjacent
+  — relationship: cross_checks
   — النزاعات التجارية بين الأندية (عقود الرعاية، حقوق البث) تخضع للمحاكم التجارية
 
 ---
