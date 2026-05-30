@@ -360,6 +360,7 @@ What AI cannot assess in this context:
 | نظام التسجيل العيني للعقار | يرجى التحقق من المرسوم الساري على boe.gov.sa | تسجيل الملكية العقارية | — |
 | نظام المعاملات المدنية | م/191 لعام 1444هـ | مبادئ العقود والالتزامات العامة | `sources/civil-transactions-law.md` |
 | نظام الشركات | م/132 لعام 1443هـ | عقارات الشركات والتصرف فيها | `sources/companies-law.md` |
+| المركز السعودي للتحكيم العقاري (REAC) | reac.rega.gov.sa | تسوية النزاعات العقارية تحكيميا | `sources/real-estate-arbitration-reac.md` |
 
 **صيغ الاستشهاد:** راجع `sources/regulation-index.md` للصيغ الرسمية المعتمدة.
 
