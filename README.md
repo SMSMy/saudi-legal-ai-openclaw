@@ -41,6 +41,23 @@ Open-source collection of legal skills, source references, and datasets that giv
 
 ---
 
+## خادم MCP / MCP Server
+
+يتضمن المشروع خادم MCP (Model Context Protocol) مبني على Docker
+يتيح لمساعدات الذكاء الاصطناعي استدعاء أدوات التحليل القانوني مباشرة.
+
+### الأدوات المتاحة / Available Tools
+
+| الأداة | الوظيفة |
+|--------|---------|
+| `analyze_contract_clause` | تحليل بند عقدي وإرجاع JSON بمستوى الخطر والمواد القانونية |
+| `get_regulation_summary` | ملخص منظم لأي نظام سعودي من 17 مصدرا |
+| `search_contract_risks` | البحث في قاعدة بيانات مخاطر العقود (30 بندا) |
+
+راجع [mcp-server/README.md](mcp-server/README.md) للتفاصيل الكاملة.
+
+---
+
 ## فهرس الملفات
 
 | المجلد | المحتوى | العدد |
@@ -50,9 +67,56 @@ Open-source collection of legal skills, source references, and datasets that giv
 | `datasets/` | مجموعات بيانات قانونية منظمة وملفات مخاطر | 11 |
 | `examples/` | أمثلة تطبيقية موثقة عبر المجالات القانونية | 14 |
 | `prompts/` | قوالب مطالبات جاهزة للاستخدام | 3 |
-| `docs/` | موقع Pages + وثائق تقنية | 16 |
+| `docs/` | موقع Pages + وثائق تقنية | 8 |
 | `scripts/` | سكريبتات التحقق والبناء | 8 |
 | `tests/` | اختبارات آلية لسكريبتات التحقق | 5 |
+| `mcp-server/` | Docker-based MCP server with 3 legal analysis tools | 6 |
+
+---
+
+## هيكل المستودع
+
+```
+saudi-legal-ai-framework/
+├── skills/                        # مهارات قانونية موجهة للذكاء الاصطناعي
+│   ├── contract-review.md
+│   ├── commercial-dispute.md
+│   ├── compliance-check.md
+│   ├── labor-law-analysis.md
+│   ├── legal-drafting.md
+│   ├── arbitration.md
+│   ├── real-estate-contracts.md
+│   ├── intellectual-property-law.md
+│   └── sports-dispute.md
+├── sources/                       # ملخصات مرجعية للأنظمة السعودية
+│   ├── commercial-courts.md
+│   ├── companies-law.md
+│   ├── labor-law.md
+│   ├── pdpl.md
+│   ├── arbitration-law.md
+│   ├── bankruptcy-law.md
+│   ├── evidence-law.md
+│   ├── e-commerce-law.md
+│   ├── civil-transactions-law.md
+│   ├── whistleblower-protection.md
+│   ├── legal-profession-law.md
+│   ├── sports-law-saff.md
+│   ├── fifa-rstp.md
+│   └── real-estate-arbitration-reac.md
+├── datasets/                      # مجموعات بيانات قانونية منظمة
+├── examples/                      # أمثلة تطبيقية
+├── prompts/                       # قوالب مطالبات
+├── docs/                          # موقع GitHub Pages
+├── scripts/                       # سكريبتات التحقق والبناء
+└── mcp-server/                    # Docker MCP server
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── server.py
+    └── tools/                     # 3 legal analysis tools
+        ├── analyzer.py            # analyze_contract_clause
+        ├── summarizer.py          # get_regulation_summary
+        └── search.py              # search_contract_risks
+```
 
 ---
 
@@ -125,6 +189,11 @@ Open-source collection of legal skills, source references, and datasets that giv
 | وزارة العدل | [moj.gov.sa](https://www.moj.gov.sa) | وزارة العدل |
 | الخدمات القضائية الإلكترونية | [najiz.sa](https://www.najiz.sa) | منصة ناجز |
 | أنظمة العمل والموارد البشرية | [hrsd.gov.sa](https://www.hrsd.gov.sa) | وزارة الموارد البشرية |
+| الاتحاد السعودي لكرة القدم | [saff.com.sa](https://www.saff.com.sa) | لوائح اللاعبين والانتقالات والتأديب |
+| FIFA Legal | [inside.fifa.com/legal](https://inside.fifa.com/legal) | RSTP — لوائح الانتقالات الدولية |
+| المركز السعودي للتحكيم العقاري | [reac.rega.gov.sa](https://reac.rega.gov.sa) | تحكيم وصلح النزاعات العقارية |
+| المركز السعودي للتحكيم التجاري | [sadr.org](https://www.sadr.org) | التحكيم التجاري العام |
+| اللجنة الدائمة لمراكز التحكيم | [scsac.org.sa](https://www.scsac.org.sa) | ترخيص وحوكمة مراكز التحكيم |
 
 ---
 
