@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from typing import Optional
 
 import anthropic
@@ -110,7 +111,7 @@ def analyze_clause(
     try:
         message = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=1000,
+            max_tokens=2000,
             system=_SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user_prompt}],
         )
@@ -118,9 +119,16 @@ def analyze_clause(
         cleaned = _strip_fences(raw)
         json.loads(cleaned)
         return cleaned
-    except anthropic.APIError as exc:
-        return json.dumps({"error": f"API error: {exc}"}, ensure_ascii=False)
     except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", raw, re.DOTALL)
+        if match:
+            candidate = match.group(0)
+            try:
+                json.loads(candidate)
+                return candidate
+            except json.JSONDecodeError:
+                pass
+
         return json.dumps(
             {"error": "Model returned non-JSON response", "raw": raw[:500]},
             ensure_ascii=False,

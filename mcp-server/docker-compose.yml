@@ -3,7 +3,7 @@ services:
   saudi-legal-mcp:
     build: .
     volumes:
-      - /Users/samialmohaimeed/saudi-legal-ai-framework:/repo:ro
+      - ${REPO_PATH:-..}:/repo:ro
     environment:
       - REPO_PATH=/repo
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}

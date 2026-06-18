@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 from tools.analyzer import analyze_clause
@@ -6,6 +7,24 @@ from tools.summarizer import summarize_regulation
 from tools.search import find_risks
 
 REPO_PATH = Path(os.environ.get("REPO_PATH", Path(__file__).parent.parent))
+
+
+def _validate_environment() -> None:
+    """Validate environment variables at startup and warn about missing dependencies."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print(
+            "WARNING: ANTHROPIC_API_KEY is not set. "
+            "The following tools will return errors when called:\n"
+            "  - analyze_contract_clause\n"
+            "  - get_regulation_summary\n"
+            "Only search_contract_risks will function correctly.\n"
+            "Set ANTHROPIC_API_KEY to enable full functionality.",
+            file=sys.stderr,
+        )
+
+
+_validate_environment()
 
 mcp = FastMCP(
     "Saudi Legal AI Framework",
