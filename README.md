@@ -58,6 +58,28 @@ Open-source collection of legal skills, source references, and datasets that giv
 
 ---
 
+## نظام تقييم الجودة / Eval Harness
+
+**Saudi Legal AI Eval Harness** نظام تقييم داخلي يقيس دقة وموثوقية أدوات ونماذج
+الذكاء الاصطناعي القانوني ضمن السياق المحدود للمصادر السعودية الرسمية.
+لا يقدّم استشارة قانونية مباشرة — هدفه قياس جودة الاسترجاع والاستدلال فقط.
+جميع الحالات الحالية بحالة `draft` إلى حين مراجعتها من مختص قانوني مرخّص.
+
+An internal evaluation harness that benchmarks the accuracy and legal reliability
+of the framework's AI tools and prompts against official Saudi sources. It does
+**not** provide direct legal advice; all cases remain in `draft` status pending
+review by a licensed Saudi legal professional.
+
+```bash
+pip install -r requirements-dev.txt
+python3 evals/validate_cases.py
+python3 -m pytest tests/test_eval_validator.py -q
+```
+
+راجع [evals/README.md](evals/README.md) للتفاصيل الكاملة.
+
+---
+
 ## فهرس الملفات
 
 | المجلد | المحتوى | العدد |
@@ -69,7 +91,8 @@ Open-source collection of legal skills, source references, and datasets that giv
 | `prompts/` | قوالب مطالبات جاهزة للاستخدام | 3 |
 | `docs/` | موقع Pages + وثائق تقنية | 8 |
 | `scripts/` | سكريبتات التحقق والبناء | 8 |
-| `tests/` | اختبارات آلية لسكريبتات التحقق | 5 |
+| `tests/` | اختبارات آلية لسكريبتات التحقق | 8 |
+| `evals/` | نظام تقييم جودة أدوات الذكاء الاصطناعي القانوني — 5 حالات تقييم أولية (`draft`) | — |
 | `mcp-server/` | Docker-based MCP server with 3 legal analysis tools | 6 |
 
 ---
@@ -108,6 +131,11 @@ saudi-legal-ai-framework/
 ├── prompts/                       # قوالب مطالبات
 ├── docs/                          # موقع GitHub Pages
 ├── scripts/                       # سكريبتات التحقق والبناء
+├── evals/                         # نظام تقييم جودة الذكاء الاصطناعي القانوني
+│   ├── schema.json
+│   ├── source-registry.json
+│   ├── validate_cases.py
+│   └── cases/                     # حالات تقييم حسب المجال (draft)
 └── mcp-server/                    # Docker MCP server
     ├── Dockerfile
     ├── docker-compose.yml
