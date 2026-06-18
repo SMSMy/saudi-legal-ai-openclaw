@@ -119,6 +119,8 @@ def analyze_clause(
         cleaned = _strip_fences(raw)
         json.loads(cleaned)
         return cleaned
+    except anthropic.APIError as exc:
+        return json.dumps({"error": f"API error: {exc}"}, ensure_ascii=False)
     except json.JSONDecodeError:
         match = re.search(r"\{.*\}", raw, re.DOTALL)
         if match:

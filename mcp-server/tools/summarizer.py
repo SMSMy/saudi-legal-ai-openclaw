@@ -86,6 +86,16 @@ def summarize_regulation(regulation: str, topic: Optional[str] = None) -> str:
     except anthropic.APIError as exc:
         return json.dumps({"error": f"API error: {exc}"}, ensure_ascii=False)
     except json.JSONDecodeError:
+        import re
+        match = re.search(r"\{.*\}", raw, re.DOTALL)
+        if match:
+            candidate = match.group(0)
+            try:
+                json.loads(candidate)
+                return candidate
+            except json.JSONDecodeError:
+                pass
+
         return json.dumps(
             {"error": "Model returned non-JSON response", "raw": raw[:500]},
             ensure_ascii=False,
