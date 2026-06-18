@@ -6,6 +6,7 @@
     <title>CodeGraph - Interactive Visualization</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
+/* ── RESET & BASE ──────────────────────────────────────────────────────────── */
 * {
     margin: 0;
     padding: 0;
@@ -16,10 +17,12 @@ body {
     background: #1a1a2e;
     overflow: hidden;
 }
+/* ── GRAPH CANVAS ──────────────────────────────────────────────────────────── */
 #graph {
     width: 100vw;
     height: 100vh;
 }
+/* ── NODES ─────────────────────────────────────────────────────────────────── */
 .node {
     cursor: pointer;
 }
@@ -57,6 +60,7 @@ body {
     opacity: 0;
     pointer-events: none;
 }
+/* ── LINKS ─────────────────────────────────────────────────────────────────── */
 .link {
     fill: none;
     stroke-opacity: 0.6;
@@ -78,6 +82,7 @@ body {
 .link-hidden {
     opacity: 0;
 }
+/* ── LABELS ────────────────────────────────────────────────────────────────── */
 .label {
     font-size: 11px;
     fill: #ffffff;
@@ -91,6 +96,7 @@ body {
 .label-hidden {
     opacity: 0;
 }
+/* ── TOOLTIP ───────────────────────────────────────────────────────────────── */
 .tooltip {
     position: absolute;
     background: rgba(0, 0, 0, 0.9);
@@ -119,6 +125,7 @@ body {
 .tooltip .links-out {
     color: #ff9800;
 }
+/* ── CONTROLS PANEL ────────────────────────────────────────────────────────── */
 .controls {
     top: 10px;
     left: 10px;
@@ -136,6 +143,7 @@ body {
     border-radius: 3px;
     font-family: monospace;
 }
+/* ── LEGEND PANEL ──────────────────────────────────────────────────────────── */
 .legend {
     inset: 10px auto auto 290px;
 }
@@ -172,6 +180,7 @@ body {
 .legend-link-module { background: #ff9800; }
 .legend-link-entity { background: #009c2c; }
 .legend-link-dep { background: #d94a4a; }
+/* ── STATS PANEL ───────────────────────────────────────────────────────────── */
 .stats {
     top: 10px;
     right: 10px;
@@ -179,6 +188,7 @@ body {
 .stats .panel-header h4 {
     color: #70b8ff;
 }
+/* ── UNLINKED MODULES PANEL ────────────────────────────────────────────────── */
 .unlinked-modules {
     top: 10px;
     right: 220px;
@@ -343,7 +353,7 @@ body {
 .panel.collapsed {
     min-width: auto;
 }
-/* Massive objects panel */
+/* ── MASSIVE OBJECTS PANEL ─────────────────────────────────────────────────── */
 .massive-objects {
     bottom: 10px;
     right: 10px;
@@ -419,7 +429,7 @@ body {
     background: #555;
     border-radius: 3px;
 }
-/* Size toggle / Display panel */
+/* ── SIZE-TOGGLE / DISPLAY PANEL ───────────────────────────────────────────── */
 .size-toggle {
     bottom: 10px;
     left: 10px;
@@ -451,7 +461,7 @@ body {
     font-size: 11px;
     text-transform: uppercase;
 }
-/* Search box styles */
+/* ── SEARCH BOX ────────────────────────────────────────────────────────────── */
 .search-container {
     position: fixed;
     top: 10px;
@@ -559,6 +569,7 @@ body {
     color: #888;
     font-size: 12px;
 }
+/* ── HIGHLIGHT INFO BANNER ─────────────────────────────────────────────────── */
 .highlight-info {
     position: fixed;
     bottom: 10px;
@@ -586,7 +597,7 @@ body {
 .highlight-info button:hover {
     background: #555;
 }
-/* Dimmed state for non-highlighted nodes/links */
+/* ── DIMMED & HIGHLIGHTED STATES ───────────────────────────────────────────── */
 .node.dimmed {
     opacity: 0.15;
 }

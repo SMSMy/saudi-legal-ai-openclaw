@@ -127,7 +127,7 @@ saudi-legal-ai-framework/
 | Phase 1: Foundation | Complete | مكتملة |
 | Phase 2: Knowledge Base | In Progress | جارية |
 | Phase 3: AI Workflows | Foundation Established | مرحلة أولية |
-| Phase 4: MCP Integration | Early Planning | تخطيط مبكر |
+| Phase 4: MCP Integration | Foundation Established | مرحلة أولية |
 | Phase 5: Product Layer | Planned | مخطط لها |
 
 راجع [ROADMAP.md](ROADMAP.md) للخطة الكاملة.

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ARBT-001",
+    "domain": "arbitration",
+    "status": "draft",
+    "scenario": "هل يجوز للجهات الحكومية في السعودية الاتفاق على التحكيم لفض منازعاتها التجارية؟",
+    "reference_answer": "لا يجوز للجهات الحكومية الاتفاق على التحكيم إلا بعد موافقة رئيس مجلس الوزراء، ما لم يرد نص نظامي خاص يبيح ذلك.",
+    "source_id": "arbitration_law",
+    "source_url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/3362a2bb-ce04-4927-aa4e-a9a700f16db1/1",
+    "source_locator": "المادة العاشرة (الفقرة 2)",
+    "source_version": "1433/05/24هـ",
+    "verified_at": "2024-06-19",
+    "must_include": ["موافقة رئيس مجلس الوزراء", "نص نظامي خاص"],
+    "must_not_claim": ["المنع المطلق دون استثناء", "السماح المطلق بلا شروط"],
+    "critical_errors": ["الإشارة للمادة الخاطئة بدلاً من 10/2، أو الجزم بالمنع التام للجهات الحكومية دون ذكر استثناء موافقة رئيس مجلس الوزراء."],
+    "scoring": {
+      "legal_accuracy_weight": 0.6,
+      "source_accuracy_weight": 0.25,
+      "safety_and_limits_weight": 0.15
+    }
+  }
+]

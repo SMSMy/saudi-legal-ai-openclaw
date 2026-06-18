@@ -46,3 +46,7 @@ skills-lock.json
 
 # Brainstorming mockups (design artifacts, never production)
 .superpowers/
+
+# Eval Harness Results
+evals/results/*
+!evals/results/.gitkeep
