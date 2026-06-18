@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id", "domain", "status", "scenario", "reference_answer",
+      "source_id", "source_url", "source_locator", "verified_at",
+      "source_version", "must_include", "must_not_claim", "critical_errors",
+      "scoring"
+    ],
+    "properties": {
+      "id": { "type": "string" },
+      "domain": { "type": "string" },
+      "status": { "type": "string", "enum": ["draft", "verified", "deprecated"] },
+      "scenario": { "type": "string" },
+      "reference_answer": { "type": "string" },
+      "source_id": { "type": "string" },
+      "source_url": { "type": "string", "format": "uri" },
+      "source_locator": { "type": "string" },
+      "source_version": { "type": "string" },
+      "effective_date": { "type": "string", "format": "date" },
+      "verified_at": { "type": "string", "format": "date" },
+      "must_include": { "type": "array", "items": { "type": "string" } },
+      "must_not_claim": { "type": "array", "items": { "type": "string" } },
+      "critical_errors": { "type": "array", "items": { "type": "string" } },
+      "scoring": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["legal_accuracy_weight", "source_accuracy_weight", "safety_and_limits_weight"],
+        "properties": {
+          "legal_accuracy_weight": { "type": "number", "minimum": 0, "maximum": 1 },
+          "source_accuracy_weight": { "type": "number", "minimum": 0, "maximum": 1 },
+          "safety_and_limits_weight": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

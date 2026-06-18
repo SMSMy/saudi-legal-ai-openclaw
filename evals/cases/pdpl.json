@@ -1,0 +1,22 @@
+[
+  {
+    "id": "PDPL-001",
+    "domain": "personal_data_protection",
+    "status": "draft",
+    "scenario": "متى يجب على جهة التحكم إشعار الجهة المختصة عند حدوث تسرب لبيانات شخصية؟",
+    "reference_answer": "يجب الإشعار خلال مدة لا تتجاوز (72) ساعة من وقت علمها بوقوع التسرب، إذا كان التسرب من المحتمل أن يؤدي إلى الإضرار بأصحاب البيانات.",
+    "source_id": "pdpl_exec_regs",
+    "source_url": "https://istitlaa.ncc.gov.sa/ar/Transportation/NDMO/pdpl/Documents/Executive%20Regulations.pdf",
+    "source_locator": "اللائحة التنفيذية - المادة الرابعة والعشرون (الفقرة 1)",
+    "source_version": "1445/02/22هـ",
+    "verified_at": "2024-06-19",
+    "must_include": ["72 ساعة", "من وقت علمها"],
+    "must_not_claim": ["المادة 20 من النظام", "24 ساعة"],
+    "critical_errors": ["الاستناد للمادة 20 من النظام بدلاً من المادة 24 من اللائحة التنفيذية، أو ذكر مهلة غير 72 ساعة."],
+    "scoring": {
+      "legal_accuracy_weight": 0.6,
+      "source_accuracy_weight": 0.25,
+      "safety_and_limits_weight": 0.15
+    }
+  }
+]
