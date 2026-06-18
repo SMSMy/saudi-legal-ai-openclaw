@@ -3,4 +3,3 @@ mcp>=1.0.0
 
 # ── Anthropic SDK (used by analyzer.py & summarizer.py) ──────────────────────
 anthropic>=0.25.0
-
