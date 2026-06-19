@@ -209,6 +209,23 @@ When citing any regulation in any other project file, use the **Common Citation 
 
 ---
 
+### 13. لائحة الفوترة الإلكترونية (ZATCA E-Invoicing)
+
+| الحقل | القيمة |
+|-------|-------|
+| **الاسم العربي** | لائحة الفوترة الإلكترونية |
+| **الاسم الإنجليزي** | E-Invoicing Regulation (ZATCA) |
+| **النوع** | قرار/لائحة تنظيمية — **وليست مرسوماً ملكياً** |
+| **الأداة النظامية** | قرار مجلس إدارة الهيئة العامة للزكاة والدخل رقم (1-20) |
+| **تاريخ الإصدار** | 1442/04/19هـ |
+| **الجهة التنظيمية** | هيئة الزكاة والضريبة والجمارك (ZATCA) |
+| **صيغة الاستشهاد** | `ZATCA E-Invoicing Regulation (Board Resolution 1-20, 1442H)` |
+| **المصدر الرسمي** | zatca.gov.sa |
+| **ملفات المشروع ذات الصلة** | `sources/zatca-e-invoicing.md` |
+| **ملاحظات** | الأساس الأوسع مرتبط بضريبة القيمة المضافة. مرحلتان: الإصدار والحفظ الإلكتروني (عام) ثم الربط والتكامل (على موجات تُحدِّثها إعلانات ZATCA — يجب التحقق من آخر إعلان) |
+
+---
+
 ## جدول مرجع سريع / Quick Reference Table
 
 | الاسم الإنجليزي | رقم المرسوم | السنة | صيغة الاستشهاد المختصرة |
@@ -225,6 +242,7 @@ When citing any regulation in any other project file, use the **Common Citation 
 | Electronic Transactions Law | M/18 | 1428H | `Electronic Transactions Law (Royal Decree M/18 1428H)` |
 | Whistleblower Protection Law | M/148 | 1445H | `Whistleblower Protection Law (Royal Decree M/148 1445H)` |
 | Saudi Legal Profession Law / SBA | [يحتاج تحقق] | — | `Saudi Legal Profession Law / Saudi Bar Association (SBA) — sba.gov.sa` |
+| ZATCA E-Invoicing Regulation | قرار (1-20) — لائحة تنظيمية | 1442H | `ZATCA E-Invoicing Regulation (Board Resolution 1-20, 1442H)` |
 
 ---
 

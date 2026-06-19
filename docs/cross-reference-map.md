@@ -64,6 +64,7 @@ This map shows the relationships between project files. The goal: every contribu
 | `sources/commercial-courts.md` | `skills/commercial-dispute.md` | §11 | الإطار الإجرائي الأساسي |
 | `sources/commercial-courts.md` | `skills/compliance-check.md` | §11 | فض النزاعات التنظيمية |
 | `sources/commercial-courts.md` | `skills/arbitration.md` | §11 | الرقابة القضائية على التحكيم وتنفيذ الاحكام |
+| `sources/zatca-e-invoicing.md` | `skills/compliance-check.md` | §11 | الفوترة الإلكترونية — الإصدار والربط والتكامل |
 
 ---
 
