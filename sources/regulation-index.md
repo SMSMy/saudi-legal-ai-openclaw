@@ -226,6 +226,23 @@ When citing any regulation in any other project file, use the **Common Citation 
 
 ---
 
+### 14. نظام المنافسة (Competition Law)
+
+| الحقل | القيمة |
+|-------|-------|
+| **الاسم العربي** | نظام المنافسة |
+| **الاسم الإنجليزي** | Competition Law |
+| **النوع** | نظام صادر بمرسوم ملكي |
+| **رقم المرسوم الملكي** | م/75 |
+| **سنة الإصدار** | 1440هـ |
+| **الجهة المختصة** | الهيئة العامة للمنافسة (GAC) |
+| **صيغة الاستشهاد** | `Competition Law (Royal Decree M/75 1440H)` |
+| **المصدر الرسمي** | gac.gov.sa — boe.gov.sa |
+| **ملفات المشروع ذات الصلة** | `sources/competition-law.md` |
+| **ملاحظات** | يغطي الاتفاقات والممارسات المخلّة بالمنافسة، إساءة استغلال الوضع المهيمن، والتركز الاقتصادي. عتبات التركز والإرشادات تُحدِّثها الهيئة — يجب التحقق من آخر نسخة |
+
+---
+
 ## جدول مرجع سريع / Quick Reference Table
 
 | الاسم الإنجليزي | رقم المرسوم | السنة | صيغة الاستشهاد المختصرة |
@@ -243,6 +260,7 @@ When citing any regulation in any other project file, use the **Common Citation 
 | Whistleblower Protection Law | M/148 | 1445H | `Whistleblower Protection Law (Royal Decree M/148 1445H)` |
 | Saudi Legal Profession Law / SBA | [يحتاج تحقق] | — | `Saudi Legal Profession Law / Saudi Bar Association (SBA) — sba.gov.sa` |
 | ZATCA E-Invoicing Regulation | قرار (1-20) — لائحة تنظيمية | 1442H | `ZATCA E-Invoicing Regulation (Board Resolution 1-20, 1442H)` |
+| Competition Law | M/75 | 1440H | `Competition Law (Royal Decree M/75 1440H)` |
 
 ---
 

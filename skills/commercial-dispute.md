@@ -371,6 +371,7 @@ What AI cannot assess in this context:
 | نظام الإفلاس | م/50 لعام 1439هـ | إعادة الهيكلة والتصفية | `sources/bankruptcy-law.md` | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/68204119-84f1-4789-8fad-a9ec014c3788/1) |
 | نظام الأوراق التجارية | م/37 لعام 1383هـ | الشيكات والكمبيالات والسندات | — | [boe.gov.sa](https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/4763eb94-047b-46f1-9697-a9a700f1b7ed/1) |
 | نظام الوكالة التجارية | م/11 لعام 1382هـ | نزاعات الوكلاء التجاريين | — | <!-- TO VERIFY: تحقق من رابط boe.gov.sa --> |
+| نظام المنافسة | م/75 لعام 1440هـ | الممارسات المخلّة بالمنافسة وإساءة الوضع المهيمن والتركز الاقتصادي | `sources/competition-law.md` | [gac.gov.sa](https://gac.gov.sa) <!-- TO VERIFY: رابط النص على boe.gov.sa --> |
 **صيغ الاستشهاد:** راجع `sources/regulation-index.md` للصيغ الرسمية المعتمدة.
 
 **المصادر الرسمية:** هيئة الخبراء بمجلس الوزراء (boe.gov.sa) — الجريدة الرسمية (أم القرى) (uqn.gov.sa) — منصة ناجز القضائية (najiz.sa) — الهيئة السعودية للتحكيم التجاري (scca.org.sa)
