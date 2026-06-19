@@ -129,18 +129,19 @@ When citing any regulation in any other project file, use the **Common Citation 
 
 ---
 
-### 8. نظام حماية الملكية الفكرية
+### 8. أنظمة الملكية الفكرية (عنقود أنظمة تحت إشراف SAIP)
 
 | الحقل | القيمة |
 |-------|-------|
-| **الاسم العربي** | نظام حماية الملكية الفكرية |
-| **الاسم الإنجليزي** | Intellectual Property Protection Law |
-| **رقم المرسوم الملكي** | م/41 |
-| **سنة الإصدار** | 1424هـ (2003م) |
-| **صيغة الاستشهاد** | `Intellectual Property Protection Law (Royal Decree M/41 1424H)` |
+| **الاسم العربي** | أنظمة الملكية الفكرية (عنقود أنظمة — وليست نظاماً واحداً) |
+| **الاسم الإنجليزي** | Intellectual Property Laws (a cluster, not a single law) |
+| **الأنظمة الرئيسية** | نظام حماية حقوق المؤلف (م/41 1424هـ) — نظام العلامات التجارية (م/21 1423هـ) — نظام براءات الاختراع والتصميمات التخطيطية للدارات المتكاملة والأصناف النباتية والنماذج الصناعية (م/27 1425هـ) |
+| **تصحيح** | م/41 هو **نظام حماية حقوق المؤلف** تحديداً، وليس «نظام حماية الملكية الفكرية» العام |
+| **صيغة الاستشهاد** | حسب كل نظام، مثل `Saudi Copyright Law (Royal Decree M/41 1424H)` |
+| **الجهة المختصة** | الهيئة السعودية للملكية الفكرية (SAIP) — تأسست بـ م/6 1439هـ |
 | **المصدر الرسمي** | saip.gov.sa — boe.gov.sa |
-| **ملفات المشروع ذات الصلة** | `sources/saudi-laws.md` |
-| **ملاحظات** | الجهة المختصة: الهيئة السعودية للملكية الفكرية (SAIP). يشمل حقوق المؤلف والعلامات التجارية وبراءات الاختراع |
+| **ملفات المشروع ذات الصلة** | `sources/intellectual-property-law.md` — `sources/saudi-laws.md` |
+| **ملاحظات** | يشمل حقوق المؤلف والعلامات التجارية وبراءات الاختراع والنماذج الصناعية. اللوائح والإجراءات تُحدِّثها SAIP — يجب التحقق من آخر نسخة |
 
 ---
 
@@ -254,7 +255,7 @@ When citing any regulation in any other project file, use the **Common Citation 
 | PDPL | M/19 | 1443H | `PDPL (Royal Decree M/19 1443H)` |
 | Saudi Arbitration Law | M/34 | 1433H | `Saudi Arbitration Law (Royal Decree M/34 1433H)` |
 | Commercial Agency Law | M/11 | 1382H | `Commercial Agency Law (Royal Decree M/11 1382H and amendments)` |
-| Intellectual Property Protection Law | M/41 | 1424H | `Intellectual Property Protection Law (Royal Decree M/41 1424H)` |
+| Saudi Copyright Law (part of the IP law cluster under SAIP) | M/41 | 1424H | `Saudi Copyright Law (Royal Decree M/41 1424H)` |
 | Saudi Bankruptcy Law | M/50 | 1439H | `Saudi Bankruptcy Law (Royal Decree M/50 1439H)` |
 | Electronic Transactions Law | M/18 | 1428H | `Electronic Transactions Law (Royal Decree M/18 1428H)` |
 | Whistleblower Protection Law | M/148 | 1445H | `Whistleblower Protection Law (Royal Decree M/148 1445H)` |
