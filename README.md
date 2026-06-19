@@ -51,7 +51,7 @@ Open-source collection of legal skills, source references, and datasets that giv
 | الأداة | الوظيفة |
 |--------|---------|
 | `analyze_contract_clause` | تحليل بند عقدي وإرجاع JSON بمستوى الخطر والمواد القانونية |
-| `get_regulation_summary` | ملخص منظم لأي نظام سعودي من 17 مصدرا |
+| `get_regulation_summary` | ملخص منظم لأي نظام سعودي من 18 مصدرا |
 | `search_contract_risks` | البحث في قاعدة بيانات مخاطر العقود (30 بندا) |
 
 راجع [mcp-server/README.md](mcp-server/README.md) للتفاصيل الكاملة.
@@ -85,7 +85,7 @@ python3 -m pytest tests/test_eval_validator.py -q
 | المجلد | المحتوى | العدد |
 |--------|---------|-------|
 | `skills/` | ملفات مهارة قانونية موجهة للذكاء الاصطناعي | 9 |
-| `sources/` | ملخصات مرجعية للأنظمة السعودية الرسمية | 17 |
+| `sources/` | ملخصات مرجعية للأنظمة السعودية الرسمية | 18 |
 | `datasets/` | مجموعات بيانات قانونية منظمة وملفات مخاطر | 11 |
 | `examples/` | أمثلة تطبيقية موثقة عبر المجالات القانونية | 14 |
 | `prompts/` | قوالب مطالبات جاهزة للاستخدام | 3 |
@@ -120,6 +120,7 @@ saudi-legal-ai-framework/
 │   ├── bankruptcy-law.md
 │   ├── evidence-law.md
 │   ├── e-commerce-law.md
+│   ├── zatca-e-invoicing.md
 │   ├── civil-transactions-law.md
 │   ├── whistleblower-protection.md
 │   ├── legal-profession-law.md
