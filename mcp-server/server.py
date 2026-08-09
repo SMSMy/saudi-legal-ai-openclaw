@@ -2,86 +2,110 @@ import os
 import sys
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
-from tools.analyzer import analyze_clause
-from tools.summarizer import summarize_regulation
+
+from tools.skills import read_skill, VALID_DOMAINS
+from tools.sources import read_source, VALID_REGULATIONS
 from tools.search import find_risks
 
 REPO_PATH = Path(os.environ.get("REPO_PATH", Path(__file__).parent.parent))
 
-
-def _validate_environment() -> None:
-    """Validate environment variables at startup and warn about missing dependencies."""
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print(
-            "WARNING: ANTHROPIC_API_KEY is not set. "
-            "The following tools will return errors when called:\n"
-            "  - analyze_contract_clause\n"
-            "  - get_regulation_summary\n"
-            "Only search_contract_risks will function correctly.\n"
-            "Set ANTHROPIC_API_KEY to enable full functionality.",
-            file=sys.stderr,
-        )
-
-
-_validate_environment()
-
 mcp = FastMCP(
     "Saudi Legal AI Framework",
     instructions=(
-        "Structured legal data server. "
-        "All tools return JSON-structured factual data from official Saudi legal sources. "
-        "No tool returns instructions for Claude."
+        "Saudi legal knowledge retrieval server for OpenClaw. "
+        "All tools return factual legal context from official Saudi sources "
+        "(skills, regulation summaries, contract risk dataset). "
+        "The OpenClaw agent performs the legal analysis itself using its active "
+        "model — this server never calls an external LLM and needs no API keys. "
+        "Always pair retrieval with the framework's disclaimer: analysis is "
+        "preliminary and must be reviewed by a licensed Saudi legal professional."
     ),
 )
 
 
 @mcp.tool()
-def analyze_contract_clause(
-    clause_text: str,
-    contract_type: str,
-    language: str = "ar",
-) -> str:
+def get_legal_skill(domain: str) -> str:
     """
-    Analyzes a contract clause against Saudi law and returns structured findings.
-
-    Returns JSON with risk assessment based on Saudi legal framework.
-    Does not return instructions — returns factual legal data only.
+    Returns the Saudi legal skill/guide for a legal domain. The skill tells the
+    agent HOW to reason about that domain under Saudi law (scope, key rules,
+    red flags, recommended structure). Content is factual reference only.
 
     Args:
-        clause_text: The contract clause text to analyze (Arabic or English)
-        contract_type: Type of contract. One of: Employment Contract,
-                      Lease Agreement, NDA, SaaS Agreement,
-                      Construction Contract, Supply Agreement,
-                      Professional Services Agreement, Commercial Agency Agreement,
-                      Shareholder Agreement, Franchise Agreement,
-                      Cloud Storage Agreement
-        language: Response language. 'ar' for Arabic, 'en' for English
+        domain: One of: contract-review, labor-law-analysis, commercial-dispute,
+               compliance-check, legal-drafting, arbitration,
+               real-estate-contracts, intellectual-property-law
     """
-    return analyze_clause(clause_text, contract_type, language)
+    return read_skill(domain)
 
 
 @mcp.tool()
-def get_regulation_summary(
-    regulation: str,
-    topic: str = None,
-) -> str:
+def get_regulation_source(regulation: str) -> str:
     """
-    Returns a structured summary of a Saudi regulation.
-
-    Returns JSON with key facts about the regulation — not the full text.
-    Does not return instructions — returns factual regulatory data only.
+    Returns the reference summary of an official Saudi regulation (decree
+    numbers, key articles, competent authority, deadlines). Factual reference
+    only — not the full legal text.
 
     Args:
-        regulation: Regulation name. One of: labor-law, companies-law,
-                   civil-transactions-law, commercial-courts, pdpl,
-                   e-commerce-law, evidence-law, whistleblower-protection,
-                   legal-profession-law, arbitration-law, bankruptcy-law,
-                   sports-law-saff, fifa-rstp, real-estate-arbitration-reac
-        topic: Optional specific topic to focus on (e.g. "termination",
-               "penalties", "jurisdiction")
+        regulation: One of: labor-law, companies-law, civil-transactions-law,
+                   commercial-courts, pdpl, e-commerce-law, evidence-law,
+                   whistleblower-protection, legal-profession-law,
+                   arbitration-law, bankruptcy-law, sports-law-saff, fifa-rstp,
+                   real-estate-arbitration-reac, regulation-index, saudi-laws,
+                   open-data-judicial-sources
     """
-    return summarize_regulation(regulation, topic)
+    return read_source(regulation)
+
+
+@mcp.tool()
+def get_legal_context(contract_type: str) -> str:
+    """
+    One-call retrieval of everything needed to analyze a contract type under
+    Saudi law: the matching skill (reasoning guide), the relevant regulation
+    summary, and known risk patterns from the dataset. The agent then performs
+    the analysis with its active model.
+
+    Args:
+        contract_type: One of: Employment Contract, Lease Agreement,
+                      Construction Contract, Supply Agreement, NDA,
+                      SaaS Agreement, Cloud Storage Agreement,
+                      Professional Services Agreement,
+                      Commercial Agency Agreement, Shareholder Agreement,
+                      Franchise Agreement
+    """
+    skill_map = {
+        "Employment Contract": "labor-law-analysis",
+        "Lease Agreement": "real-estate-contracts",
+        "Construction Contract": "commercial-dispute",
+        "Supply Agreement": "commercial-dispute",
+        "NDA": "compliance-check",
+        "SaaS Agreement": "compliance-check",
+        "Cloud Storage Agreement": "compliance-check",
+        "Professional Services Agreement": "contract-review",
+        "Commercial Agency Agreement": "commercial-dispute",
+        "Shareholder Agreement": "contract-review",
+        "Franchise Agreement": "commercial-dispute",
+    }
+    source_map = {
+        "labor-law-analysis": "labor-law",
+        "real-estate-contracts": "real-estate-arbitration-reac",
+        "commercial-dispute": "commercial-courts",
+        "compliance-check": "pdpl",
+        "contract-review": "civil-transactions-law",
+    }
+    skill_domain = skill_map.get(contract_type)
+    if skill_domain is None:
+        return (
+            f"Unknown contract_type '{contract_type}'. "
+            f"Valid types: {', '.join(sorted(skill_map))}"
+        )
+    skill = read_skill(skill_domain)
+    source = read_source(source_map[skill_domain])
+    risks = find_risks(contract_type=contract_type)
+    return (
+        f"## Skill: {skill_domain}\n{skill}\n\n"
+        f"## Legal Source\n{source}\n\n"
+        f"## Known Risk Patterns for {contract_type}\n{risks}"
+    )
 
 
 @mcp.tool()
@@ -92,12 +116,10 @@ def search_contract_risks(
 ) -> str:
     """
     Returns structured JSON data from the Saudi contract risk dataset.
-    This is read-only tabular data describing known legal risk patterns in
-    Saudi contracts. Does not return instructions — returns factual legal data only.
-
-    Each returned risk record contains: risk_level, category, clause_text,
+    Read-only tabular data describing known legal risk patterns in Saudi
+    contracts. Each record contains: risk_level, category, clause_text,
     risk_reason, saudi_legal_note, recommended_revision, related_regulation,
-    and requires_escalation flag.
+    requires_escalation flag.
 
     Args:
         contract_type: Optional filter. One of: Employment Contract, Lease Agreement,
@@ -111,6 +133,15 @@ def search_contract_risks(
                  Force Majeure, Warranties, Indemnification, Corporate Governance
     """
     return find_risks(contract_type, risk_level, category)
+
+
+@mcp.tool()
+def list_legal_domains() -> str:
+    """Lists all available legal skill domains and regulation sources."""
+    return (
+        "Skills: " + ", ".join(sorted(VALID_DOMAINS)) +
+        "\n\nRegulations: " + ", ".join(sorted(VALID_REGULATIONS))
+    )
 
 
 if __name__ == "__main__":
