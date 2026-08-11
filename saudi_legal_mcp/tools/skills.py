@@ -118,12 +118,17 @@ def read_skill(
         else:
             content = full_text
 
+    sections_index: Optional[list[str]] = None
+    if content_truncated:
+        sections_index = _extract_headings(full_text)
+
     return {
         "domain": domain,
-        "verification_status": "not_applicable",  # skills do not require manifests
+        "verification_status": "not_applicable",
         "content": content,
         "content_available": True,
         "content_truncated": content_truncated,
+        "sections_index": sections_index,
         "retrieval_hint": (
             "استخدم section أو include_content=True عند الحاجة للنص الكامل."
             if not include_content and not section else None
@@ -135,6 +140,21 @@ def read_skill(
 # ---------------------------------------------------------------------------
 # Helper
 # ---------------------------------------------------------------------------
+
+def _extract_headings(text: str) -> list[str]:
+    """Return all Markdown headings from text as a flat list.
+
+    Used to populate sections_index when content is truncated,
+    so the agent knows what sections exist and can request them
+    explicitly via the section parameter.
+    """
+    headings: list[str] = []
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("#"):
+            headings.append(stripped)
+    return headings
+
 
 def _extract_section(text: str, section: str, max_chars: int) -> Optional[str]:
     """Return lines around a heading that matches section hint.
