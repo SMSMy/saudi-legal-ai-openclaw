@@ -154,8 +154,8 @@ def get_legal_context(contract_type: str) -> dict:
             "valid_types": sorted(skill_map),
         }
 
-    skill = read_skill(skill_domain, include_content=True, max_chars=6000)
-    source = read_source(source_map[skill_domain], include_content=True, max_chars=6000)
+    skill = read_skill(skill_domain, include_content=False, max_chars=6000)
+    source = read_source(source_map[skill_domain], include_content=False, max_chars=6000)
     risks = find_risks(contract_type=contract_type)  # returns dict directly (v0.3)
 
     return {
