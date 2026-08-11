@@ -18,7 +18,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
-SOURCES_DIR = REPO_ROOT / "sources"
+sys.path.insert(0, str(REPO_ROOT))
+from saudi_legal_mcp.tools import get_repo_path
+
+DATA_DIR = get_repo_path()
+SOURCES_DIR = DATA_DIR / "sources"
 MANIFESTS_DIR = SOURCES_DIR / "manifests"
 
 # Fields that must NEVER be auto-populated
@@ -35,7 +39,6 @@ def _sha256(path: Path) -> str:
 
 
 def _load_valid_regulations() -> set[str]:
-    sys.path.insert(0, str(REPO_ROOT / "mcp-server"))
     from saudi_legal_mcp.tools.sources import VALID_REGULATIONS  # noqa: PLC0415
     return set(VALID_REGULATIONS)
 

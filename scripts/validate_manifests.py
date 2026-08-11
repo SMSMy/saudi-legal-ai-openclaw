@@ -20,8 +20,12 @@ from pathlib import Path
 
 # Resolve repo root relative to this script's location (scripts/ → repo root)
 REPO_ROOT = Path(__file__).parent.parent
-MANIFESTS_DIR = REPO_ROOT / "sources" / "manifests"
-SOURCES_DIR = REPO_ROOT / "sources"
+sys.path.insert(0, str(REPO_ROOT))
+from saudi_legal_mcp.tools import get_repo_path
+
+DATA_DIR = get_repo_path()
+MANIFESTS_DIR = DATA_DIR / "sources" / "manifests"
+SOURCES_DIR = DATA_DIR / "sources"
 
 # Legal fields that must NOT be auto-populated without human verification
 _LEGAL_FIELDS = frozenset({
@@ -31,7 +35,7 @@ _LEGAL_FIELDS = frozenset({
 
 # Valid verification_status values
 _VALID_STATUSES = frozenset({
-    "unverified", "verified", "review_due", "outdated", "disputed",
+    "unverified", "field_tested", "verified", "review_due", "outdated", "disputed",
 })
 
 
@@ -44,7 +48,6 @@ def _sha256(path: Path) -> str:
 
 def _load_valid_regulations() -> set[str]:
     """Import VALID_REGULATIONS from the tools package."""
-    sys.path.insert(0, str(REPO_ROOT / "mcp-server"))
     from saudi_legal_mcp.tools.sources import VALID_REGULATIONS  # noqa: PLC0415
     return set(VALID_REGULATIONS)
 

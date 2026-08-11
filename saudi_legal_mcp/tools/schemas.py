@@ -13,7 +13,7 @@ from typing import Optional
 _DISCLAIMER = "هذه معلومات قانونية عامة وليست استشارة قانونية."
 
 _VALID_VERIFICATION_STATUSES = frozenset({
-    "unverified", "verified", "review_due", "outdated", "disputed",
+    "unverified", "field_tested", "verified", "review_due", "outdated", "disputed",
 })
 
 _VALID_ISSUE_TYPES = frozenset({

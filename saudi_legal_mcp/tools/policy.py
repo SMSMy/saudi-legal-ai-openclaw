@@ -21,6 +21,7 @@ from __future__ import annotations
 
 _DISCLAIMER = "هذه معلومات قانونية عامة وليست استشارة قانونية."
 
+from saudi_legal_mcp.tools.manifests import get_verification_status
 
 def enforce_evidence(
     claim: str | None,
@@ -53,9 +54,22 @@ def enforce_evidence(
             "disclaimer": disclaimer,
         }
 
+    # Inject review_level for each evidence item
+    enriched_evidence = []
+    for item in evidence:
+        source_id = item.get("source_id")
+        review_level = "unverified"
+        if source_id:
+            status = get_verification_status(source_id)
+            review_level = "human_reviewed" if status == "verified" else status
+        
+        enriched_item = dict(item)
+        enriched_item["review_level"] = review_level
+        enriched_evidence.append(enriched_item)
+
     return {
         "claim": claim,
-        "evidence": evidence,
+        "evidence": enriched_evidence,
         "evidence_status": "supported",
         "disclaimer": disclaimer,
     }

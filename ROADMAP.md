@@ -66,6 +66,7 @@ repository architecture · governance · validation pipeline · CI/CD · contrib
 - [x] CI/CD pipeline (GitHub Actions — pytest + validate + build)
 - [x] مجموعة اختبارات آلية شاملة (43 اختبارًا)
 - [x] نظام دورة حياة التحقق القانوني (`verification_status`, `docs/legal-verification-lifecycle.md`)
+  - *قرار معماري*: المهارات (`skills/`) مصنفة كـ "أدلة استدلال" (Reasoning Guides) وليست نصوصاً تشريعية، لذا لا تتطلب manifests أو `verification_status`.
 - [x] خريطة المرجعية المتقاطعة (`docs/cross-reference-map.md`)
 - [x] إضافة أمثلة datasets واقعية (عقود عمل، SaaS، إنشاء)
 

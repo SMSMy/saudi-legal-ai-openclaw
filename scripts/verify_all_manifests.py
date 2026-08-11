@@ -30,8 +30,8 @@ def main():
             with open(manifest_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             
-            data["verification_status"] = "verified"
-            data["metadata_status"] = "verified"
+            data["verification_status"] = "field_tested"
+            data["metadata_status"] = "field_tested"
             data["verified_by"] = "field_tested_v04"
             data["verified_at"] = now_str
             data["review_notes"] = "Mass verified based on v0.4 field testing results."

@@ -66,7 +66,9 @@ def get_legal_skill(
 
     The skill tells the agent HOW to reason about that domain under Saudi law:
     scope, key rules, red flags, recommended structure. Content is factual
-    reference only — never legal advice.
+    reference only — never legal advice. Note: Skills are reasoning guides,
+    not legal texts, so they intentionally do not require manifests or 
+    verification_status.
 
     Args:
         domain:          One of: arbitration, commercial-dispute, compliance-check,
@@ -258,7 +260,12 @@ def get_source_status(source_id: str) -> dict:
     # Build warning
     warning_parts = []
 
-    if verification_status != "verified":
+    if verification_status == "field_tested":
+        warning_parts.append(
+            f"المصدر '{source_id}' مُجرَّب ميدانياً ونجح تقنياً (field_tested)، لكنه لم يُراجع من محامٍ. "
+            "استخدمه بحذر وبلا إجابة جازمة."
+        )
+    elif verification_status != "verified":
         warning_parts.append(
             f"المصدر '{source_id}' غير مُتحقَّق منه بعد (verification_status={verification_status}). "
             "لا تستخدمه في إجابة جازمة."

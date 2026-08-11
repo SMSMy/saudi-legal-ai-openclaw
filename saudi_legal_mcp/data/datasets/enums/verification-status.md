@@ -64,6 +64,23 @@
 
 ---
 
+### `field_tested`
+
+**العربية:** مُجرَّب ميدانياً — تم اختبار المصدر آلياً ونجح في عمليات الاسترجاع (الـ Retrieval) دون التسبب بأخطاء، لكنه لم يُراجع من قِبل مختص قانوني.
+
+**English:** Field tested — the source has been tested in an automated pipeline and succeeded in retrieval without errors, but has not been reviewed by a legal professional.
+
+- من يستطيع تعيينها: المشرفون (أو آلياً عبر سكربتات الاختبار)
+- Who can assign: Maintainers (or automated test scripts)
+- الاستخدام في production: ⚠️ بتحفظ مع إفصاح
+- Production use: ⚠️ With caution and disclosure
+- يحتاج مراجعة محامٍ: نعم (مطلوب للوصول إلى `verified`)
+- Lawyer review required: Yes (required to reach `verified`)
+- يُسمح الاستشهاد به: ⚠️ مع إفصاح واضح بالحالة وأنها تقنية لا قانونية
+- Citable: ⚠️ With explicit status disclosure that validation is technical, not legal
+
+---
+
 ### `reviewed`
 
 **العربية:** مراجَع — راجع الصف شخص مختص (باحث قانوني أو أكاديمي) وأقرَّ منطقه، لكن لم يُعتمَد من محامٍ مرخَّص.
