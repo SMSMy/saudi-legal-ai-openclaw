@@ -1,0 +1,15 @@
+# Normalize line endings: LF in the repo for all text files.
+# CRLF-only working-tree churn (from Windows editing) is cleaned by:
+#   git add --renormalize .
+* text=auto
+
+# Explicit LF for code and docs (public repo convention)
+*.py  text eol=lf
+*.md  text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.sh  text eol=lf
+*.ps1 text eol=crlf

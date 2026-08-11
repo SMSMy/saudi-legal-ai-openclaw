@@ -174,37 +174,52 @@ def _load_manifest(regulation: str) -> Optional[dict]:
 def _extract_section(text: str, section: str, max_chars: int) -> Optional[str]:
     """Return lines around a heading that matches section hint.
 
-    Searches for a line containing the section string (case-insensitive,
-    Arabic-normalised). Returns lines from that heading up to the next
-    same-level heading, capped at max_chars.
+    v0.4.3+: prefers HEADING lines (Markdown #) so a body-line match can
+    never swallow the rest of the file. Arabic definite-article (ال)
+    aliasing matches 'المكافأة' ↔ 'مكافأة' (consistent with reasoning.py).
+    Falls back to a body-line match bounded by the next heading (any level).
     """
     lines = text.splitlines()
     section_lower = section.strip().lower()
-    start_idx: Optional[int] = None
-    heading_prefix: str = ""
 
+    # Build aliasing variants: original, stripped-ال, prepended-ال
+    variants = {section_lower}
+    if section_lower.startswith("ال") and len(section_lower) > 2:
+        variants.add(section_lower[2:])
+    else:
+        variants.add("ال" + section_lower)
+
+    def matches(line: str) -> bool:
+        low = line.lower()
+        return any(v in low for v in variants)
+
+    # Pass 1: prefer a heading line (e.g. '### مكافأة نهاية الخدمة')
+    start_idx: Optional[int] = None
+    heading_level = 0
     for i, line in enumerate(lines):
-        if section_lower in line.lower():
+        if line.lstrip().startswith("#") and matches(line):
             start_idx = i
-            heading_prefix = line.lstrip("#").strip()[:0]  # detect '#' depth
-            # detect actual heading level
-            stripped = line.lstrip()
-            j = 0
-            while j < len(line) and line[j] == "#":
-                j += 1
-            heading_prefix = "#" * j
+            heading_level = len(line) - len(line.lstrip("#"))
             break
+
+    # Pass 2: fall back to a body line, bounded by the NEXT heading
+    if start_idx is None:
+        for i, line in enumerate(lines):
+            if matches(line):
+                start_idx = i
+                heading_level = 0  # stop at the very next heading
+                break
 
     if start_idx is None:
         return None
 
-    # Collect lines until next heading of same or higher level
+    # Collect until next heading of same-or-higher level (or the first
+    # heading at all when the match started in body text).
     collected = [lines[start_idx]]
     for line in lines[start_idx + 1:]:
-        stripped = line.lstrip()
-        if stripped.startswith("#"):
+        if line.lstrip().startswith("#"):
             level = len(line) - len(line.lstrip("#"))
-            if level <= len(heading_prefix):
+            if heading_level == 0 or level <= heading_level:
                 break
         collected.append(line)
 
