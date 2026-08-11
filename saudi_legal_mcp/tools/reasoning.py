@@ -24,6 +24,16 @@ _MAX_SECTIONS_RETURNED = 3
 _BRIEF_MAX_CHARS = 4000
 
 
+def _strip_placeholders(text: str) -> str:
+    """Remove [يحتاج تحقق ...] placeholder markers from text.
+
+    v0.4.5: these markers indicate missing/not-yet-verified information.
+    Sections whose query match depends entirely on placeholder text are
+    not real evidence and should be excluded from retrieval results.
+    """
+    return re.sub(r"\[يحتاج تحقق[^\]]*\]", "", text)
+
+
 def _split_into_sections(text: str) -> list[dict]:
     """Split markdown text into sections by heading level (## or ###)."""
     lines = text.splitlines()
@@ -162,7 +172,27 @@ def find_legal_provision(
     )
     hits = [(s, score) for s, score in scored if score > 0]
 
-    if not hits:
+    # v0.4.5 — exclude sections where ALL query matches came from
+    # [يحتاج تحقق] placeholder markers.  Additionally, when any top
+    # section contains verification-needed markers, attach a
+    # placeholder_warning so downstream consumers (LLM, build_legal_brief)
+    # know the evidence may be incomplete.
+    substantive_hits: list[tuple[dict, int]] = []
+    any_placeholder = False
+    for section, score in hits:
+        stripped = _strip_placeholders(section["body"])
+        stripped_score = _score_section(
+            {"heading": section["heading"], "body": stripped},
+            query_terms,
+        )
+        if stripped_score == 0:
+            # all query matches were inside [يحتاج تحقق] blocks — skip
+            continue
+        if "يحتاج تحقق" in section["body"]:
+            any_placeholder = True
+        substantive_hits.append((section, score))
+
+    if not substantive_hits:
         return {
             "source_id": source_id,
             "query": query,
@@ -172,7 +202,7 @@ def find_legal_provision(
             "disclaimer": "هذه معلومات قانونية عامة وليست استشارة قانونية.",
         }
 
-    top = hits[:max_sections]
+    top = substantive_hits[:max_sections]
     matched: list[dict] = []
     for section, score in top:
         body = section["body"][:max_chars_per_section]
@@ -184,12 +214,20 @@ def find_legal_provision(
             match_confidence=confidence,
         )))
 
+    placeholder_warning: Optional[str] = None
+    if any_placeholder:
+        placeholder_warning = (
+            "بعض الأقسام المسترجعة تحتوي على علامات [يحتاج تحقق] "
+            "تشير إلى معلومات غير مكتملة أو لم تُراجع بعد."
+        )
+
     return asdict(ProvisionResponse(
         source_id=source_id,
         query=query,
         matched_sections=matched,
-        total_matched=len(hits),
+        total_matched=len(substantive_hits),
         insufficient_evidence=False,
+        placeholder_warning=placeholder_warning,
     ))
 
 
@@ -215,10 +253,12 @@ def build_legal_brief(
             evidence_parts.append(f"[skill:{domain}]")
 
     provisions: list[dict] = []
+    prov_placeholder_warning: Optional[str] = None
     if source_id:
         prov_result = find_legal_provision(scenario, source_id)
         if not prov_result.get("insufficient_evidence"):
             provisions = prov_result.get("matched_sections", [])
+            prov_placeholder_warning = prov_result.get("placeholder_warning")
             for p in provisions:
                 evidence_parts.append(f"[provision:{source_id}:{p.get('heading','')}]")
 
@@ -265,7 +305,7 @@ def build_legal_brief(
         f"\n*الأدلة المستخدمة: {len(evidence_parts)} مصدر(اً)*"
     )[:_BRIEF_MAX_CHARS]
 
-    return asdict(LegalBriefResponse(
+    response = asdict(LegalBriefResponse(
         scenario=scenario,
         domain=domain,
         contract_type=contract_type,
@@ -274,3 +314,6 @@ def build_legal_brief(
         brief=brief,
         insufficient_evidence=False,
     ))
+    if prov_placeholder_warning:
+        response["placeholder_warning"] = prov_placeholder_warning
+    return response

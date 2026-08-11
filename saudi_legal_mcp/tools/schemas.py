@@ -176,12 +176,19 @@ class ProvisionResponse:
 
     insufficient_evidence=True when no sections matched any query term.
     matched_sections is empty in that case.
+
+    placeholder_warning (v0.4.5): set when matched_sections contain
+    [يحتاج تحقق] markers indicating incomplete/not-yet-verified data.
+    Consumers (LLM, build_legal_brief) should treat such evidence with
+    appropriate caution — the section headings are relevant but the
+    data cells may be structural placeholders.
     """
     source_id: str
     query: str
     matched_sections: list[dict]
     total_matched: int
     insufficient_evidence: bool
+    placeholder_warning: Optional[str] = None
     disclaimer: str = _DISCLAIMER
 
     def to_dict(self) -> dict:
