@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saudi-legal-ai-openclaw"
+version = "0.4.0"
+# NOTE: v0.2/v0.3/v0.4 were internal development phase labels, not semver releases.
+# This is the first installable package release — semver starts at 0.4.0.
+# When publishing to PyPI or GitHub Releases, this version IS the official tag.
+description = "Saudi Legal AI MCP Server for OpenClaw — pure retrieval, no LLM keys needed"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = ["mcp>=1.27.2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+saudi-legal-mcp = "saudi_legal_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["saudi_legal_mcp*"]
+
+[tool.setuptools.package-data]
+# data/**/* ensures ALL subdirectories are included:
+#   data/sources/manifests/          (manifests JSON)
+#   data/sources/fiqh-judicial-references/
+#   data/sources/judicial-decisions/
+#   data/datasets/build/, contributions/, enums/, judicial-decisions/, ...
+#   data/datasets/judicial-index/, judicial-reasoning/
+saudi_legal_mcp = ["data/**/*"]

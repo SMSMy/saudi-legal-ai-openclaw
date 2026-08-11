@@ -1,0 +1,14 @@
+{
+  "id": "sports-law-saff",
+  "path": "sources/sports-law-saff.md",
+  "sha256": "e7091c2580441becb7da04bd3b4fa82d19531796072ffe77be0a2ba57ffa2c01",
+  "generated_at": "2026-08-10T01:23:37.030796+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

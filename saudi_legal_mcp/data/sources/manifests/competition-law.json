@@ -1,0 +1,14 @@
+{
+  "id": "competition-law",
+  "path": "sources/competition-law.md",
+  "sha256": "794d860cf670076d7ecc84629810583a26f5a5a3f0eb1981366231338ecf6434",
+  "generated_at": "2026-08-10T01:23:37.014055+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

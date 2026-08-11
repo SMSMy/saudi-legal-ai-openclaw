@@ -1,0 +1,14 @@
+{
+  "id": "labor-law",
+  "path": "sources/labor-law.md",
+  "sha256": "fcda09a218e8b919ead3caa21cd3f020e9294bb42f6e212fa702e64d841355aa",
+  "generated_at": "2026-08-10T01:23:37.020951+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

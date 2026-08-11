@@ -1,0 +1,14 @@
+{
+  "id": "commercial-courts",
+  "path": "sources/commercial-courts.md",
+  "sha256": "ed409ef29b716964a8baaf6f4db576a664d6f9de002aef235218bc3add2c1b13",
+  "generated_at": "2026-08-10T01:23:37.011322+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

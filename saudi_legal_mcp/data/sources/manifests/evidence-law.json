@@ -1,0 +1,14 @@
+{
+  "id": "evidence-law",
+  "path": "sources/evidence-law.md",
+  "sha256": "45058bbbbd4003ad6d61a9d7f284f8e29878f4f67d2750222f55dd740e33b78d",
+  "generated_at": "2026-08-10T01:23:37.016926+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

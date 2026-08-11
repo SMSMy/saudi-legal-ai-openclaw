@@ -1,7 +1,7 @@
 # المنظومة القانونية السعودية للذكاء الاصطناعي 🇸🇦
 # Saudi Legal AI Framework — OpenClaw Edition
 
-[![Version](https://img.shields.io/badge/version-0.2-orange.svg)](https://github.com/SMSMy/saudi-legal-ai-openclaw)
+[![Version](https://img.shields.io/badge/version-0.3-blue.svg)](https://github.com/SMSMy/saudi-legal-ai-openclaw)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-green.svg)](https://openclaw.ai)
 
@@ -34,29 +34,34 @@
 # 1. Clone + venv
 git clone https://github.com/SMSMy/saudi-legal-ai-openclaw.git
 cd saudi-legal-ai-openclaw
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3 -m venv .venv
+.venv/bin/pip install -e .
 
 # 2. Register in OpenClaw
 openclaw mcp set saudi-legal \
-  '{"command":"'$(pwd)'/.venv/bin/python","args":["'$(pwd)'/mcp-server/server.py"],"env":{"REPO_PATH":"'$(pwd)'"},"cwd":"'$(pwd)'"}'
+  '{"command":"'$(pwd)'/.venv/bin/saudi-legal-mcp","args":[]}'
 
 # 3. Reload
 openclaw mcp reload
 ```
 
-**Done!** 5 legal tools ready — no API key configuration needed. 🔓
+**Done!** Legal tools ready — standard Python package, no env-var hacks needed. 🔓
 
 ---
 
 ## 🛠️ الأدوات | Tools
 
-| الأداة | الوظيفة |
+| الأداة | الوصف |
 |--------|---------|
-| `get_legal_skill` | المهارة/الدليل القانوني لمجال محدد |
-| `get_regulation_source` | ملخص النظام السعودي الرسمي |
-| `get_legal_context` | السياق الكامل لتحليل عقد (مهارة + نظام + مخاطر) |
-| `search_contract_risks` | بحث في قاعدة بيانات المخاطر العقدية |
-| `list_legal_domains` | تصفح كل المجالات والمصادر المتاحة |
+| `get_legal_skill` | استرجاع/تحميل المهارات القانونية المجالية بالكامل (أو metadata / section فقط) |
+| `get_regulation_source` | قراءة المصادر النظامية المحددة (metadata افتراضياً؛ include_content لقراءة النص) |
+| `get_legal_context` | تجميع سياق قانوني موحّد (مهارة + مصدر + حالة في استدعاء واحد) |
+| `search_contract_risks` | بحث في مخاطر العقود مع policy enforcement (evidence إلزامي) |
+| `list_legal_domains` | قائمة كل المجالات والمصادر المتاحة مع حالة التحقق |
+| `get_source_status` | حالة المصدر: verification_status، freshness، تحذير منتهي الصلاحية |
+| `report_source_issue` | تسجيل مشكلة في مصدر (يتطلب ENABLE_LOCAL_REPORTS=true) |
+| `find_legal_provision` | **[v0.3]** بحث نصي في نصوص الأنظمة بالكلمات المفتاحية؛ يُعيد أفضل 3 أقسام (حد 1500 حرف/قسم) |
+| `build_legal_brief` | **[v0.3]** مذكرة قانونية موحّدة من مهارة + نصوص + مخاطر (حد 4000 حرف، enforce_evidence إلزامي) |
 
 ---
 
@@ -64,11 +69,15 @@ openclaw mcp reload
 
 | المجلد | المحتوى |
 |--------|---------|
-| `skills/` | 9 مهارات قانونية: عقود، نزاعات تجارية، عمل، امتثال، تحكيم، صياغة، عقار، ملكية فكرية، منازعات رياضية |
-| `sources/` | 20 ملخص نظام سعودي: العمل، الشركات، المعاملات المدنية، المحاكم التجارية، PDPL، التجارة الإلكترونية... |
-| `datasets/` | بيانات المخاطر العقدية + أدلة قضائية + إجراءات امتثال |
-| `examples/` | 14 مثال تطبيقي موثق عبر المجالات القانونية |
-| `prompts/` | قوالب مطالبات جاهزة (تحليل مخاطر، مراجعة عقود، صياغة إشعارات) |
+| `skills/` | 9 مهارات قانونية: العقود، نظام العمل، حماية البيانات، النزاعات، الشركات، العقارات، التجارة الإلكترونية، الرياضة، ZATCA |
+| `sources/` | 20 مصدر نظامي (source_documents_count=20، reference_collections_count=2، verified_sources_count=0) |
+| `sources/manifests/` | 20 manifest JSON لكل مصدر (sha256، verification_status، مواعيد المراجعة الدورية) |
+| `datasets/` | مجموعة مخاطر تعاقدية + جدول مصادر + تعريفات المجال |
+| `examples/` | 14 مثال تفاعلي مع كل الأدوات |
+| `prompts/` | نصوص التوجيه (الإجابة الآمنة، الصياغة المقيدة، الكشف عن المخاطر) |
+| `scripts/` | generate_manifests.py، validate_manifests.py، propose_verification.py |
+| `tests/` | 54 اختباراً آلياً (بدون API خارجي) |
+| `evals/` | corpus 27 سؤال + eval_runner.py + baseline_v03.json (recall=87.7%، precision=94.2%) |
 
 ---
 

@@ -1,0 +1,14 @@
+{
+  "id": "civil-transactions-law",
+  "path": "sources/civil-transactions-law.md",
+  "sha256": "aa38d0e88f70b7aad76e455fb2ad9a8b6fc438e9b779cf660f0db747885e6404",
+  "generated_at": "2026-08-10T01:23:37.009885+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

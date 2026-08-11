@@ -1,0 +1,93 @@
+﻿[
+  {
+    "id": "pdpl-001",
+    "question": "هل يلزم الحصول على موافقة صريحة قبل معالجة البيانات الشخصية للعملاء؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "الموافقة بيانات",
+    "expected_answer_contains": ["موافقة", "صريحة", "بيانات شخصية"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-002",
+    "question": "ما هي الفترة الزمنية الممنوحة لإشعار الجهة المختصة عند حدوث اختراق بيانات؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "إخطار اختراق",
+    "expected_answer_contains": ["اختراق", "إخطار", "الهيئة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-003",
+    "question": "ما غرامة نقل بيانات شخصية خارج المملكة بدون ضمانات؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "العقوبات غرامة نقل",
+    "expected_answer_contains": ["غرامة", "نقل", "خارج"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-004",
+    "question": "هل يمكن معالجة بيانات الأطفال بموافقة ولي الأمر وفق PDPL؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": null,
+    "expected_answer_contains": [],
+    "should_abstain": true,
+    "difficulty": "abstention",
+    "abstention_reason": "التفصيل المتعلق بالأطفال تحديداً قد يحتاج لوائح تنفيذية"
+  },
+  {
+    "id": "pdpl-005",
+    "question": "ما الفرق بين المتحكم في البيانات والمعالج؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "التعريفات متحكم معالج",
+    "expected_answer_contains": ["متحكم", "معالج", "بيانات"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "pdpl-006",
+    "question": "ما هي حقوق صاحب البيانات وفق نظام PDPL؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "حقوق أصحاب البيانات",
+    "expected_answer_contains": ["حق", "بيانات", "اطلاع"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-007",
+    "question": "من هي الجهة التنظيمية المسؤولة عن PDPL في المملكة؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "الجهة التنظيمية سدايا",
+    "expected_answer_contains": ["سدايا", "الهيئة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-008",
+    "question": "ما نطاق تطبيق PDPL على الشركات خارج المملكة؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "النطاق التطبيق",
+    "expected_answer_contains": ["نطاق", "تطبيق"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-009",
+    "question": "ما تاريخ نفاذ نظام حماية البيانات الشخصية؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "تاريخ النفاذ",
+    "expected_answer_contains": ["نفاذ", "2023"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "pdpl-010",
+    "question": "ما هي البيانات الحساسة التي تستوجب حماية مشددة وفق PDPL؟",
+    "expected_source_id": "pdpl",
+    "expected_section_hint": "البيانات الحساسة",
+    "expected_answer_contains": ["حساسة", "بيومترية", "صحة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  }
+]

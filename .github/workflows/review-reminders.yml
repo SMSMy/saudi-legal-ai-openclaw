@@ -1,0 +1,75 @@
+name: Review Reminders
+
+on:
+  schedule:
+    # Run on the 1st of every month at 08:00 UTC
+    - cron: "0 8 1 * *"
+  workflow_dispatch:
+
+jobs:
+  check-reviews:
+    name: Check for upcoming or overdue reviews
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check Manifests
+        id: check
+        run: |
+          cat << 'EOF' > check_dates.py
+          import json, os, datetime
+          from pathlib import Path
+
+          manifests_dir = Path("sources/manifests")
+          now = datetime.datetime.now(datetime.timezone.utc)
+          warning_days = 30
+          
+          issues = []
+          for p in manifests_dir.glob("*.json"):
+              data = json.loads(p.read_text(encoding="utf-8"))
+              due_str = data.get("review_due_at")
+              if due_str:
+                  try:
+                      due = datetime.datetime.fromisoformat(due_str.replace("Z", "+00:00"))
+                      days = (due - now).days
+                      if days < 0:
+                          issues.append(f"- **{data['id']}**: Overdue by {abs(days)} days (was due {due_str})")
+                      elif days <= warning_days:
+                          issues.append(f"- **{data['id']}**: Due in {days} days ({due_str})")
+                  except ValueError:
+                      pass
+          
+          if issues:
+              body = "### Legal Sources Requiring Review\n\nThe following verified sources have approaching or overdue review dates:\n\n" + "\n".join(issues)
+              body += "\n\n@SMSMy please review the source files against official records and update the manifests."
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write("has_issues=true\n")
+              with open("issue_body.md", "w") as f:
+                  f.write(body)
+          else:
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write("has_issues=false\n")
+          EOF
+          python check_dates.py
+
+      - name: Create Issue
+        if: steps.check.outputs.has_issues == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('issue_body.md', 'utf8');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "📅 Scheduled Legal Review Reminder",
+              body: body,
+              labels: ["legal-review", "automated"]
+            });

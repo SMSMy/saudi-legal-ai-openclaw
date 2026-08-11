@@ -1,0 +1,93 @@
+﻿[
+  {
+    "id": "labor-001",
+    "question": "كم يوماً مدة إشعار إنهاء عقد العمل للموظف الذي أمضى سنتين في الخدمة؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "إشعار إنهاء عقد",
+    "expected_answer_contains": ["إشعار", "إنهاء", "عقد"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-002",
+    "question": "ما هي اشتراطات السعودة (نطاقات) في قطاع التجزئة؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "السعودة نطاقات",
+    "expected_answer_contains": ["نطاقات", "سعودة", "توطين"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-003",
+    "question": "هل يحق للموظف رفع دعوى بعد 5 سنوات من الفصل؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "المسار القضائي تقادم",
+    "expected_answer_contains": ["تقادم", "مدة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-004",
+    "question": "ما هي غرامة العمل الإضافي غير المدفوع؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": null,
+    "expected_answer_contains": [],
+    "should_abstain": true,
+    "difficulty": "abstention",
+    "abstention_reason": "المعلومة محددة جداً وقد تتطلب لوائح تنفيذية"
+  },
+  {
+    "id": "labor-005",
+    "question": "ما الفرق بين الفصل التعسفي وإنهاء العقد بالتراضي؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "إنهاء عقد تعسفي تراضي",
+    "expected_answer_contains": ["تعسفي", "تراضي", "تعويض"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "labor-006",
+    "question": "ما الحد الأقصى لفترة التجربة في نظام العمل السعودي؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "فترة التجربة",
+    "expected_answer_contains": ["تجربة", "90", "180"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-007",
+    "question": "كيف تُحسب مكافأة نهاية الخدمة بعد 10 سنوات خدمة؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "مكافأة نهاية الخدمة",
+    "expected_answer_contains": ["مكافأة", "نهاية", "خدمة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-008",
+    "question": "كم يوم إجازة سنوية يستحقها الموظف بعد 5 سنوات خدمة؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "الإجازات إجازة سنوية",
+    "expected_answer_contains": ["إجازة", "سنوية", "يوم"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-009",
+    "question": "ما هو الحد الأقصى لساعات العمل في اليوم خارج رمضان؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "ساعات العمل",
+    "expected_answer_contains": ["ساعات", "عمل"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "labor-010",
+    "question": "هل يجوز تكرار فترة التجربة مع نفس العامل على العمل ذاته؟",
+    "expected_source_id": "labor-law",
+    "expected_section_hint": "فترة التجربة",
+    "expected_answer_contains": ["تجربة", "تكرار"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  }
+]

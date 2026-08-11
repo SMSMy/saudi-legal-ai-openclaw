@@ -1,0 +1,14 @@
+{
+  "id": "regulation-index",
+  "path": "sources/regulation-index.md",
+  "sha256": "f3806c0f96d53ecf74c9cb21774b685ee6c35fe94eb297f24c41ca814f7cd9be",
+  "generated_at": "2026-08-10T01:23:37.027853+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

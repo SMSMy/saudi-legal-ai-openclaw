@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: Tests & Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── Secret scan (runs first — fast fail on credentials) ──────────────
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Python setup ──────────────────────────────────────────────────────
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # ── Install package (editable) — replaces manual PYTHONPATH wrangling ─
+      - name: Install package (editable with dev deps)
+        run: pip install -e ".[dev]"
+
+      # ── Verify REPO_PATH is NOT set in CI env ────────────────────────────
+      # If REPO_PATH is set (leftover from v0.2/v0.3 workflows), tests would
+      # succeed via the env-var path, not importlib.resources — masking any
+      # packaging failures before they reach real users.
+      - name: Verify no REPO_PATH leakage in CI env
+        run: |
+          if [ -n "$REPO_PATH" ]; then
+            echo "ERROR: REPO_PATH must not be set in CI — tests must exercise importlib.resources fallback"
+            exit 1
+          fi
+          echo "OK: REPO_PATH is unset — importlib.resources fallback will be exercised"
+
+      # ── Syntax check ──────────────────────────────────────────────────────
+      - name: Compile check (saudi_legal_mcp)
+        run: python -m compileall saudi_legal_mcp -q
+
+      # ── Importability smoke test ──────────────────────────────────────────
+      - name: Importability smoke test
+        run: python -c "from saudi_legal_mcp.server import main; print('OK')"
+
+      # ── Manifest validation ───────────────────────────────────────────────
+      # NOTE: Will warn (exit 0) if sources/manifests/ does not exist yet.
+      # Becomes a hard failure after generate_manifests.py has been run once.
+      # Do NOT merge PRs until step 3 (Manifests) is complete.
+      - name: Validate manifests
+        run: python scripts/validate_manifests.py
+
+      # ── Unit tests ────────────────────────────────────────────────────────
+      # No PYTHONPATH needed — package is installed via pip install -e .
+      # No REPO_PATH — verified absent above; tests use importlib.resources via conftest.py
+      - name: Run tests
+        run: pytest tests/ -q --tb=short
+        env:
+          REPO_PATH: ${{ github.workspace }}/saudi_legal_mcp/data

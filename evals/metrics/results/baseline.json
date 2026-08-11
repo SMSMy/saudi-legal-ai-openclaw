@@ -1,0 +1,175 @@
+{
+  "run_at": "2026-08-10T01:30:39.592375+00:00",
+  "total_questions": 15,
+  "citation_precision_avg": 0.9613,
+  "source_recall_avg": 0.6447,
+  "abstention_accuracy": null,
+  "response_time_ms_avg": 0.6747,
+  "by_question": [
+    {
+      "id": "contract-001",
+      "corpus_file": "contract-risk-questions.json",
+      "difficulty": "risk_search",
+      "should_abstain": false,
+      "citation_precision": 0.67,
+      "source_recall": 0.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.81,
+      "notes": []
+    },
+    {
+      "id": "contract-002",
+      "corpus_file": "contract-risk-questions.json",
+      "difficulty": "risk_search",
+      "should_abstain": false,
+      "citation_precision": 0.75,
+      "source_recall": 0.5,
+      "abstention_correct": null,
+      "response_time_ms": 0.78,
+      "notes": []
+    },
+    {
+      "id": "contract-003",
+      "corpus_file": "contract-risk-questions.json",
+      "difficulty": "risk_search",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.65,
+      "notes": []
+    },
+    {
+      "id": "contract-004",
+      "corpus_file": "contract-risk-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.67,
+      "notes": []
+    },
+    {
+      "id": "contract-005",
+      "corpus_file": "contract-risk-questions.json",
+      "difficulty": "conceptual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.69,
+      "notes": []
+    },
+    {
+      "id": "labor-001",
+      "corpus_file": "labor-law-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.64,
+      "notes": []
+    },
+    {
+      "id": "labor-002",
+      "corpus_file": "labor-law-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 0.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.67,
+      "notes": []
+    },
+    {
+      "id": "labor-003",
+      "corpus_file": "labor-law-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 0.5,
+      "abstention_correct": null,
+      "response_time_ms": 0.66,
+      "notes": []
+    },
+    {
+      "id": "labor-004",
+      "corpus_file": "labor-law-questions.json",
+      "difficulty": "abstention",
+      "should_abstain": true,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.64,
+      "notes": []
+    },
+    {
+      "id": "labor-005",
+      "corpus_file": "labor-law-questions.json",
+      "difficulty": "conceptual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 0.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.66,
+      "notes": []
+    },
+    {
+      "id": "pdpl-001",
+      "corpus_file": "pdpl-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.68,
+      "notes": []
+    },
+    {
+      "id": "pdpl-002",
+      "corpus_file": "pdpl-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 0.33,
+      "abstention_correct": null,
+      "response_time_ms": 0.64,
+      "notes": []
+    },
+    {
+      "id": "pdpl-003",
+      "corpus_file": "pdpl-questions.json",
+      "difficulty": "factual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 0.67,
+      "abstention_correct": null,
+      "response_time_ms": 0.65,
+      "notes": []
+    },
+    {
+      "id": "pdpl-004",
+      "corpus_file": "pdpl-questions.json",
+      "difficulty": "abstention",
+      "should_abstain": true,
+      "citation_precision": 1.0,
+      "source_recall": 1.0,
+      "abstention_correct": null,
+      "response_time_ms": 0.65,
+      "notes": []
+    },
+    {
+      "id": "pdpl-005",
+      "corpus_file": "pdpl-questions.json",
+      "difficulty": "conceptual",
+      "should_abstain": false,
+      "citation_precision": 1.0,
+      "source_recall": 0.67,
+      "abstention_correct": null,
+      "response_time_ms": 0.63,
+      "notes": []
+    }
+  ]
+}

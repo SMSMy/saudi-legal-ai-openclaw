@@ -1,0 +1,14 @@
+{
+  "id": "fifa-rstp",
+  "path": "sources/fifa-rstp.md",
+  "sha256": "7abc03eaee786e192bcb7782c3f4ecb83bf3768ea41b97c5d3295e352f5f9b60",
+  "generated_at": "2026-08-10T01:23:37.018268+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

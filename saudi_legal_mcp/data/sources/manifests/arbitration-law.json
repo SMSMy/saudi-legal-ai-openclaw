@@ -1,0 +1,14 @@
+{
+  "id": "arbitration-law",
+  "path": "sources/arbitration-law.md",
+  "sha256": "08b35051ef3f2d3a7f6dd9c8e84b47a0f6d5edbadb528adc9b1c3a3860ca4396",
+  "generated_at": "2026-08-10T01:23:37.006790+00:00",
+  "metadata_status": "needs_review",
+  "verification_status": "unverified",
+  "verified_by": null,
+  "verified_at": null,
+  "verification_scope": [],
+  "review_due_at": null,
+  "review_notes": null,
+  "approval_commit": null
+}

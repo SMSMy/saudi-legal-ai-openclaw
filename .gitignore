@@ -19,3 +19,29 @@ Thumbs.db
 .env
 .env.local
 *.key
+
+# Runtime data (Docker volumes target — see v0.4)
+issues/
+runtime-data/
+
+# Telemetry (opt-in, local only)
+telemetry/
+
+# Eval results (baseline_*.json are committed as versioned snapshots; per-run results are not)
+evals/metrics/results/*.json
+!evals/metrics/results/baseline.json
+!evals/metrics/results/baseline_v03.json
+
+# Test / coverage
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Packaging build artifacts (v0.4)
+build/
+dist/
+*.egg-info/
+# datasets/build/ is generated data — not committed
+saudi_legal_mcp/data/datasets/build/
+# Clean-venv smoke test dir
+.venv-test/

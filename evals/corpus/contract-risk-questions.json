@@ -1,0 +1,73 @@
+﻿[
+  {
+    "id": "contract-001",
+    "question": "ما مخاطر بند الاختصاص القضائي الأجنبي في عقود SaaS مع مزود سعودي؟",
+    "expected_source_id": null,
+    "expected_contract_type": "SaaS Agreement",
+    "expected_risk_levels": ["critical", "high"],
+    "expected_categories": ["Jurisdiction & Dispute Resolution"],
+    "should_abstain": false,
+    "difficulty": "risk_search",
+    "_note": "Edited from 'Liability' (no SaaS/Liability data) to 'Jurisdiction' (exists in dataset). Design fix, not leakage."
+  },
+  {
+    "id": "contract-002",
+    "question": "ما الشروط التعسفية الشائعة في عقود الإيجار التجاري؟",
+    "expected_source_id": null,
+    "expected_contract_type": "Lease Agreement",
+    "expected_risk_levels": ["critical", "high", "medium"],
+    "expected_categories": ["Liability", "Governing Law"],
+    "should_abstain": false,
+    "difficulty": "risk_search"
+  },
+  {
+    "id": "contract-003",
+    "question": "ما خطر بند التحكيم في عقود إنشاء مع مقاول أجنبي؟",
+    "expected_source_id": "arbitration-law",
+    "expected_contract_type": "Construction Contract",
+    "expected_risk_levels": ["high"],
+    "expected_categories": ["Jurisdiction & Dispute Resolution"],
+    "should_abstain": false,
+    "difficulty": "risk_search"
+  },
+  {
+    "id": "contract-004",
+    "question": "هل يسري بند السرية بعد انتهاء عقد العمل؟",
+    "expected_source_id": "labor-law",
+    "expected_contract_type": "Employment Contract",
+    "expected_risk_levels": ["medium", "high"],
+    "expected_categories": ["Confidentiality"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "contract-005",
+    "question": "ما المخاطر القانونية لبند استثناء المسؤولية عن الإهمال الجسيم؟",
+    "expected_source_id": "civil-transactions-law",
+    "expected_contract_type": null,
+    "expected_risk_levels": ["critical"],
+    "expected_categories": ["Liability", "Indemnification"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "contract-006",
+    "question": "ما مخاطر بند التجديد التلقائي في عقود SaaS؟",
+    "expected_source_id": null,
+    "expected_contract_type": "SaaS Agreement",
+    "expected_risk_levels": ["medium"],
+    "expected_categories": ["Termination"],
+    "should_abstain": false,
+    "difficulty": "risk_search"
+  },
+  {
+    "id": "contract-007",
+    "question": "ما خطر بند معالجة البيانات في عقود SaaS مع مزود خارجي؟",
+    "expected_source_id": null,
+    "expected_contract_type": "SaaS Agreement",
+    "expected_risk_levels": ["critical"],
+    "expected_categories": ["Data Protection & Privacy"],
+    "should_abstain": false,
+    "difficulty": "risk_search"
+  }
+]
