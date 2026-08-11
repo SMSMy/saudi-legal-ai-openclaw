@@ -118,6 +118,18 @@ repository architecture · governance · validation pipeline · CI/CD · contrib
 - [ ] إضافة بنود بمستوى `reviewed_by_lawyer = yes`
 - [ ] بنود بالعربية كلغة أساسية
 
+**retrieval quality — جودة الاسترجاع (v0.4.3 backlog)**
+- [ ] تقييم رفع `max_sections` من 3 إلى 5 في `find_legal_provision` (reasoning.py:84):
+      الحد الثابت الحالي يمنع استرجاع مصطلحات موزّعة على أكثر من 3 أقسام،
+      مما يُخفّض الـrecall للأسئلة متعددة الأقسام (مثلاً: bankrupt-001, reac-001,
+      companies-001).  الخيارات: رفع الحد، أو تحسين الترتيب لتفضيل الأقسام
+      ذات الكثافة المصطلحية الأعلى.
+- [ ] تنفيذ تطبيع عربي كامل في `_score_section`: أل التعريف نُفِّذ (v0.4.3)،
+      يبقى: التاء المربوطة/الهاء، الألف المقصورة/الياء، الهمزات.
+- [ ] تسجيل أسئلة eval ذات recall=0 الهيكلية (متوقَّع ألا تتحسن بدون
+      تعديل في بنية المصادر نفسها): evidence-001 (نص إنجليزي مقابل
+      expected_answer_contains عربي)، companies-001 (مصطلحات في أقسام فرعية).
+
 ---
 
 ## Phase 3: AI Workflows

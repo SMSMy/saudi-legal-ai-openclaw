@@ -91,3 +91,22 @@ result = enforce_evidence(claim="...", evidence=[])
    - `review_level` في الدليل يُصبح دائماً `"reasoning_guide"`.
 
 > **تنبيه:** إذا فُقد معرّف المصدر (`source_id` / `domain`)، يُعطى الدليل مستوى التقييم `"unknown"`.
+
+---
+
+## 7. `verification_status` في صفوف `saudi-contract-risk-dataset.csv`
+
+**تاريخ القرار:** v0.4.3 (2026-08-11) — يُوثَّق هنا صراحةً لأنه لم يُسجَّل عند الإضافة.
+
+عمود `verification_status` (حقل #16) موجود في CSV dataset منذ v0.4.0 Packaging Refactor (commit `cbb440f`). استُخدمت القيم الآتية:
+
+| القيمة | الاستخدام | متى تُستخدم |
+|--------|-----------|------------|
+| `draft` | الصفوف الأصلية (IDs 1–30) | مسودة أولية — لم تُراجَع |
+| `field_tested` | الصفوف المضافة حديثاً (IDs 31+) | اجتازت التحقق التقني الآلي (pytest, schema validation, eval baseline) دون مراجعة بشرية |
+| `verified` | (غير مستخدمة حالياً) | محجوزة للصفوف التي يراجعها محامٍ مرخَّص فعلياً |
+
+**قاعدة إلزامية:**
+- الصفوف الجديدة تُوسم `field_tested` تلقائياً — **لا** `verified`.
+- `verified` تُستخدم فقط بعد مراجعة بشرية من مختص قانوني مرخَّص.
+- لا يجوز الخلط بين `verification_status` (على مستوى صف CSV) و`verification_status` (على مستوى source manifest) — لكلٍّ منهما enum منفصل وسياق مختلف.

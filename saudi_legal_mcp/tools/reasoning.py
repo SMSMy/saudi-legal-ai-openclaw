@@ -61,9 +61,33 @@ def _split_into_sections(text: str) -> list[dict]:
 
 
 def _score_section(section: dict, query_terms: list[str]) -> int:
-    """Return hit count of query_terms found in section heading + body (case-insensitive)."""
+    """Return hit count of query_terms found in section heading + body.
+
+    v0.4.3: Arabic definite-article (ال) aliasing (v0.3 decision implemented).
+    A query token "مدعي" matches section text "المدعي" and vice versa.
+    Only Arabic-script tokens receive alias expansion to avoid false matches
+    on Latin text.  Query term count is unchanged — this is scoring-side
+    expansion, not query-side inflation.
+    """
     haystack = (section["heading"] + " " + section["body"]).lower()
-    return sum(1 for term in query_terms if term.lower() in haystack)
+    score = 0
+    for term in query_terms:
+        t = term.lower()
+        if t in haystack:
+            score += 1
+        elif _is_arabic(term):
+            # Try ال-stripped variant (المدعي → مدعي)
+            if len(term) > 2 and term[:2] == "ال" and term[2:] in haystack:
+                score += 1
+            # Try ال-prepended variant (مدعي → المدعي)
+            elif len(term) >= 2 and ("ال" + term).lower() in haystack:
+                score += 1
+    return score
+
+
+def _is_arabic(s: str) -> bool:
+    """True if string consists entirely of Arabic-script characters."""
+    return bool(re.fullmatch(r"[\u0600-\u06ff]+", s))
 
 
 def _tokenize_query(query: str) -> list[str]:
