@@ -182,6 +182,10 @@ class ProvisionResponse:
     Consumers (LLM, build_legal_brief) should treat such evidence with
     appropriate caution — the section headings are relevant but the
     data cells may be structural placeholders.
+
+    placeholder_dominated (v0.4.5): True when EVERY substantive section
+    contains [يحتاج تحقق] markers.  This is a stronger signal than
+    placeholder_warning alone — the entire retrieval result is tainted.
     """
     source_id: str
     query: str
@@ -189,6 +193,7 @@ class ProvisionResponse:
     total_matched: int
     insufficient_evidence: bool
     placeholder_warning: Optional[str] = None
+    placeholder_dominated: bool = False
     disclaimer: str = _DISCLAIMER
 
     def to_dict(self) -> dict:

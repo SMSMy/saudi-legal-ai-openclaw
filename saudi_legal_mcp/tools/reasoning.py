@@ -172,13 +172,9 @@ def find_legal_provision(
     )
     hits = [(s, score) for s, score in scored if score > 0]
 
-    # v0.4.5 — exclude sections where ALL query matches came from
-    # [يحتاج تحقق] placeholder markers.  Additionally, when any top
-    # section contains verification-needed markers, attach a
-    # placeholder_warning so downstream consumers (LLM, build_legal_brief)
-    # know the evidence may be incomplete.
+    # v0.4.5 — exclude sections whose score comes entirely from
+    # [يحتاج تحقق] placeholder markers.
     substantive_hits: list[tuple[dict, int]] = []
-    any_placeholder = False
     for section, score in hits:
         stripped = _strip_placeholders(section["body"])
         stripped_score = _score_section(
@@ -186,10 +182,7 @@ def find_legal_provision(
             query_terms,
         )
         if stripped_score == 0:
-            # all query matches were inside [يحتاج تحقق] blocks — skip
-            continue
-        if "يحتاج تحقق" in section["body"]:
-            any_placeholder = True
+            continue  # all query matches were inside [يحتاج تحقق] blocks
         substantive_hits.append((section, score))
 
     if not substantive_hits:
@@ -204,7 +197,16 @@ def find_legal_provision(
 
     top = substantive_hits[:max_sections]
     matched: list[dict] = []
+
+    # Check placeholder signals on the sections actually returned
+    any_placeholder = False
+    all_placeholder = len(top) > 0
     for section, score in top:
+        has_marker = "يحتاج تحقق" in section["body"]
+        if has_marker:
+            any_placeholder = True
+        else:
+            all_placeholder = False
         body = section["body"][:max_chars_per_section]
         confidence = round(score / max(len(query_terms), 1), 2)
         matched.append(asdict(MatchedSection(
@@ -215,7 +217,13 @@ def find_legal_provision(
         )))
 
     placeholder_warning: Optional[str] = None
-    if any_placeholder:
+    if all_placeholder:
+        placeholder_warning = (
+            "جميع الأقسام المسترجعة تحتوي على علامات [يحتاج تحقق] "
+            "تشير إلى معلومات غير مكتملة أو لم تُراجع بعد. "
+            "هذه الأدلة غير كافية للإجابة."
+        )
+    elif any_placeholder:
         placeholder_warning = (
             "بعض الأقسام المسترجعة تحتوي على علامات [يحتاج تحقق] "
             "تشير إلى معلومات غير مكتملة أو لم تُراجع بعد."
@@ -225,9 +233,10 @@ def find_legal_provision(
         source_id=source_id,
         query=query,
         matched_sections=matched,
-        total_matched=len(substantive_hits),
+        total_matched=len(hits),
         insufficient_evidence=False,
         placeholder_warning=placeholder_warning,
+        placeholder_dominated=all_placeholder,
     ))
 
 
@@ -254,11 +263,13 @@ def build_legal_brief(
 
     provisions: list[dict] = []
     prov_placeholder_warning: Optional[str] = None
+    prov_placeholder_dominated: bool = False
     if source_id:
         prov_result = find_legal_provision(scenario, source_id)
         if not prov_result.get("insufficient_evidence"):
             provisions = prov_result.get("matched_sections", [])
             prov_placeholder_warning = prov_result.get("placeholder_warning")
+            prov_placeholder_dominated = prov_result.get("placeholder_dominated", False)
             for p in provisions:
                 evidence_parts.append(f"[provision:{source_id}:{p.get('heading','')}]")
 
@@ -286,6 +297,32 @@ def build_legal_brief(
             "insufficient_evidence": True,
             "brief": None,
             "disclaimer": "لا يوجد دليل كافٍ لإصدار مذكرة قانونية. يرجى الاستعانة بمحامٍ مرخّص.",
+        }
+
+    # v0.4.5 gate: if ALL data evidence is dominated by placeholders
+    # (every retrieved section contains [يحتاج تحقق] markers), treat as
+    # insufficient even if a skill is present.  The skill provides
+    # conceptual guidance, not specific legal data.
+    has_data = bool(provisions) or bool(risks)
+    data_all_placeholder = (
+        bool(provisions)
+        and prov_placeholder_dominated
+        and not bool(risks)
+    )
+    if has_data and data_all_placeholder:
+        return {
+            "scenario": scenario,
+            "domain": domain,
+            "contract_type": contract_type,
+            "source_id": source_id,
+            "insufficient_evidence": True,
+            "brief": None,
+            "placeholder_warning": prov_placeholder_warning,
+            "disclaimer": (
+                "جميع النصوص النظامية المسترجعة تحتوي على علامات [يحتاج تحقق] "
+                "تشير إلى معلومات غير مكتملة. لا يمكن إصدار مذكرة قانونية بهذا "
+                "الدليل. يرجى الاستعانة بمحامٍ مرخّص."
+            ),
         }
 
     sections_text = ""
