@@ -1,0 +1,120 @@
+[
+  {
+    "id": "evidence-001",
+    "question": "على من يقع عبء الإثبات في الدعاوى المدنية والتجارية وفق نظام الإثبات السعودي؟",
+    "expected_source_id": "evidence-law",
+    "expected_section_hint": "عبء الإثبات",
+    "expected_answer_contains": ["مدعي", "يثبت"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "evidence-002",
+    "question": "ما هو رقم المرسوم الملكي وتاريخ إصدار نظام الإثبات السعودي؟",
+    "expected_source_id": "evidence-law",
+    "expected_section_hint": "نظرة عامة Overview",
+    "expected_answer_contains": ["م/43", "1443"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "ip-001",
+    "question": "ما هي الأنظمة الرئيسية المكونة لعنقود الملكية الفكرية في المملكة العربية السعودية؟",
+    "expected_source_id": "intellectual-property-law",
+    "expected_section_hint": "عنقود أنظمة الملكية الفكرية",
+    "expected_answer_contains": ["حقوق المؤلف", "علامات تجارية", "براءات"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "ip-002",
+    "question": "ما هي الجهة المختصة بالإشراف على أنظمة الملكية الفكرية في السعودية ومتى تأسست؟",
+    "expected_source_id": "intellectual-property-law",
+    "expected_section_hint": "الجهة المختصة SAIP",
+    "expected_answer_contains": ["SAIP", "الهيئة السعودية", "1439"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "legalprof-001",
+    "question": "ما هي الشروط الأساسية لمزاولة مهنة المحاماة في المملكة العربية السعودية؟",
+    "expected_source_id": "legal-profession-law",
+    "expected_section_hint": "شروط الترخيص",
+    "expected_answer_contains": ["مؤهل قانوني", "سعودي", "تدريب", "أخلاقيات"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "legalprof-002",
+    "question": "ما هي الجهة التنظيمية المسؤولة عن منح تراخيص المحاماة في السعودية وما موقعها الرسمي؟",
+    "expected_source_id": "legal-profession-law",
+    "expected_section_hint": "الديباجة والمرجع",
+    "expected_answer_contains": ["الهيئة السعودية للمحامين", "SBA", "sba.gov.sa"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "reac-001",
+    "question": "ما هي أنواع النزاعات العقارية التي يختص بها المركز السعودي للتحكيم العقاري REAC؟",
+    "expected_source_id": "real-estate-arbitration-reac",
+    "expected_section_hint": "نطاق الاختصاص",
+    "expected_answer_contains": ["تطوير عقاري", "إيجار", "وساطة", "مقاولات"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "reac-002",
+    "question": "هل يمكن اللجوء للمركز السعودي للتحكيم العقاري دون وجود شرط تحكيم في العقد؟",
+    "expected_source_id": "real-estate-arbitration-reac",
+    "expected_section_hint": "شرط التحكيم",
+    "expected_answer_contains": ["شرط تحكيم", "اتفاق", "لاحق"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "whistle-001",
+    "question": "ما هي الفئات الأربع المشمولة بالحماية في نظام حماية المبلغين السعودي؟",
+    "expected_source_id": "whistleblower-protection",
+    "expected_section_hint": "الفئات المشمولة بالحماية",
+    "expected_answer_contains": ["مبلغين", "شهود", "خبراء", "ضحايا"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "whistle-002",
+    "question": "ما هي أبرز الجرائم المشمولة بأحكام نظام حماية المبلغين والشهود والخبراء والضحايا؟",
+    "expected_source_id": "whistleblower-protection",
+    "expected_section_hint": "نطاق التطبيق الجرائم",
+    "expected_answer_contains": ["فساد", "رشوة", "اختلاس", "غسل أموال"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "zatca-001",
+    "question": "ما هما مرحلتا تطبيق الفوترة الإلكترونية في المملكة العربية السعودية؟",
+    "expected_source_id": "zatca-e-invoicing",
+    "expected_section_hint": "المرحلتان",
+    "expected_answer_contains": ["إصدار وحفظ", "ربط وتكامل"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "zatca-002",
+    "question": "كم عدد الموجات الحالية لتطبيق مرحلة الربط والتكامل للفوترة الإلكترونية وما هي حدود الإيرادات لكل موجة؟",
+    "expected_source_id": "zatca-e-invoicing",
+    "expected_section_hint": null,
+    "expected_answer_contains": [],
+    "should_abstain": true,
+    "difficulty": "abstention",
+    "abstention_reason": "الموجات وحدود الإيرادات تتغير باستمرار عبر إعلانات ZATCA وتحتاج تحقق من آخر إعلان رسمي"
+  },
+  {
+    "id": "multi-001",
+    "question": "فصل مدير شركة مساهمة بسبب تسريب بيانات شخصية للعملاء: ما الأنظمة السعودية ذات الصلة وما حقوق المدير والشركة؟",
+    "expected_source_id": "companies-law",
+    "expected_section_hint": "مجلس الإدارة حقوق الشركاء",
+    "expected_answer_contains": ["شركات", "مجلس إدارة", "بيانات"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  }
+]

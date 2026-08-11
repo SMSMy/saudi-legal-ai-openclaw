@@ -1,0 +1,120 @@
+[
+  {
+    "id": "arb-001",
+    "question": "ما هي الاشتراطات الجوهرية لصحة اتفاقية التحكيم وفق نظام التحكيم السعودي؟",
+    "expected_source_id": "arbitration-law",
+    "expected_section_hint": "اتفاقية التحكيم شروط الصحة",
+    "expected_answer_contains": ["كتابة", "أهلية"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "arb-002",
+    "question": "هل يمكن التحكيم في نزاعات العمل الفردية في السعودية؟",
+    "expected_source_id": "arbitration-law",
+    "expected_section_hint": "يُستثنى من التحكيم",
+    "expected_answer_contains": ["نزاعات العمل", "المحاكم العمالية"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "bankrupt-001",
+    "question": "ما هي الإجراءات الرئيسية التي يتيحها نظام الإفلاس السعودي للمدين المتعثر؟",
+    "expected_source_id": "bankruptcy-law",
+    "expected_section_hint": "إجراءات الإفلاس الرئيسية",
+    "expected_answer_contains": ["تسوية وقائية", "إعادة تنظيم", "تصفية"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "bankrupt-002",
+    "question": "كم يبلغ عدد مواد نظام الإفلاس السعودي وما الجهة المشرفة عليه؟",
+    "expected_source_id": "bankruptcy-law",
+    "expected_section_hint": "الديباجة والمرجع",
+    "expected_answer_contains": ["227", "مادة", "وزارة التجارة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "civil-001",
+    "question": "ما هي مصادر الالتزام في نظام المعاملات المدنية السعودي؟",
+    "expected_source_id": "civil-transactions-law",
+    "expected_section_hint": "مصادر الالتزام",
+    "expected_answer_contains": ["عقد", "فعل ضار", "إثراء"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "civil-002",
+    "question": "متى يسري نظام المعاملات المدنية على العقود المبرمة قبل تاريخ نفاذه؟",
+    "expected_source_id": "civil-transactions-law",
+    "expected_section_hint": "احكام انتقالية",
+    "expected_answer_contains": ["انتقالية", "سريان", "ديسمبر"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "civil-003",
+    "question": "ما هو الحد الأقصى للتعويض عن التأخير الذي يفرضه القضاء السعودي كنسبة يومية معقولة؟",
+    "expected_source_id": "civil-transactions-law",
+    "expected_section_hint": null,
+    "expected_answer_contains": [],
+    "should_abstain": true,
+    "difficulty": "abstention",
+    "abstention_reason": "المعلومة شديدة التحديد وتتعلق بالممارسة القضائية لا بالنص التشريعي وحده"
+  },
+  {
+    "id": "companies-001",
+    "question": "ما هي أشكال الشركات التي ينظمها نظام الشركات السعودي الجديد؟",
+    "expected_source_id": "companies-law",
+    "expected_section_hint": "أشكال الشركات",
+    "expected_answer_contains": ["مساهمة", "مسؤولية محدودة", "تضامن"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "companies-002",
+    "question": "ما الحد الأدنى لعدد أعضاء مجلس الإدارة في شركة المساهمة وفق نظام الشركات؟",
+    "expected_source_id": "companies-law",
+    "expected_section_hint": "مجلس الإدارة",
+    "expected_answer_contains": ["أعضاء", "11"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "competition-001",
+    "question": "ما هي الممارسات المحظورة بموجب نظام المنافسة السعودي فيما يخص الاتفاقات بين المتنافسين؟",
+    "expected_source_id": "competition-law",
+    "expected_section_hint": "الاتفاقات والممارسات",
+    "expected_answer_contains": ["تحديد الأسعار", "اقتسام الأسواق", "التلاعب"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "competition-002",
+    "question": "هل يُحظر الوضع المهيمن في السوق بذاته وفق نظام المنافسة السعودي؟",
+    "expected_source_id": "competition-law",
+    "expected_section_hint": "إساءة استغلال الوضع المهيمن",
+    "expected_answer_contains": ["لا يُحظر", "إساءة", "استغلاله"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "ecom-001",
+    "question": "ما هي بيانات الإفصاح الإلزامية التي يجب على المتجر الإلكتروني عرضها وفق نظام التجارة الإلكترونية؟",
+    "expected_source_id": "e-commerce-law",
+    "expected_section_hint": "الإفصاحات الإلزامية قبل البيع",
+    "expected_answer_contains": ["اسم", "عنوان", "وسائل اتصال", "سجل تجاري"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "ecom-002",
+    "question": "هل يسري نظام التجارة الإلكترونية السعودي على ممارس خارج المملكة يبيع منتجات لمستهلكين داخل المملكة؟",
+    "expected_source_id": "e-commerce-law",
+    "expected_section_hint": "نطاق التطبيق",
+    "expected_answer_contains": ["خارج المملكة", "مستهلك", "داخل"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  }
+]
