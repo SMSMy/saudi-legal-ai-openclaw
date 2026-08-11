@@ -74,3 +74,20 @@ result = enforce_evidence(claim="...", evidence=[])
 > قبل عرض النتائج كدليل مدعوم للمستخدم.**
 
 عدم الالتزام بهذه القاعدة يُفضي إلى تسريب أقسام ذات ثقة منخفضة كسلطة قانونية — وهو بالضبط النمط الذي تمنعه `enforce_evidence`.
+
+---
+
+## 6. أنواع الأدلة وتصنيف الثقة (`review_level`)
+
+يُطبق `enforce_evidence` تصنيفاً مستقلاً (`review_level`) على كل عنصر دليل يتم إرفاقه بالاستجابة. لا يجب الخلط بين `review_level` وبين `verification_status` الخاص بالمصدر أو المهارة نفسها.
+
+تنقسم الأدلة إلى نوعين رئيسيين:
+1. **نصوص تشريعية (Legislative Texts):**
+   - تُجلب من المصادر (Sources) وتخضع لسلم الثقة البشري/الميداني (`verified`, `field_tested`, `unverified`).
+   - `review_level` يُصبح مساوياً للحالة الفعلية (مع تحويل `verified` إلى `human_reviewed`).
+2. **أدلة استدلال أو مهارات (Reasoning Guides/Skills):**
+   - لا تُمثل نصوصاً قابلة للمصادقة وتُستثنى كلياً من سلم التوثيق.
+   - حالة המهارة (`verification_status`) تكون دائماً `"not_applicable"`.
+   - `review_level` في الدليل يُصبح دائماً `"reasoning_guide"`.
+
+> **تنبيه:** إذا فُقد معرّف المصدر (`source_id` / `domain`)، يُعطى الدليل مستوى التقييم `"unknown"`.

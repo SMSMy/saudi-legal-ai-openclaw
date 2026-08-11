@@ -55,13 +55,20 @@ def enforce_evidence(
         }
 
     # Inject review_level for each evidence item
+    from saudi_legal_mcp.tools.skills import VALID_DOMAINS
+
     enriched_evidence = []
     for item in evidence:
         source_id = item.get("source_id")
-        review_level = "unverified"
-        if source_id:
+        domain = item.get("domain")
+
+        if source_id in VALID_DOMAINS or domain in VALID_DOMAINS:
+            review_level = "reasoning_guide"
+        elif source_id:
             status = get_verification_status(source_id)
             review_level = "human_reviewed" if status == "verified" else status
+        else:
+            review_level = "unknown"
         
         enriched_item = dict(item)
         enriched_item["review_level"] = review_level

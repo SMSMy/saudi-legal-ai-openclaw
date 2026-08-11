@@ -120,7 +120,7 @@ def read_skill(
 
     return {
         "domain": domain,
-        "verification_status": "unverified",  # skills not yet in manifest cycle
+        "verification_status": "not_applicable",  # skills do not require manifests
         "content": content,
         "content_available": True,
         "content_truncated": content_truncated,

@@ -81,6 +81,23 @@
 
 ---
 
+### `not_applicable`
+
+**العربية:** غير منطبق — يُستخدم للمحتوى الاستدلالي (مثل المهارات Skills) الذي يقدم سياقاً أو منهجية ولا يمثل نصاً قانونياً قابلاً للمصادقة.
+
+**English:** Not applicable — used for reasoning guides (like Skills) that provide context or methodology rather than citable legal text.
+
+- من يستطيع تعيينها: المشرفون (مخصص للمهارات)
+- Who can assign: Maintainers (reserved for skills)
+- الاستخدام في production: ✅ مسموح كدليل استدلال
+- Production use: ✅ Allowed as reasoning guide
+- يحتاج مراجعة محامٍ: لا ينطبق (ليس نصاً قانونياً)
+- Lawyer review required: N/A
+- يُسمح الاستشهاد به: ⚠️ كموجه استدلالي وليس كمصدر موثق
+- Citable: ⚠️ As a guide, not as authoritative legal text
+
+---
+
 ### `reviewed`
 
 **العربية:** مراجَع — راجع الصف شخص مختص (باحث قانوني أو أكاديمي) وأقرَّ منطقه، لكن لم يُعتمَد من محامٍ مرخَّص.
