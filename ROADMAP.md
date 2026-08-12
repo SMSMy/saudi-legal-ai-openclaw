@@ -130,6 +130,15 @@ repository architecture · governance · validation pipeline · CI/CD · contrib
       تعديل في بنية المصادر نفسها): evidence-001 (نص إنجليزي مقابل
       expected_answer_contains عربي)، companies-001 (مصطلحات في أقسام فرعية).
 
+**gate interaction rule — قاعدة تفاعل البوابات (v0.4.7 إلزامية)**
+> عند إضافة أي بوابة قرار جديدة في `build_legal_brief` أو
+> `search_legal_provision` (بوابة مالية، زمنية، إلخ)، **أعد اختبار
+> تفاعلها مع `placeholder_dominated` و`MATCH_CONFIDENCE_THRESHOLD`
+> تحديداً** — لا تكتفِ باختبار وحدة معزول. كل البوابات تقرر على
+> **عدد الأقسام الخام** (`prov_raw_count`)، لا على القائمة المُصفَّاة —
+> تصفية بوابة واحدة يجب ألا تُفرغ مدخلات بوابة أخرى. الاختبار المرجعي:
+> `test_gate_interaction_weak_filter_cannot_bypass_placeholder_gate`.
+
 ---
 
 ## Phase 3: AI Workflows

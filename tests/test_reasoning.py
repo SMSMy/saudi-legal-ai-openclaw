@@ -269,3 +269,75 @@ class TestEvidenceGates:
         )
         assert "placeholder_dominated" in result
         assert isinstance(result["placeholder_dominated"], bool)
+
+    def test_gate_interaction_weak_filter_cannot_bypass_placeholder_gate(self, monkeypatch):
+        """Interaction regression (2026-08-12 fix): confidence filtering
+        emptying the provisions list must NOT bypass the placeholder gate.
+        The gates must decide on RAW section count, not the filtered list —
+        otherwise a third gate or refactor could silently resurrect the
+        'skill alone counts as evidence' leak.
+
+        Crafted result: one section, below threshold AND placeholder-dominated.
+        Both gates must agree → insufficient_evidence: true.
+        """
+        from saudi_legal_mcp.tools import reasoning as rmod
+
+        def fake_provision(query, source_id, max_sections=3, max_chars_per_section=1500):
+            return {
+                "source_id": source_id,
+                "query": query,
+                "matched_sections": [
+                    {
+                        "heading": "## قالب جداول",
+                        "body": "جدول [يحتاج تحقق من النص الرسمي] فقط",
+                        "match_score": 1,
+                        "match_confidence": 0.5,
+                    },
+                ],
+                "total_matched": 1,
+                "insufficient_evidence": False,
+                "placeholder_warning": "كل الأقسام تحتوي علامات يحتاج تحقق",
+                "placeholder_dominated": True,
+            }
+
+        monkeypatch.setattr(rmod, "find_legal_provision", fake_provision)
+        result = build_legal_brief(
+            scenario="سؤال عن مهلة غير متوفرة",
+            domain="commercial-dispute",
+            source_id="bankruptcy-law",
+        )
+        assert result.get("insufficient_evidence") is True
+        assert result.get("brief") is None
+
+    def test_gate_interaction_strong_section_with_placeholder_passes(self, monkeypatch):
+        """Counter-case: a section ABOVE threshold that is NOT dominated
+        must still produce a brief — the interaction gates must not
+        over-trigger when real evidence exists."""
+        from saudi_legal_mcp.tools import reasoning as rmod
+
+        def fake_provision(query, source_id, max_sections=3, max_chars_per_section=1500):
+            return {
+                "source_id": source_id,
+                "query": query,
+                "matched_sections": [
+                    {
+                        "heading": "## إنهاء العقد",
+                        "body": "يشترط إشعار كتابي قبل الإنهاء بمدة محددة",
+                        "match_score": 2,
+                        "match_confidence": 1.0,
+                    },
+                ],
+                "total_matched": 1,
+                "insufficient_evidence": False,
+                "placeholder_warning": None,
+                "placeholder_dominated": False,
+            }
+
+        monkeypatch.setattr(rmod, "find_legal_provision", fake_provision)
+        result = build_legal_brief(
+            scenario="هل يشترط إشعار قبل إنهاء العقد",
+            domain="labor-law-analysis",
+            source_id="labor-law",
+        )
+        assert result.get("insufficient_evidence") is False
+        assert result.get("evidence_count", 0) >= 1
