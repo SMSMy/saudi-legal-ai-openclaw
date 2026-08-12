@@ -31,6 +31,11 @@ telemetry/
 evals/metrics/results/*.json
 !evals/metrics/results/baseline.json
 !evals/metrics/results/baseline_v03.json
+!evals/metrics/results/baseline_v04_fieldtested.json
+!evals/metrics/results/baseline_v04_7_fullcover.json
+
+# Session working artifacts (personal task instructions — not project content)
+prompt.md
 
 # Test / coverage
 .pytest_cache/
