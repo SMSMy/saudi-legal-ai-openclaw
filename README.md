@@ -1,7 +1,7 @@
 # المنظومة القانونية السعودية للذكاء الاصطناعي 🇸🇦
 # Saudi Legal AI Framework — OpenClaw Edition
 
-[![Version](https://img.shields.io/badge/version-0.3-blue.svg)](https://github.com/SMSMy/saudi-legal-ai-openclaw)
+[![Version](https://img.shields.io/badge/version-0.4-blue.svg)](https://github.com/SMSMy/saudi-legal-ai-openclaw)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-green.svg)](https://openclaw.ai)
 
@@ -47,6 +47,10 @@ openclaw mcp reload
 
 **Done!** Legal tools ready — standard Python package, no env-var hacks needed. 🔓
 
+> **تلميح:** الحزمة تثبّت `mcp<2.0.0` تلقائياً (مُقيَّدة في pyproject.toml).
+> لو ظهر خطأ `ModuleNotFoundError: No module named 'mcp.server.fastmcp'`
+> فبيئتك فيها mcp 2.0.0 — أزله ثم أعد التثبيت: `pip uninstall mcp && pip install -e .`
+
 ---
 
 ## 🛠️ الأدوات | Tools
@@ -60,8 +64,10 @@ openclaw mcp reload
 | `list_legal_domains` | قائمة كل المجالات والمصادر المتاحة مع حالة التحقق |
 | `get_source_status` | حالة المصدر: verification_status، freshness، تحذير منتهي الصلاحية |
 | `report_source_issue` | تسجيل مشكلة في مصدر (يتطلب ENABLE_LOCAL_REPORTS=true) |
-| `find_legal_provision` | **[v0.3]** بحث نصي في نصوص الأنظمة بالكلمات المفتاحية؛ يُعيد أفضل 3 أقسام (حد 1500 حرف/قسم) |
-| `build_legal_brief` | **[v0.3]** مذكرة قانونية موحّدة من مهارة + نصوص + مخاطر (حد 4000 حرف، enforce_evidence إلزامي) |
+| `search_legal_provision` | بحث نصي في نصوص الأنظمة (أل التعريف aliasing). **بوابة ثقة 0.7**: الأقسام الأضعف تُستبعد برمجياً، لا تُعرض بتحذير |
+| `get_legal_brief` | مذكرة موحّدة من مهارة + نصوص + مخاطر. **بوابات إلزامية**: `insufficient_evidence` عند نقص الدليل أو هيمنة `[يحتاج تحقق]` |
+
+**سياسة الأدلة (evidence policy):** لا ادعاء بلا citation داخل المستودع. أي نتيجة يجب أن تحمل `evidence[]` أو `insufficient_evidence: true`. عند اقتطاع المحتوى الطويل يُعاد `sections_index` (فهرس العناوين) ليكتشف الوكيل الأقسام البعيدة بدل تخمينها.
 
 ---
 
@@ -76,8 +82,9 @@ openclaw mcp reload
 | `examples/` | 14 مثال تفاعلي مع كل الأدوات |
 | `prompts/` | نصوص التوجيه (الإجابة الآمنة، الصياغة المقيدة، الكشف عن المخاطر) |
 | `scripts/` | generate_manifests.py، validate_manifests.py، propose_verification.py |
-| `tests/` | 54 اختباراً آلياً (بدون API خارجي) |
-| `evals/` | corpus 27 سؤال + eval_runner.py + baseline_v03.json (recall=87.7%، precision=94.2%) |
+| `tests/` | 65 اختباراً آلياً (بدون API خارجي) — تشمل حراسة تسجيل الأدوات وبوابات الثقة |
+| `evals/` | corpus 65 سؤالاً + eval_runner.py + baseline_v04_7_fullcover.json (recall=86.2%، precision=97.2%) |
+| `memory/` | دروس الجلسات الحرجة — ما تعلمه المشروع من اكتشافات الاستخدام الفعلي |
 
 ---
 
