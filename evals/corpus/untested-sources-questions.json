@@ -1,0 +1,110 @@
+[
+  {
+    "id": "courts-001",
+    "question": "هل تختص المحكمة التجارية بالنزاعات العمالية إذا نص العقد على خلاف ذلك؟",
+    "expected_source_id": "commercial-courts",
+    "expected_section_hint": "الاختصاص الحصري للمحكمة العمالية",
+    "expected_answer_contains": ["عمالية", "حصر"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "courts-002",
+    "question": "كم تبلغ مهلة الطعن بالاستئناف في الأحكام التجارية السعودية؟",
+    "expected_source_id": "commercial-courts",
+    "expected_section_hint": "مهلة الطعن بالاستئناف 30",
+    "expected_answer_contains": ["30", "استئناف"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "fifa-001",
+    "question": "ما مدة الفترة المحمية في لوائح FIFA للاعبين دون 28 سنة؟",
+    "expected_source_id": "fifa-rstp",
+    "expected_section_hint": "الفترة المحمية التعريف",
+    "expected_answer_contains": ["3", "سنة"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "fifa-002",
+    "question": "ما هي العقوبات الرياضية لفسخ العقد خلال الفترة المحمية وفق المادة 17 من RSTP؟",
+    "expected_source_id": "fifa-rstp",
+    "expected_section_hint": "العقوبات الرياضية في المادة 17",
+    "expected_answer_contains": ["رياضية", "17"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "opendata-001",
+    "question": "ما الفرق الجوهري بين بيانات المنصة القضائية المفتوحة والمصادر التشريعية؟",
+    "expected_source_id": "open-data-judicial-sources",
+    "expected_section_hint": "لماذا هذا المصدر مفيد",
+    "expected_answer_contains": ["أنماط", "إحصاءات"],
+    "should_abstain": false,
+    "difficulty": "conceptual"
+  },
+  {
+    "id": "opendata-002",
+    "question": "ما أنماط الاستدلال القضائي التي يمكن استخراجها من المنصة المفتوحة؟",
+    "expected_source_id": "open-data-judicial-sources",
+    "expected_section_hint": "أنماط الاستدلال القضائي",
+    "expected_answer_contains": ["أنماط", "استدلال"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "regindex-001",
+    "question": "ما هي صيغة الاستشهاد الموحَّدة لنظام العمل السعودي؟",
+    "expected_source_id": "regulation-index",
+    "expected_section_hint": "نظام العمل صيغة الاستشهاد",
+    "expected_answer_contains": ["م/51", "1426"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "regindex-002",
+    "question": "ما هو الملف المعتمد كمصدر وحيد لصيغ الاستشهاد في هذا الإطار؟",
+    "expected_source_id": "regulation-index",
+    "expected_section_hint": "سجل الأنظمة الموحَّد",
+    "expected_answer_contains": ["الاستشهاد", "الوحيد"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "laws-001",
+    "question": "ما هو التسلسل الهرمي للتشريع في المملكة العربية السعودية؟",
+    "expected_source_id": "saudi-laws",
+    "expected_section_hint": "التسلسل الهرمي للتشريع",
+    "expected_answer_contains": ["المراسيم", "اللوائح", "مجلس الوزراء"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "laws-002",
+    "question": "ما أبرز الأنظمة السعودية في مجال الأعمال والتجارة؟",
+    "expected_source_id": "saudi-laws",
+    "expected_section_hint": "أنظمة الأعمال والتجارة",
+    "expected_answer_contains": ["الشركات", "المعاملات"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "saff-001",
+    "question": "ما هي العناصر الإلزامية في عقد اللاعب المحترف وفق قواعد SAFF؟",
+    "expected_source_id": "sports-law-saff",
+    "expected_section_hint": "عقد اللاعب وعناصره الإلزامية",
+    "expected_answer_contains": ["هوية", "راتب", "توقيع"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  },
+  {
+    "id": "saff-002",
+    "question": "متى تنتقل القضية من لجان SAFF إلى FIFA؟",
+    "expected_source_id": "sports-law-saff",
+    "expected_section_hint": "متى تنتقل القضية ل FIFA",
+    "expected_answer_contains": ["FIFA", "دولي"],
+    "should_abstain": false,
+    "difficulty": "factual"
+  }
+]

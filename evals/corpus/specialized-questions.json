@@ -115,6 +115,7 @@
     "expected_section_hint": "مجلس الإدارة حقوق الشركاء",
     "expected_answer_contains": ["شركات", "مجلس إدارة", "بيانات"],
     "should_abstain": false,
-    "difficulty": "conceptual"
+    "difficulty": "conceptual",
+    "_note": "متعدد الأبعاد نصياً (عمل+شركات+PDPL) لكن eval_runner يختبر مصدراً واحداً فقط (expected_source_id). التحقق من الاسترجاع متعدد المصادر يستلزم تمديد eval_runner لاحقاً — مسجل في ROADMAP."
   }
 ]
