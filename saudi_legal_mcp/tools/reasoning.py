@@ -254,7 +254,9 @@ def build_legal_brief(
     import json
     evidence_parts: list[str] = []
 
-    skill_result = read_skill(domain)
+    # include_content=True required — default graduated interface returns
+    # metadata only, which would leave the skill section empty (v0.4.6 fix)
+    skill_result = read_skill(domain, include_content=True)
     skill_summary: str = ""
     if isinstance(skill_result, dict) and not skill_result.get("error"):
         skill_summary = (skill_result.get("content") or "")[:800]
@@ -327,7 +329,10 @@ def build_legal_brief(
 
     sections_text = ""
     for p in provisions:
-        sections_text += f"\n**{p.get('heading','')}**\n{p.get('body','')[:400]}\n"
+        # strip markdown # prefix — heading already includes it, wrapping in
+        # ** would render "**## 8. ...**" instead of a clean heading (v0.4.6)
+        clean_heading = p.get('heading', '').lstrip('#').strip()
+        sections_text += f"\n**{clean_heading}**\n{p.get('body','')[:400]}\n"
 
     risks_text = ""
     for r in risks:

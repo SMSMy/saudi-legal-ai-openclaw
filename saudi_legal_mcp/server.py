@@ -15,6 +15,7 @@ from mcp.server.fastmcp import FastMCP
 from saudi_legal_mcp.tools.skills import read_skill, VALID_DOMAINS
 from saudi_legal_mcp.tools.sources import read_source, VALID_REGULATIONS
 from saudi_legal_mcp.tools.search import find_risks
+from saudi_legal_mcp.tools.reasoning import find_legal_provision, build_legal_brief
 from saudi_legal_mcp.tools.manifests import read_manifest
 from saudi_legal_mcp.tools.policy import enforce_evidence
 from saudi_legal_mcp.tools.schemas import SourceStatusResponse, ReportIssueResponse
@@ -351,6 +352,75 @@ def report_source_issue(
         written=True,
         path=str(report_path),
     ).to_dict()
+
+
+# ── Tool 8: find_legal_provision (v0.4.6 — was dead code, now registered) ─────
+
+@mcp.tool()
+def search_legal_provision(
+    query: str,
+    source_id: str,
+    max_sections: int = 3,
+    max_chars_per_section: int = 1500,
+) -> dict:
+    """Searches a regulation source file for sections matching the query.
+
+    Keyword-based section retrieval with Arabic definite-article (ال) aliasing.
+    Returns up to max_sections best-matching sections with match confidence.
+
+    The response includes:
+      - matched_sections: list of {heading, body, match_score, match_confidence}
+      - insufficient_evidence: true when no substantive section matched
+      - placeholder_warning: set when sections contain [يحتاج تحقق] markers
+      - placeholder_dominated: true when ALL sections contain such markers
+
+    Args:
+        query:      Search query (Arabic or English).
+        source_id:  A key from VALID_REGULATIONS (e.g. "labor-law", "pdpl").
+        max_sections: Maximum sections to return (default 3).
+        max_chars_per_section: Cap on returned section body length (default 1500).
+    """
+    return find_legal_provision(
+        query=query,
+        source_id=source_id,
+        max_sections=max_sections,
+        max_chars_per_section=max_chars_per_section,
+    )
+
+
+# ── Tool 9: build_legal_brief (v0.4.6 — was dead code, now registered) ────────
+
+@mcp.tool()
+def get_legal_brief(
+    scenario: str,
+    domain: str,
+    contract_type: str = None,
+    source_id: str = None,
+) -> dict:
+    """Assembles a structured legal brief from skill + provisions + risks.
+
+    Orchestrator tool: retrieves the domain skill, searches the regulation
+    source for matching provisions, and pulls known contract risks — then
+    assembles them into a single capped brief (max 4000 chars).
+
+    Evidence policy:
+      - insufficient_evidence: true when no usable evidence is found
+      - placeholder_dominated: when ALL retrieved sections are placeholder
+        text, the brief is withheld (insufficient_evidence: true)
+      - placeholder_warning: attached when partial placeholder text exists
+
+    Args:
+        scenario:      Free-text legal scenario (Arabic or English).
+        domain:        A key from VALID_DOMAINS (e.g. "labor-law-analysis").
+        contract_type: Optional contract type for risk lookup (e.g. "SaaS Agreement").
+        source_id:     Optional regulation key from VALID_REGULATIONS.
+    """
+    return build_legal_brief(
+        scenario=scenario,
+        domain=domain,
+        contract_type=contract_type,
+        source_id=source_id,
+    )
 
 
 # ── Entrypoint ────────────────────────────────────────────────────────────────────────────────
