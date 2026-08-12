@@ -266,10 +266,18 @@ def build_legal_brief(
     provisions: list[dict] = []
     prov_placeholder_warning: Optional[str] = None
     prov_placeholder_dominated: bool = False
+    prov_raw_count: int = 0
     if source_id:
         prov_result = find_legal_provision(scenario, source_id)
         if not prov_result.get("insufficient_evidence"):
-            provisions = prov_result.get("matched_sections", [])
+            raw_sections = prov_result.get("matched_sections", [])
+            prov_raw_count = len(raw_sections)
+            # v0.4.7: programmatic confidence gate (architectural contract
+            # required this; it was documented but never implemented).
+            provisions = [
+                s for s in raw_sections
+                if s.get("match_confidence", 0.0) >= MATCH_CONFIDENCE_THRESHOLD
+            ]
             prov_placeholder_warning = prov_result.get("placeholder_warning")
             prov_placeholder_dominated = prov_result.get("placeholder_dominated", False)
             for p in provisions:
@@ -301,17 +309,22 @@ def build_legal_brief(
             "disclaimer": "لا يوجد دليل كافٍ لإصدار مذكرة قانونية. يرجى الاستعانة بمحامٍ مرخّص.",
         }
 
-    # v0.4.5 gate: if ALL data evidence is dominated by placeholders
-    # (every retrieved section contains [يحتاج تحقق] markers), treat as
-    # insufficient even if a skill is present.  The skill provides
-    # conceptual guidance, not specific legal data.
-    has_data = bool(provisions) or bool(risks)
+    # v0.4.5/0.4.7 gates: insufficient when ALL data evidence fails.
+    # gate A: every RAW retrieved section is placeholder-dominated
+    # gate B: sections existed but ALL fell below the confidence threshold
+    # Either way, the skill alone is conceptual guidance — not legal data.
+    has_data = prov_raw_count > 0 or bool(risks)
     data_all_placeholder = (
-        bool(provisions)
+        prov_raw_count > 0
         and prov_placeholder_dominated
         and not bool(risks)
     )
-    if has_data and data_all_placeholder:
+    data_all_weak_confidence = (
+        prov_raw_count > 0
+        and not provisions
+        and not bool(risks)
+    )
+    if has_data and (data_all_placeholder or data_all_weak_confidence):
         return {
             "scenario": scenario,
             "domain": domain,

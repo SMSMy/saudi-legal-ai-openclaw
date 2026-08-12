@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 from saudi_legal_mcp.tools.skills import read_skill, VALID_DOMAINS
 from saudi_legal_mcp.tools.sources import read_source, VALID_REGULATIONS
-from saudi_legal_mcp.tools.search import find_risks
+from saudi_legal_mcp.tools.search import find_risks, MATCH_CONFIDENCE_THRESHOLD
 from saudi_legal_mcp.tools.reasoning import find_legal_provision, build_legal_brief
 from saudi_legal_mcp.tools.manifests import read_manifest
 from saudi_legal_mcp.tools.policy import enforce_evidence
@@ -368,9 +368,16 @@ def search_legal_provision(
     Keyword-based section retrieval with Arabic definite-article (ال) aliasing.
     Returns up to max_sections best-matching sections with match confidence.
 
+    v0.4.7 confidence gate (programmatic, not advisory):
+      Sections with match_confidence below MATCH_CONFIDENCE_THRESHOLD (0.7)
+      are EXCLUDED from matched_sections — not returned with a warning.
+      excluded_low_confidence_count reports how many were dropped.
+      If nothing passes the gate, insufficient_evidence: true.
+
     The response includes:
       - matched_sections: list of {heading, body, match_score, match_confidence}
-      - insufficient_evidence: true when no substantive section matched
+      - excluded_low_confidence_count: sections dropped by the confidence gate
+      - insufficient_evidence: true when no section passed the gate
       - placeholder_warning: set when sections contain [يحتاج تحقق] markers
       - placeholder_dominated: true when ALL sections contain such markers
 
@@ -380,12 +387,33 @@ def search_legal_provision(
         max_sections: Maximum sections to return (default 3).
         max_chars_per_section: Cap on returned section body length (default 1500).
     """
-    return find_legal_provision(
+    result = find_legal_provision(
         query=query,
         source_id=source_id,
         max_sections=max_sections,
         max_chars_per_section=max_chars_per_section,
     )
+    if result.get("error") or result.get("insufficient_evidence"):
+        return result
+
+    sections = result.get("matched_sections", [])
+    strong = [
+        s for s in sections
+        if s.get("match_confidence", 0.0) >= MATCH_CONFIDENCE_THRESHOLD
+    ]
+    dropped = len(sections) - len(strong)
+
+    result["excluded_low_confidence_count"] = dropped
+    if not strong:
+        result["matched_sections"] = []
+        result["total_matched"] = 0
+        result["insufficient_evidence"] = True
+        result["placeholder_warning"] = (
+            "أفضل الأقسام المطابقة كانت دون عتبة الثقة (0.7) — لا دليل كافٍ."
+        )
+    else:
+        result["matched_sections"] = strong
+    return result
 
 
 # ── Tool 9: build_legal_brief (v0.4.6 — was dead code, now registered) ────────
