@@ -72,3 +72,26 @@ def test_no_unregistered_skill_files(data_dir: Path):
     assert not unregistered, (
         f"Skill files with no registration in VALID_DOMAINS: {unregistered}"
     )
+
+
+def test_every_registered_source_has_eval_questions():
+    """Coverage guard (2026-08-13 lesson): every registered regulation
+    must be exercised by at least one eval question.  A source added to
+    VALID_REGULATIONS without eval coverage is untested by definition —
+    exactly the gap that stayed open for 6 sources until it was audited."""
+    import json
+    repo_root = Path(__file__).parent.parent
+    corpus_dir = repo_root / "evals" / "corpus"
+
+    covered = set()
+    for corpus_file in corpus_dir.glob("*.json"):
+        with corpus_file.open(encoding="utf-8-sig") as f:
+            for q in json.load(f):
+                if q.get("expected_source_id"):
+                    covered.add(q["expected_source_id"])
+
+    missing = VALID_REGULATIONS - covered
+    assert not missing, (
+        f"Registered sources without any eval question: {sorted(missing)}\n"
+        "Add questions under evals/corpus/ or remove the registration."
+    )

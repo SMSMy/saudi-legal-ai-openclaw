@@ -175,3 +175,26 @@ def test_find_risks_exact_category_no_confidence():
     """When category_fuzzy=False (default), match_confidence is always None."""
     result = find_risks(contract_type="SaaS Agreement")
     assert result["match_confidence"] is None
+
+
+
+def test_every_contract_type_has_field_tested_risk():
+    """Coverage guard (2026-08-13 lesson): all 11 contract types must have
+    at least one field_tested risk.  The original expansion left 4 types
+    untouched and the gap was only found by external audit — not by tests."""
+    import csv
+    from saudi_legal_mcp.tools import get_repo_path
+
+    csv_path = get_repo_path() / "datasets" / "saudi-contract-risk-dataset.csv"
+    with open(csv_path, encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f))
+
+    field_tested_types = {
+        r["contract_type"] for r in rows
+        if r.get("verification_status") == "field_tested"
+    }
+    all_types = {r["contract_type"] for r in rows}
+    missing = all_types - field_tested_types
+    assert not missing, (
+        f"Contract types without any field_tested risk: {sorted(missing)}"
+    )
