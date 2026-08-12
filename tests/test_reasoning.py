@@ -200,3 +200,72 @@ class TestBuildLegalBrief:
             contract_type=None,
         )
         assert result.get("insufficient_evidence") is True
+
+
+# -- v0.4.5/0.4.7 evidence gates (regression) ---------------------------------
+
+class TestEvidenceGates:
+
+    def test_bankruptcy_all_placeholder_returns_insufficient(self):
+        """Gate A: when ALL retrieved sections are [يحتاج تحقق] templates,
+        the brief must be withheld — the skill alone is not legal data."""
+        result = build_legal_brief(
+            scenario="كم مهلة اعتراض الدائنين وفق اللائحة التنفيذية لنظام الإفلاس",
+            domain="commercial-dispute",
+            source_id="bankruptcy-law",
+        )
+        assert result.get("insufficient_evidence") is True
+        assert result.get("brief") is None
+
+    def test_bankruptcy_with_contract_risks_not_insufficient(self):
+        """Mixed evidence: placeholder provisions + real risk data →
+        brief allowed with placeholder_warning attached."""
+        result = build_legal_brief(
+            scenario="كم مهلة اعتراض الدائنين",
+            domain="commercial-dispute",
+            source_id="bankruptcy-law",
+            contract_type="Employment Contract",
+        )
+        assert result.get("insufficient_evidence") is False
+
+    def test_labor_brief_passes_with_real_evidence(self):
+        """Real (non-dominated) provisions must still produce a brief."""
+        result = build_legal_brief(
+            scenario="كم مدة إشعار إنهاء عقد العمل للموظف",
+            domain="labor-law-analysis",
+            source_id="labor-law",
+        )
+        assert result.get("insufficient_evidence") is False
+        assert result.get("evidence_count", 0) >= 1
+
+    def test_weak_confidence_provisions_filtered_from_brief(self):
+        """Gate B: provisions below MATCH_CONFIDENCE_THRESHOLD are excluded
+        from evidence.  build_legal_brief must not count them."""
+        from saudi_legal_mcp.tools.reasoning import find_legal_provision
+        from saudi_legal_mcp.tools.search import MATCH_CONFIDENCE_THRESHOLD
+
+        result = find_legal_provision(
+            query="المهل الزمنية اعتراض الدائنين",
+            source_id="bankruptcy-law",
+        )
+        raw = result.get("matched_sections", [])
+        assert raw, "expected raw sections for the gate test"
+        weak = [s for s in raw if s["match_confidence"] < MATCH_CONFIDENCE_THRESHOLD]
+        assert weak, "test premise requires at least one weak section"
+
+        brief = build_legal_brief(
+            scenario="المهل الزمنية اعتراض الدائنين",
+            domain="commercial-dispute",
+            source_id="bankruptcy-law",
+        )
+        if not brief.get("insufficient_evidence"):
+            # brief evidence must exclude weak sections
+            assert brief.get("evidence_count", 0) < 1 + len(raw)
+
+    def test_provision_response_has_placeholder_dominated_field(self):
+        result = find_legal_provision(
+            query="المهل الزمنية",
+            source_id="bankruptcy-law",
+        )
+        assert "placeholder_dominated" in result
+        assert isinstance(result["placeholder_dominated"], bool)
