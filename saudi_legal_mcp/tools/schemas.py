@@ -184,11 +184,16 @@ class MatchedSection:
     match_confidence in [0.0, 1.0]: ratio of query_terms found in this section.
     match_score is the raw hit count (integer).
     body is capped at max_chars_per_section (default 1500) by the caller.
+
+    v0.4.9: citations holds the links found inside THIS section's body
+    (scope-bound — never whole-file links).  Each citation carries
+    url + label + link_type (see _extract_links in sources.py).
     """
     heading: str
     body: str
     match_score: int
     match_confidence: float
+    citations: list[dict] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return asdict(self)

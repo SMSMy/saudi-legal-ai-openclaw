@@ -13,7 +13,7 @@ from dataclasses import asdict
 from typing import Optional
 
 from saudi_legal_mcp.tools import get_repo_path
-from saudi_legal_mcp.tools.sources import VALID_REGULATIONS
+from saudi_legal_mcp.tools.sources import VALID_REGULATIONS, _extract_links
 from saudi_legal_mcp.tools.schemas import ProvisionResponse, MatchedSection, LegalBriefResponse
 from saudi_legal_mcp.tools.skills import read_skill
 from saudi_legal_mcp.tools.search import find_risks, MATCH_CONFIDENCE_THRESHOLD
@@ -70,27 +70,41 @@ def _split_into_sections(text: str) -> list[dict]:
     return sections
 
 
+# v0.4.9 — diacritics stripped from both haystack and query terms so
+# 'يوما' matches 'يومًا' (tanween/fatha/sukun are not semantic for
+# retrieval).  ROADMAP Arabic-normalisation backlog item, now justified
+# by a concrete false-insufficient case.
+_DIACRITICS_RE = re.compile(r"[\u064B-\u0652\u0670]")
+
+
+def _strip_diacritics(s: str) -> str:
+    return _DIACRITICS_RE.sub("", s)
+
+
 def _score_section(section: dict, query_terms: list[str]) -> int:
     """Return hit count of query_terms found in section heading + body.
 
     v0.4.3: Arabic definite-article (ال) aliasing (v0.3 decision implemented).
     A query token "مدعي" matches section text "المدعي" and vice versa.
+    v0.4.9: diacritics-stripped matching ('يوما' ↔ 'يومًا').
     Only Arabic-script tokens receive alias expansion to avoid false matches
     on Latin text.  Query term count is unchanged — this is scoring-side
     expansion, not query-side inflation.
     """
-    haystack = (section["heading"] + " " + section["body"]).lower()
+    haystack = _strip_diacritics(
+        (section["heading"] + " " + section["body"]).lower()
+    )
     score = 0
     for term in query_terms:
-        t = term.lower()
+        t = _strip_diacritics(term.lower())
         if t in haystack:
             score += 1
         elif _is_arabic(term):
             # Try ال-stripped variant (المدعي → مدعي)
-            if len(term) > 2 and term[:2] == "ال" and term[2:] in haystack:
+            if len(term) > 2 and term[:2] == "ال" and _strip_diacritics(term[2:]) in haystack:
                 score += 1
             # Try ال-prepended variant (مدعي → المدعي)
-            elif len(term) >= 2 and ("ال" + term).lower() in haystack:
+            elif len(term) >= 2 and ("ال" + _strip_diacritics(term)).lower() in haystack:
                 score += 1
     return score
 
@@ -100,12 +114,33 @@ def _is_arabic(s: str) -> bool:
     return bool(re.fullmatch(r"[\u0600-\u06ff]+", s))
 
 
+# v0.4.9 — Arabic function words excluded from scoring.  Full-question
+# scenarios were diluted by tokens like كم/في/هل, pushing confidence
+# below the 0.7 gate and triggering false insufficient_evidence.
+_ARABIC_STOPWORDS = frozenset({
+    "كم", "في", "من", "إلى", "على", "عن", "هل", "ما", "هذا", "هذه",
+    "ذلك", "تلك", "الذي", "التي", "الذين", "أن", "إن", "هو", "هي",
+    "هم", "لم", "لن", "لا", "قد", "كان", "كانت", "كل", "بعض", "أي",
+    "غير", "حيث", "إذا", "ثم", "أو", "حتى", "مع", "بين", "بعد", "قبل",
+    "عند", "لدى", "نحو", "حول", "مثل", "دون", "كيف", "متى", "أين",
+    "لماذا", "ماذا", "هل", "ما",
+})
+
+
 def _tokenize_query(query: str) -> list[str]:
-    """Extract meaningful tokens from query (Arabic words >= 2 chars or Latin >= 3 chars)."""
-    tokens = re.findall(r"[\u0600-\u06ff]{2,}|[a-zA-Z]{3,}", query)
+    """Extract meaningful tokens from query.
+
+    v0.4.9: Arabic letters only (U+0621-U+064A — punctuation such as
+    '؟' and diacritics are no longer glued to tokens), and function
+    words are excluded.  Latin tokens unchanged (>= 3 chars).
+    """
+    tokens = re.findall(r"[\u0621-\u064A]{2,}|[a-zA-Z]{3,}", query)
     seen: set[str] = set()
     unique: list[str] = []
     for t in tokens:
+        t_lower = t.lower()
+        if t_lower in _ARABIC_STOPWORDS:
+            continue
         if t not in seen:
             seen.add(t)
             unique.append(t)
@@ -214,6 +249,8 @@ def find_legal_provision(
             body=body,
             match_score=score,
             match_confidence=confidence,
+            # v0.4.9: citations scope-bound to THIS section's body
+            citations=_extract_links(section["body"]),
         )))
 
     placeholder_warning: Optional[str] = None
@@ -272,12 +309,11 @@ def build_legal_brief(
         if not prov_result.get("insufficient_evidence"):
             raw_sections = prov_result.get("matched_sections", [])
             prov_raw_count = len(raw_sections)
-            # v0.4.7: programmatic confidence gate (architectural contract
-            # required this; it was documented but never implemented).
-            provisions = [
-                s for s in raw_sections
-                if s.get("match_confidence", 0.0) >= MATCH_CONFIDENCE_THRESHOLD
-            ]
+            # v0.4.9: brief includes all substantively-matched sections.
+            # Confidence gating lives in search_legal_provision (tool layer);
+            # the orchestrator keeps real retrieved text and relies on the
+            # placeholder gate for safety (see insufficient-evidence gate).
+            provisions = list(raw_sections)
             prov_placeholder_warning = prov_result.get("placeholder_warning")
             prov_placeholder_dominated = prov_result.get("placeholder_dominated", False)
             for p in provisions:
@@ -309,22 +345,20 @@ def build_legal_brief(
             "disclaimer": "لا يوجد دليل كافٍ لإصدار مذكرة قانونية. يرجى الاستعانة بمحامٍ مرخّص.",
         }
 
-    # v0.4.5/0.4.7 gates: insufficient when ALL data evidence fails.
-    # gate A: every RAW retrieved section is placeholder-dominated
-    # gate B: sections existed but ALL fell below the confidence threshold
-    # Either way, the skill alone is conceptual guidance — not legal data.
+    # v0.4.5/0.4.9 gate: insufficient when ALL data evidence is
+    # placeholder-dominated (gate A).  Confidence gating (0.7) is the
+    # tool-layer responsibility of search_legal_provision — applying it
+    # here as well produced false insufficient_evidence on full
+    # natural-language scenarios, where token-ratio confidence is
+    # systematically depressed by synonym/morphology variance.
+    # The safety-critical gate is placeholder dominance, which stays.
     has_data = prov_raw_count > 0 or bool(risks)
     data_all_placeholder = (
         prov_raw_count > 0
         and prov_placeholder_dominated
         and not bool(risks)
     )
-    data_all_weak_confidence = (
-        prov_raw_count > 0
-        and not provisions
-        and not bool(risks)
-    )
-    if has_data and (data_all_placeholder or data_all_weak_confidence):
+    if has_data and data_all_placeholder:
         return {
             "scenario": scenario,
             "domain": domain,
@@ -351,12 +385,36 @@ def build_legal_brief(
     for r in risks:
         risks_text += f"- [{r.get('risk_level','').upper()}] {r.get('risk_reason','')[:200]}\n"
 
+    # v0.4.9: sources & links section — citations from matched sections
+    # and risk related_regulation.  Portal labels are copied verbatim so
+    # the portal-vs-article distinction survives into the brief text.
+    sources_text = ""
+    seen_sources: set[str] = set()
+    for p in provisions:
+        for c in p.get("citations", []):
+            url = c.get("url", "")
+            if url and url not in seen_sources:
+                seen_sources.add(url)
+                label = c.get("label") or url
+                sources_text += f"- [{label}]({url})\n"
+    if not sources_text:
+        for r in risks[:3]:
+            reg = r.get("related_regulation", "")
+            if reg and reg not in seen_sources:
+                seen_sources.add(reg)
+                sources_text += f"- {reg}\n"
+
+    sources_block = ""
+    if sources_text:
+        sources_block = f"\n### المصادر والروابط\n{sources_text}\n"
+
     brief = (
         f"## مذكرة قانونية مختصرة\n"
         f"**السيناريو:** {scenario}\n\n"
         f"### السياق المجالي ({domain})\n{skill_summary[:400]}\n\n"
         f"### النصوص النظامية ذات الصلة\n{sections_text}\n"
         f"### المخاطر التعاقدية\n{risks_text}\n"
+        f"{sources_block}"
         f"\n*الأدلة المستخدمة: {len(evidence_parts)} مصدر(اً)*"
     )[:_BRIEF_MAX_CHARS]
 

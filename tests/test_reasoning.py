@@ -341,3 +341,64 @@ class TestEvidenceGates:
         )
         assert result.get("insufficient_evidence") is False
         assert result.get("evidence_count", 0) >= 1
+
+
+# -- v0.4.9 — phase 2 citations + scenario regression --------------------------
+
+class TestCitationsPhase2:
+
+    def test_matched_section_citations_scope_bound(self):
+        """Each matched section carries citations from ITS OWN body only."""
+        result = find_legal_provision(
+            query="الحد الأدنى للإجازة السنوية",
+            source_id="labor-law",
+        )
+        sections = result.get("matched_sections", [])
+        assert sections, "expected matched sections"
+        by_heading = {s["heading"]: s.get("citations", []) for s in sections}
+        annual = by_heading.get("### 1. الحد الأدنى للإجازة السنوية / Minimum Annual Leave")
+        assert annual, f"sections: {list(by_heading)}"
+        assert any(c["url"] == "https://www.boe.gov.sa" for c in annual)
+
+    def test_section_without_link_returns_empty_citations(self):
+        """A section with no link in its body must return [] — no whole-file fallback."""
+        result = find_legal_provision(
+            query="الحد الأدنى للإجازة السنوية",
+            source_id="labor-law",
+        )
+        empty = [s for s in result["matched_sections"] if not s.get("citations")]
+        assert empty, "expected at least one section with empty citations"
+
+    def test_brief_contains_sources_section(self):
+        """Brief must end with مصادر والروابط carrying the portal label verbatim."""
+        result = build_legal_brief(
+            scenario="كم يوماً الإجازة السنوية الدنيا للموظف في السعودية؟",
+            domain="labor-law-analysis",
+            source_id="labor-law",
+        )
+        assert result.get("insufficient_evidence") is False
+        brief = result.get("brief") or ""
+        assert "المصادر والروابط" in brief
+        assert "للمادة مباشرة" in brief
+
+    def test_full_question_scenario_not_gated_by_confidence(self):
+        """v0.4.9 regression: a natural-language scenario whose best
+        section confidence is below 0.7 must still produce a brief.
+        Confidence gating is the search_legal_provision tool's job;
+        the orchestrator must not silence real evidence."""
+        result = build_legal_brief(
+            scenario="كم يوماً الإجازة السنوية الدنيا للموظف في السعودية؟",
+            domain="labor-law-analysis",
+            source_id="labor-law",
+        )
+        assert result.get("insufficient_evidence") is False
+        assert result.get("evidence_count", 0) >= 3
+
+    def test_stopword_tokenizer_excludes_function_words(self):
+        from saudi_legal_mcp.tools.reasoning import _tokenize_query
+        tokens = _tokenize_query("كم يوماً الإجازة السنوية للموظف في السعودية؟")
+        assert "كم" not in tokens
+        assert "في" not in tokens
+        assert "الإجازة" in tokens
+        # punctuation must not be glued to tokens
+        assert not any("؟" in t for t in tokens)
