@@ -76,9 +76,21 @@ def _split_into_sections(text: str) -> list[dict]:
 # by a concrete false-insufficient case.
 _DIACRITICS_RE = re.compile(r"[\u064B-\u0652\u0670]")
 
+# v0.4.10 — orthographic normalization (safe, no true stemming):
+# hamza seats أ/إ/آ → ا, alef maqsura ى → ي, ta marbuta ة → ه.
+# These variants are pure spelling differences — same word, same root.
+# True synonym mapping (الموظف/العامل) is deliberately OUT of scope
+# (would need a dictionary and carries over-matching risk).
+_HAMZA_TABLE = str.maketrans({"أ": "ا", "إ": "ا", "آ": "ا", "ى": "ي", "ة": "ه"})
+
 
 def _strip_diacritics(s: str) -> str:
     return _DIACRITICS_RE.sub("", s)
+
+
+def _normalize_arabic(s: str) -> str:
+    """Diacritics removal + orthographic normalization for matching."""
+    return _strip_diacritics(s).translate(_HAMZA_TABLE)
 
 
 def _score_section(section: dict, query_terms: list[str]) -> int:
@@ -87,24 +99,25 @@ def _score_section(section: dict, query_terms: list[str]) -> int:
     v0.4.3: Arabic definite-article (ال) aliasing (v0.3 decision implemented).
     A query token "مدعي" matches section text "المدعي" and vice versa.
     v0.4.9: diacritics-stripped matching ('يوما' ↔ 'يومًا').
+    v0.4.10: orthographic normalization (أ/إ/آ→ا, ى→ي, ة→ه) on both sides.
     Only Arabic-script tokens receive alias expansion to avoid false matches
     on Latin text.  Query term count is unchanged — this is scoring-side
     expansion, not query-side inflation.
     """
-    haystack = _strip_diacritics(
+    haystack = _normalize_arabic(
         (section["heading"] + " " + section["body"]).lower()
     )
     score = 0
     for term in query_terms:
-        t = _strip_diacritics(term.lower())
+        t = _normalize_arabic(term.lower())
         if t in haystack:
             score += 1
         elif _is_arabic(term):
             # Try ال-stripped variant (المدعي → مدعي)
-            if len(term) > 2 and term[:2] == "ال" and _strip_diacritics(term[2:]) in haystack:
+            if len(term) > 2 and term[:2] == "ال" and _normalize_arabic(term[2:]) in haystack:
                 score += 1
             # Try ال-prepended variant (مدعي → المدعي)
-            elif len(term) >= 2 and ("ال" + _strip_diacritics(term)).lower() in haystack:
+            elif len(term) >= 2 and ("ال" + _normalize_arabic(term)).lower() in haystack:
                 score += 1
     return score
 
