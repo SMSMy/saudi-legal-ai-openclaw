@@ -36,7 +36,7 @@ evals/metrics/results/*.json
 
 # Session working artifacts (personal task instructions — not project content)
 prompt.md
-
+prompt-release-gate.md
 # Test / coverage
 .pytest_cache/
 htmlcov/
