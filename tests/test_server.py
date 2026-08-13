@@ -77,3 +77,32 @@ def test_instructions_carry_drafting_rules_contract():
     assert "insufficient_evidence" in instr
     # context-bloat guard: default guidance stays compact
     assert len(instr) < 2000, f"instructions grew too large: {len(instr)}"
+
+
+
+def test_answer_drafting_rules_present_in_tool_docstrings():
+    """v0.4.15 guard: OpenClaw surfaces tool descriptions to the model
+    (empirically verified), NOT the MCP instructions field.  The four
+    drafting rules must therefore live in the docstrings of every
+    text-producing tool — deletion from any of them fails this test."""
+    from saudi_legal_mcp import server
+    required_tools = {
+        "get_regulation_source",
+        "search_legal_provision",
+        "get_legal_brief",
+    }
+    markers = (
+        "DRAFTING RULES",
+        "معلومة عامة خارج قاعدة المعرفة الموثَّقة",
+        "غير موثَّق",
+        "citation_note",
+        "insufficient_evidence",
+    )
+    for name in required_tools:
+        fn = getattr(server, name, None)
+        assert fn is not None, f"tool {name} not found in server module"
+        doc = fn.__doc__ or ""
+        missing = [m for m in markers if m not in doc]
+        assert not missing, (
+            f"{name} docstring missing drafting-rule markers: {missing}"
+        )

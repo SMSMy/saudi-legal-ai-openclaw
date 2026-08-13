@@ -141,19 +141,27 @@ python scripts/verify_release.py
 أن كل إجابة نهائية موثَّقة بالضرورة** لمجرد أن السيرفر يفرض
 `enforce_evidence` داخلياً.
 
-**قواعد الصياغة — افتراضية، لا مفروضة برمجياً:**
+**قواعد الصياغة — قنوات الإيصال الفعلية (مُثبَت بفحص كود العميل):**
 
 قواعد الصياغة الأربع (وسم المعرفة العامة، لا رقم بلا citation، نقل
-`citation_note`، الامتناع أولى من التكميل) **مضمَّنة في حقل
-`instructions`** — يُرسَل تلقائياً مع كل جلسة عبر handshake الـMCP
-(مُثبَت تجريبياً: 1391 حرفاً تصل في initialize response). المعنى
-الدقيق لـ"تلقائي" هنا: **افتراضي بمعنى "موجود ما لم يُستبدَل"**،
-لا "مضمون الإنفاذ" — الالتزام بها يبقى بيد النموذج المستهلك، وأي
-system prompt يكتبه المستخدم بنفسه يتفوق عليها طبيعياً. لا حاجة لآلية
-إلغاء اشتراك منفصلة — الاستبدال هو الإلغاء.
+`citation_note`، الامتناع أولى من التكميل) مضمَّنة في:
 
-النسخة الكاملة المرجعية: [`prompts/answer-drafting-discipline.md`](saudi_legal_mcp/data/prompts/answer-drafting-discipline.md)
-— للعملاء الذين قد لا يعرضون `instructions`، أو لمن يريد نصاً أكمل.
+1. **docstrings الأدوات** — القناة المؤكدة: فحص كود OpenClaw المثبَّت
+   أثبت أنه يمرر `tool.description` فقط للنموذج، ولا يقرأ حقل
+   `instructions` من MCP handshake إطلاقاً. القواعد الآن في docstrings
+   `get_regulation_source` و`search_legal_provision` و`get_legal_brief`
+   (محروسة باختبار يفشل عند حذفها).
+2. **حقول المخرجات** — `insufficient_evidence` و`citation_note`
+   و`verification_status_explanation` و`disclaimer` يراها النموذج في
+   كل استجابة JSON.
+3. حقل `instructions` — يبقى لعملاء MCP آخرين قد يعرضونه، لكن
+   **لا يُعتمد عليه** مع OpenClaw (درس v0.4.15: التوافق مع مواصفة
+   البروتوكول لا يضمن استهلاك العميل الفعلي له).
+
+**لا ضمان إنفاذ على أي من هذه القنوات** — الالتزام بها يبقى بيد
+النموذج المستهلك، وأي system prompt يكتبه المستخدم يتفوق عليها
+طبيعياً. النسخة الكاملة المرجعية:
+[`prompts/answer-drafting-discipline.md`](saudi_legal_mcp/data/prompts/answer-drafting-discipline.md)
 
 ---
 

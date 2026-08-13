@@ -114,6 +114,13 @@ def get_regulation_source(
     Returns decree numbers, key articles, competent authority, and deadlines.
     Factual reference only — not the full legal text.
 
+    DRAFTING RULES (verified delivery channel): (1) tag facts NOT present
+    in any tool output as 'معلومة عامة خارج قاعدة المعرفة الموثَّقة';
+    (2) never state uncited numbers/dates/legal conditions — omit or tag
+    'غير موثَّق'; (3) relay citation_note verbatim when no direct link;
+    (4) on insufficient_evidence prefer abstention, never pad with your
+    own knowledge.
+
     Args:
         regulation:      One of: arbitration-law, bankruptcy-law,
                          civil-transactions-law, commercial-courts, companies-law,
@@ -401,6 +408,13 @@ def search_legal_provision(
       - placeholder_warning: set when sections contain [يحتاج تحقق] markers
       - placeholder_dominated: true when ALL sections contain such markers
 
+    DRAFTING RULES (verified delivery channel): (1) tag facts NOT present
+    in any tool output as 'معلومة عامة خارج قاعدة المعرفة الموثَّقة';
+    (2) never state uncited numbers/dates/legal conditions — omit or tag
+    'غير موثَّق'; (3) relay citation_note verbatim when no direct link;
+    (4) on insufficient_evidence prefer abstention, never pad with your
+    own knowledge.
+
     Args:
         query:      Search query (Arabic or English).
         source_id:  A key from VALID_REGULATIONS (e.g. "labor-law", "pdpl").
@@ -456,6 +470,13 @@ def get_legal_brief(
       - placeholder_dominated: when ALL retrieved sections are placeholder
         text, the brief is withheld (insufficient_evidence: true)
       - placeholder_warning: attached when partial placeholder text exists
+
+    DRAFTING RULES (verified delivery channel): (1) tag facts NOT present
+    in any tool output as 'معلومة عامة خارج قاعدة المعرفة الموثَّقة';
+    (2) never state uncited numbers/dates/legal conditions — omit or tag
+    'غير موثَّق'; (3) relay citation_note verbatim when no direct link;
+    (4) on insufficient_evidence prefer abstention, never pad with your
+    own knowledge.
 
     Args:
         scenario:      Free-text legal scenario (Arabic or English).
