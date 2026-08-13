@@ -433,3 +433,39 @@ class TestNormalizePhrase:
     def test_orthographic_variants(self):
         from saudi_legal_mcp.tools.reasoning import normalize_phrase
         assert normalize_phrase("أجرًا") == normalize_phrase("اجرا")
+
+
+# -- v0.4.12 — synonym scoring-side expansion (direct-tool regression) ---------
+
+class TestSynonymExpansion:
+
+    def test_direct_tool_natural_question_finds_section(self):
+        """The exact documented failure: 'كم يستحق الموظف إجازة في السنة؟'
+        returned insufficient_evidence:true although the annual-leave
+        section contains the answer (الموظف≠العامل, السنة≠سنوياً)."""
+        result = find_legal_provision(
+            query="كم يستحق الموظف إجازة في السنة؟",
+            source_id="labor-law",
+        )
+        assert result.get("insufficient_evidence") is False
+        sections = result.get("matched_sections", [])
+        # normalization-aware comparison: the heading contains 'للإجازة'
+        # (preposition elides ال's alef) — literal 'الإجازة' would fail
+        from saudi_legal_mcp.tools.reasoning import normalize_phrase
+        assert any(
+            normalize_phrase("الإجازة") in normalize_phrase(s["heading"])
+            for s in sections
+        )
+
+    def test_synonym_variants_group_lookup(self):
+        from saudi_legal_mcp.tools.reasoning import _synonym_variants
+        assert "العامل" in _synonym_variants("الموظف")
+        assert "الموظف" in _synonym_variants("العامل")
+        assert _synonym_variants("بنك") == frozenset({"بنك"})
+
+    def test_expansion_does_not_inflate_token_count(self):
+        """Scoring-side expansion must keep query term count unchanged
+        (v0.4.3 lesson: no query-side inflation of the denominator)."""
+        from saudi_legal_mcp.tools.reasoning import _tokenize_query
+        tokens = _tokenize_query("كم يستحق الموظف إجازة في السنة؟")
+        assert len(tokens) == 4  # يستحق، الموظف، إجازة، السنة — no added variants

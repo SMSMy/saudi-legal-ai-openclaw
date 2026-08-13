@@ -93,6 +93,28 @@ def _normalize_arabic(s: str) -> str:
     return _strip_diacritics(s).translate(_HAMZA_TABLE)
 
 
+# v0.4.12 — minimal synonym groups for scoring-side expansion.
+# Built ONLY from the documented direct-tool failure
+# ('كم يستحق الموظف إجازة في السنة؟' → insufficient_evidence:true
+# although the leaves section contains the answer): الموظف↔العامل,
+# السنة↔سنوياً/سنوية, يستحق↔تستحق.  Groups are in NORMALIZED form.
+# Per the v0.4.3 lesson, expansion happens at scoring time — the query
+# term count (confidence denominator) stays unchanged.
+_SYNONYM_GROUPS: tuple[frozenset[str], ...] = (
+    frozenset({"الموظف", "العامل"}),
+    frozenset({"السنه", "سنه", "سنويا", "سنويه", "سنوي", "السنوي"}),
+    frozenset({"يستحق", "تستحق"}),
+)
+
+
+def _synonym_variants(term_normalized: str) -> frozenset[str]:
+    """Return the synonym group containing the term (normalized), or just the term."""
+    for group in _SYNONYM_GROUPS:
+        if term_normalized in group:
+            return group
+    return frozenset({term_normalized})
+
+
 # v0.4.11 — phrase-level equivalence for the EVAL comparison layer.
 # The eval compares expected_answer_contains terms against retrieved
 # content literally, while the retrieval engine treats these forms as
@@ -139,15 +161,20 @@ def _score_section(section: dict, query_terms: list[str]) -> int:
     score = 0
     for term in query_terms:
         t = _normalize_arabic(term.lower())
-        if t in haystack:
+        matched = False
+        for variant in _synonym_variants(t):
+            if variant in haystack:
+                matched = True
+                break
+            # ال-aliasing per variant (المدعي/مدعي — v0.4.3 decision)
+            if len(variant) > 2 and variant[:2] == "ال" and variant[2:] in haystack:
+                matched = True
+                break
+            if len(variant) >= 2 and ("ال" + variant) in haystack:
+                matched = True
+                break
+        if matched:
             score += 1
-        elif _is_arabic(term):
-            # Try ال-stripped variant (المدعي → مدعي)
-            if len(term) > 2 and term[:2] == "ال" and _normalize_arabic(term[2:]) in haystack:
-                score += 1
-            # Try ال-prepended variant (مدعي → المدعي)
-            elif len(term) >= 2 and ("ال" + _normalize_arabic(term)).lower() in haystack:
-                score += 1
     return score
 
 
