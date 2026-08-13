@@ -227,10 +227,21 @@ Legislative sources do not replace judicial decisions, and vice versa.
                  Review covers: format validity + content safety + absence of real data
 ```
 
+> ⚠️ **قاعدة تشغيلية دائمة / Operational rule (v0.4.9):**
+> بعد أي تعديل على كود `saudi_legal_mcp/`، **أعد تشغيل عملية OpenClaw بالكامل**
+> (لا تكتفِ بـ`openclaw mcp reload`) قبل الاختبار. لوحظ مراراً أن العملية
+> الحيّة تحتفظ بنسخة قديمة من الكود (runtime قديم) — الاختبار اللاحق قد
+> يعكس نسخة سابقة بصمت ويضيّع جولات تصحيح كاملة. إن ظهرت نتيجة لا تطابق
+> الكود المثبَّت، اشتبه في هذه المشكلة أولاً قبل أي شيء آخر.
+>
+> After any change to `saudi_legal_mcp/`, **fully restart the OpenClaw
+> process** (not just `openclaw mcp reload`) before testing. Stale-runtime
+> behaviour has been observed repeatedly — the live process silently keeps
+> the old code and your test may validate a ghost version.
+
 **تسمية الفروع / Branch Naming:**
 
-| النوع | الصيغة | مثال |
-|-------|--------|-------|
+| النوع | الصيغة | مثال ||-------|--------|-------|
 | إضافة محتوى | `add-<description>` | `add-healthcare-examples` |
 | تصحيح | `fix-<description>` | `fix-pdpl-article-reference` |
 | تحديث | `update-<description>` | `update-labor-law-amendments` |

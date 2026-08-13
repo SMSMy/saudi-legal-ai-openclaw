@@ -252,3 +252,30 @@ def test_extract_links_dedup_and_no_link_case():
     links = _extract_links(text)
     assert len(links) == 1
     assert _extract_links("سطر بلا أي رابط") == []
+
+
+
+# ---------------------------------------------------------------------------
+# v0.4.9 — human-readable status explanation (no raw internal terms)
+# ---------------------------------------------------------------------------
+
+def test_read_source_has_status_explanation():
+    """User-facing answers must carry plain-Arabic status explanation."""
+    result = read_source("labor-law", include_content=True)
+    assert "verification_status_explanation" in result
+    explanation = result["verification_status_explanation"]
+    assert explanation and len(explanation) > 5
+    assert "field_tested" not in explanation
+
+def test_skill_status_explanation_not_applicable():
+    result = read_skill("labor-law-analysis", include_content=True)
+    assert "verification_status_explanation" in result
+    assert "استدلالي" in result["verification_status_explanation"]
+    assert "field_tested" not in result["verification_status_explanation"]
+
+def test_human_status_mapping():
+    from saudi_legal_mcp.tools.schemas import human_status
+    ft = human_status("field_tested")
+    assert "field_tested" not in ft
+    assert "محامٍ" in ft
+    assert human_status("not_applicable") != human_status("unverified")

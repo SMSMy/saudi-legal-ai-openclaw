@@ -20,6 +20,25 @@ _VALID_ISSUE_TYPES = frozenset({
     "outdated", "missing_article", "incorrect_citation", "broken_url",
 })
 
+# v0.4.9 — human-readable Arabic explanations for internal status terms.
+# Raw terms (field_tested, verification_status...) must NEVER reach the
+# user-facing answer verbatim.  Tools attach the explanation alongside
+# the raw value; the rendering agent must use the explanation.
+_STATUS_EXPLANATIONS = {
+    "unverified": "لم يُراجع بعد — لا تستخدمه في إجابة جازمة",
+    "field_tested": "جُرِّب تقنياً ونجح في الاختبارات الآلية، لكنه لم يُراجع من محامٍ مرخّص بعد — استخدمه للتوجيه العام فقط",
+    "verified": "راجعه مختص قانوني مرخّص",
+    "review_due": "تجاوز موعد المراجعة الدورية — يحتاج إعادة فحص قبل الاعتماد",
+    "outdated": "قد لا يعكس آخر التعديلات النظامية — يحتاج تحقق من المصدر الرسمي",
+    "disputed": "هناك خلاف حول دقته — لا تعتمد عليه وحدك",
+    "not_applicable": "محتوى استدلالي توجيهي — لا يخضع لسلم التحقق التشريعي أصلاً",
+}
+
+
+def human_status(status: str) -> str:
+    """Return the plain-Arabic explanation for a raw status value."""
+    return _STATUS_EXPLANATIONS.get(status, "غير مُتحقَّق منه بعد")
+
 
 # -- 1. SourceResponse --------------------------------------------------------
 
@@ -33,6 +52,9 @@ class SourceResponse:
     content_truncated: bool
     citations: list[dict] = field(default_factory=list)
     retrieval_hint: Optional[str] = None
+    # v0.4.9: plain-Arabic explanation — the agent must surface THIS,
+    # never the raw verification_status term, in user-facing text.
+    verification_status_explanation: Optional[str] = None
     disclaimer: str = _DISCLAIMER
 
     def __post_init__(self) -> None:
@@ -57,6 +79,8 @@ class SkillResponse:
     content_available: bool
     content_truncated: bool
     retrieval_hint: Optional[str] = None
+    # v0.4.9: plain-Arabic explanation for user-facing rendering.
+    verification_status_explanation: Optional[str] = None
     disclaimer: str = _DISCLAIMER
 
     def __post_init__(self) -> None:
@@ -131,6 +155,8 @@ class SourceStatusResponse:
     source_id: str
     verification_status: str
     warning: Optional[str]  # None if no warning; caller should surface this to user
+    # v0.4.9: plain-Arabic explanation — user-facing text must use this.
+    verification_status_explanation: Optional[str] = None
 
     def to_dict(self) -> dict:
         return asdict(self)

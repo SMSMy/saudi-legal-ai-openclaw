@@ -18,7 +18,7 @@ from saudi_legal_mcp.tools.search import find_risks, MATCH_CONFIDENCE_THRESHOLD
 from saudi_legal_mcp.tools.reasoning import find_legal_provision, build_legal_brief
 from saudi_legal_mcp.tools.manifests import read_manifest
 from saudi_legal_mcp.tools.policy import enforce_evidence
-from saudi_legal_mcp.tools.schemas import SourceStatusResponse, ReportIssueResponse
+from saudi_legal_mcp.tools.schemas import SourceStatusResponse, ReportIssueResponse, human_status
 from saudi_legal_mcp.tools import get_repo_path
 
 # ── Configuration ────────────────────────────────────────────────────────────────────────────────
@@ -55,7 +55,11 @@ mcp = FastMCP(
         "official_source_url leads to the authority's GENERAL portal, not to "
         "the specific article text. When rendering an answer, copy the "
         "citation label verbatim and NEVER present a portal link as if it "
-        "opened the article directly."
+        "opened the article directly. "
+        "STATUS WORDING RULE: never write raw internal status terms "
+        "(field_tested, verification_status, unverified...) into user-facing "
+        "answers. Use the provided verification_status_explanation text — "
+        "it is already plain Arabic for the user."
     ),
 )
 
@@ -257,24 +261,25 @@ def get_source_status(source_id: str) -> dict:
         return SourceStatusResponse(
             source_id=source_id,
             verification_status="unverified",
+            verification_status_explanation=human_status("unverified"),
             warning="Manifest not yet generated. Run scripts/generate_manifests.py.",
         ).to_dict()
 
     verification_status = manifest.get("verification_status", "unverified")
     review_due_at_str = manifest.get("review_due_at")
 
-    # Build warning
+    # Build warning — plain Arabic only, never raw internal terms
+    # (v0.4.9: 'field_tested' must not appear in user-facing text)
     warning_parts = []
 
     if verification_status == "field_tested":
         warning_parts.append(
-            f"المصدر '{source_id}' مُجرَّب ميدانياً ونجح تقنياً (field_tested)، لكنه لم يُراجع من محامٍ. "
-            "استخدمه بحذر وبلا إجابة جازمة."
+            f"المصدر '{source_id}' جُرِّب تقنياً ونجح في الاختبارات الآلية، "
+            "لكنه لم يُراجع من محامٍ مرخّص بعد — استخدمه للتوجيه العام فقط."
         )
     elif verification_status != "verified":
         warning_parts.append(
-            f"المصدر '{source_id}' غير مُتحقَّق منه بعد (verification_status={verification_status}). "
-            "لا تستخدمه في إجابة جازمة."
+            f"المصدر '{source_id}' لم يُراجع بعد — لا تستخدمه في إجابة جازمة."
         )
 
     # Only check freshness if review_due_at is explicitly set (not None)
@@ -294,6 +299,7 @@ def get_source_status(source_id: str) -> dict:
     return SourceStatusResponse(
         source_id=source_id,
         verification_status=verification_status,
+        verification_status_explanation=human_status(verification_status),
         warning=" | ".join(warning_parts) if warning_parts else None,
     ).to_dict()
 

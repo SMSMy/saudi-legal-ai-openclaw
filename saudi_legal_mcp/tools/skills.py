@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Optional
 
 from saudi_legal_mcp.tools import get_repo_path
+from saudi_legal_mcp.tools.schemas import human_status
 
 
 # ---------------------------------------------------------------------------
@@ -125,6 +126,7 @@ def read_skill(
     return {
         "domain": domain,
         "verification_status": "not_applicable",
+        "verification_status_explanation": human_status("not_applicable"),
         "content": content,
         "content_available": True,
         "content_truncated": content_truncated,

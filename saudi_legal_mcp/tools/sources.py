@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Optional
 
 from saudi_legal_mcp.tools import get_repo_path
+from saudi_legal_mcp.tools.schemas import human_status
 
 # ---------------------------------------------------------------------------
 # Validation guard — runs before any file is accepted into VALID_REGULATIONS
@@ -150,6 +151,7 @@ def read_source(
     return {
         "source_id": regulation,
         "verification_status": verification_status,
+        "verification_status_explanation": human_status(verification_status),
         "content": content,
         "content_available": True,
         "content_truncated": content_truncated,
