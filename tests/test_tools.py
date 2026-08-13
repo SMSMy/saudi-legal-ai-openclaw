@@ -238,7 +238,9 @@ def test_extract_links_unit_scoped_to_text():
     assert len(links) == 1
     assert links[0]["url"] == "https://example.gov.sa"
     assert links[0]["link_type"] == "official_source_url"
-    assert "ليس نص المادة" in links[0]["label"]
+    assert "example.gov.sa" in links[0]["label"]
+    assert "بوابة الهيئة الرسمية" in links[0]["label"]
+    assert "استخدم البحث داخل الموقع" in links[0]["label"]
 
 def test_extract_links_dedup_and_no_link_case():
     from saudi_legal_mcp.tools.sources import _extract_links

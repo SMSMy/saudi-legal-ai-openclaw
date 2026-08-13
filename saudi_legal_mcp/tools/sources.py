@@ -194,8 +194,10 @@ def _extract_links(text: str) -> list[dict]:
         deep per-article links (none exist yet)
       - label carries the distinction PROGRAMMATICALLY — a general
         portal link must never be displayed as if it led to the
-        article text.  Labels say "بوابة عامة — ليس نص المادة".
-        The agent rendering the answer copies the label verbatim.
+        article text.  Labels are full instructional sentences that
+        name the portal domain and direct the user to use the
+        portal's internal search to reach the exact text.  The agent
+        rendering the answer copies the label verbatim.
       - Presence of a citation does NOT affect evidence sufficiency
         in enforce_evidence (documented in legal_response_policy.md)
 
@@ -209,7 +211,21 @@ def _extract_links(text: str) -> list[dict]:
     citations: list[dict] = []
     seen_urls: set[str] = set()
 
-    _PORTAL_LABEL = "بوابة الجهة الرسمية (صفحة عامة — ليس نص المادة)"
+    def _portal_label(url: str) -> str:
+        """Full instructional label for a general portal link.
+
+        v0.4.9 — names the portal domain and tells the user the link
+        leads to the general gateway, not the article text, and to use
+        the portal's internal search to reach the exact text.
+        """
+        from urllib.parse import urlparse
+        host = urlparse(url).netloc.lower()
+        if host.startswith("www."):
+            host = host[4:]
+        return (
+            f"رابط بوابة الهيئة الرسمية ({host}) — الرابط يوصلك للبوابة العامة، "
+            "لا للمادة مباشرة؛ استخدم البحث داخل الموقع للوصول للنص الدقيق"
+        )
 
     def add(url: str, label: Optional[str], link_type: str = "official_source_url") -> None:
         url = url.strip().rstrip(").")
@@ -224,14 +240,14 @@ def _extract_links(text: str) -> list[dict]:
         # 1. table row: | **الرابط الرسمي** | URL |
         m = re.search(r"\|\s*\*\*الرابط الرسمي\*\*\s*\|\s*(https?://[^\s|]+)", line)
         if m:
-            add(m.group(1), _PORTAL_LABEL)
+            add(m.group(1), _portal_label(m.group(1)))
             continue
         # 2. markdown link: [label](URL)  (may appear multiple per line)
         for m in re.finditer(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", line):
-            add(m.group(2), f"{m.group(1)} (بوابة عامة — ليس نص المادة)")
+            add(m.group(2), _portal_label(m.group(2)))
         # 3. bare URL in this line if not already handled by 1/2
         for m in re.finditer(r"https?://[^\s|)\]]+", line):
-            add(m.group(0), "بوابة عامة — ليس نص المادة")
+            add(m.group(0), _portal_label(m.group(0)))
 
     return citations
 
