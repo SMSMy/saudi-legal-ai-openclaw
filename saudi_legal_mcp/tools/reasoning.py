@@ -104,6 +104,10 @@ _SYNONYM_GROUPS: tuple[frozenset[str], ...] = (
     frozenset({"الموظف", "العامل"}),
     frozenset({"السنه", "سنه", "سنويا", "سنويه", "سنوي", "السنوي"}),
     frozenset({"يستحق", "تستحق"}),
+    # v0.4.16 — two specific pairs from documented failures (S1, S10).
+    # NO general verb↔masdar stemming (v0.4.11 rule: specific documented pairs only).
+    frozenset({"يجدد", "تجديد"}),
+    frozenset({"افصل", "فصل", "انهاء"}),
 )
 
 
@@ -193,6 +197,9 @@ _ARABIC_STOPWORDS = frozenset({
     "غير", "حيث", "إذا", "ثم", "أو", "حتى", "مع", "بين", "بعد", "قبل",
     "عند", "لدى", "نحو", "حول", "مثل", "دون", "كيف", "متى", "أين",
     "لماذا", "ماذا", "هل", "ما",
+    # v0.4.16 — colloquial function words (from documented S1/S10 retrieval failures).
+    # Function words only: no independent semantic meaning, safe to drop.
+    "يبي", "تبي", "لي", "له", "وبعد", "لأن",
 })
 
 
