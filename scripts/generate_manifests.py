@@ -64,14 +64,31 @@ def generate_manifest(source_path: Path, *, overwrite: bool = False) -> dict:
         except (json.JSONDecodeError, OSError):
             existing = {}
 
-    now = datetime.now(timezone.utc).isoformat()
+    manifest = build_manifest(source_path, existing)
 
-    manifest = {
+    MANIFESTS_DIR.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return manifest
+
+
+def build_manifest(source_path: Path, existing: dict | None = None) -> dict:
+    """Build a manifest dict in memory (no disk writes).
+
+    v0.4.12: extracted from generate_manifest() so --check can compare
+    a fresh manifest against the committed one without touching disk.
+    """
+    existing = existing or {}
+    reg_id = source_path.stem
+
+    return {
         # ── Auto-populated (local, deterministic) ────────────────────────────
         "id": reg_id,
         "path": f"sources/{source_path.name}",
         "sha256": _sha256(source_path),
-        "generated_at": now,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         # ── Status fields — start as needs_review / unverified ───────────────
         "metadata_status": existing.get("metadata_status", "needs_review"),
         "verification_status": existing.get("verification_status", "unverified"),
@@ -87,12 +104,49 @@ def generate_manifest(source_path: Path, *, overwrite: bool = False) -> dict:
         # DO NOT add these here. See final-plan.md §2.2.
     }
 
-    MANIFESTS_DIR.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    return manifest
+
+# v0.4.12: generated_at is a wall-clock timestamp — it differs on every
+# regeneration and is therefore EXCLUDED from staleness comparison.
+# Everything else (sha256, statuses, human fields) must match exactly.
+_NON_STALE_FIELDS = frozenset({"generated_at"})
+
+
+def check_manifests() -> list[str]:
+    """Detect stale manifests: fresh generation differs from committed files.
+
+    Compares every committed manifest against a freshly built one
+    (preserving existing human fields), ignoring only generated_at.
+    Returns a list of issue strings (empty = all fresh).
+    """
+    issues: list[str] = []
+    valid_regulations = _load_valid_regulations()
+
+    for reg_id in sorted(valid_regulations):
+        source_path = SOURCES_DIR / f"{reg_id}.md"
+        manifest_path = MANIFESTS_DIR / f"{reg_id}.json"
+        if not source_path.exists():
+            issues.append(f"STALE: source file missing for {reg_id}")
+            continue
+        if not manifest_path.exists():
+            issues.append(f"STALE: manifest missing for {reg_id}")
+            continue
+        try:
+            committed = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as exc:
+            issues.append(f"STALE: invalid JSON in {reg_id}: {exc}")
+            continue
+
+        fresh = build_manifest(source_path, committed)
+        committed_cmp = {k: v for k, v in committed.items() if k not in _NON_STALE_FIELDS}
+        fresh_cmp = {k: v for k, v in fresh.items() if k not in _NON_STALE_FIELDS}
+        if committed_cmp != fresh_cmp:
+            issues.append(
+                f"STALE: {reg_id} — manifest differs from fresh generation "
+                f"(sha256 {committed.get('sha256','')[:12]} vs {fresh['sha256'][:12]}). "
+                "Run generate_manifests.py and commit."
+            )
+
+    return issues
 
 
 def run(overwrite: bool = False) -> int:
@@ -133,7 +187,22 @@ if __name__ == "__main__":
         action="store_true",
         help="Regenerate manifests from scratch (loses manual edits to human fields).",
     )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Detect stale manifests: fail if fresh generation differs from committed files.",
+    )
     args = parser.parse_args()
+
+    if args.check:
+        issues = check_manifests()
+        if issues:
+            print("[generate_manifests --check] Manifests stale. Run generate_manifests.py and commit.", file=sys.stderr)
+            for issue in issues:
+                print(f"  ✗ {issue}", file=sys.stderr)
+            sys.exit(1)
+        print("[generate_manifests --check] All manifests fresh [OK]")
+        sys.exit(0)
 
     print(f"[generate_manifests] Writing to {MANIFESTS_DIR}")
     run(overwrite=args.overwrite)

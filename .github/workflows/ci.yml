@@ -31,6 +31,12 @@ jobs:
       - name: Install package (editable with dev deps)
         run: pip install -e ".[dev]"
 
+      # ── Legal Release Gate: stale manifests fail fast (v0.4.12) ───────────
+      # Detects source-file changes whose manifests were not regenerated —
+      # before validation, tests, and any later step.
+      - name: Release gate — manifests freshness check
+        run: python scripts/generate_manifests.py --check
+
       # ── Verify REPO_PATH is NOT set in CI env ────────────────────────────
       # If REPO_PATH is set (leftover from v0.2/v0.3 workflows), tests would
       # succeed via the env-var path, not importlib.resources — masking any
