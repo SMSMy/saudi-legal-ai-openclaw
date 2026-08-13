@@ -32,7 +32,12 @@ REPO_ROOT = Path(__file__).parent.parent
 BASELINE_PATH = REPO_ROOT / "evals" / "metrics" / "results" / "baseline_v04_7_fullcover.json"
 
 # Relative drop (fraction) beyond which a clear warning is printed.
-# 0.01 = 1% — small drift tolerance; anything larger must be explained.
+# 0.01 = 1% — warning threshold, NOT a hard failure (the first three
+# gates are the hard ones).  Rationale: eval metrics are deterministic
+# per code state (no sampling) — run-to-run noise is zero, observed
+# repeatedly across sessions (0.8306→0.8306).  1% leaves room for
+# intentional source edits that legitimately move recall a little,
+# while any real regression screams.
 METRIC_DROP_TOLERANCE = 0.01
 
 
