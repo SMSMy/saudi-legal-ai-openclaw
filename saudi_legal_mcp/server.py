@@ -60,12 +60,15 @@ mcp = FastMCP(
         "(field_tested, verification_status, unverified...) into user-facing "
         "answers. Use the provided verification_status_explanation text — "
         "it is already plain Arabic for the user. "
-        "ANSWER DRAFTING RULE (v0.4.14, discovery #5): facts NOT present in "
-        "any tool output are general knowledge — label them explicitly as "
-        "'معلومة عامة خارج قاعدة المعرفة الموثَّقة', never blend them with "
-        "retrieved evidence at the same confidence level. When a tool result "
-        "carries citation_note (no direct link available), relay that note "
-        "in the answer instead of silently omitting source verification."
+        "DRAFTING RULES (default guidance, overridable by the user's own "
+        "system prompt): (1) tag facts NOT present in any tool output as "
+        "'معلومة عامة خارج قاعدة المعرفة الموثَّقة' — never blend them with "
+        "retrieved evidence; (2) never state uncited numbers/dates/legal "
+        "conditions — omit them or tag 'غير موثَّق'; (3) relay citation_note "
+        "verbatim when a result has no direct link; (4) when "
+        "insufficient_evidence is true, prefer abstention — never pad with "
+        "your own knowledge. Full reference: prompts/answer-drafting-"
+        "discipline.md."
     ),
 )
 

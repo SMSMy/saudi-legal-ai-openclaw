@@ -61,3 +61,19 @@ def test_search_legal_provision_confidence_gate():
             f"conf={s['match_confidence']}, heading={s['heading']}"
         )
     assert "excluded_low_confidence_count" in result
+
+
+
+def test_instructions_carry_drafting_rules_contract():
+    """The four drafting rules must be delivered in the default
+    instructions (empirically proven to reach clients via the MCP
+    initialize handshake).  Guards the discovery-#5 contract."""
+    from saudi_legal_mcp.server import mcp
+    instr = mcp.instructions or ""
+    assert "DRAFTING RULES" in instr
+    assert "معلومة عامة خارج قاعدة المعرفة الموثَّقة" in instr
+    assert "غير موثَّق" in instr
+    assert "citation_note" in instr
+    assert "insufficient_evidence" in instr
+    # context-bloat guard: default guidance stays compact
+    assert len(instr) < 2000, f"instructions grew too large: {len(instr)}"
