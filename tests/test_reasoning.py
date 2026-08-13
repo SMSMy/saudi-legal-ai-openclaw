@@ -402,3 +402,34 @@ class TestCitationsPhase2:
         assert "الإجازة" in tokens
         # punctuation must not be glued to tokens
         assert not any("؟" in t for t in tokens)
+
+
+# -- v0.4.11 — eval comparison normalization -----------------------------------
+
+class TestNormalizePhrase:
+
+    def test_phrase_level_definite_article(self):
+        """تسوية وقائية ↔ التسوية الوقائية (ال on the second word)."""
+        from saudi_legal_mcp.tools.reasoning import normalize_phrase
+        a = normalize_phrase("تسوية وقائية")
+        b = normalize_phrase("التسوية الوقائية")
+        assert a == b
+        assert normalize_phrase("تسوية وقائية") in normalize_phrase("جدول التسوية الوقائية الرئيسية")
+
+    def test_prepositional_elision(self):
+        """للمحاكم ↔ المحاكم (hamzat-al-wasl elided after preposition)."""
+        from saudi_legal_mcp.tools.reasoning import normalize_phrase
+        a = normalize_phrase("المحاكم العمالية")
+        b = normalize_phrase("اختصاص حصري للمحاكم العمالية")
+        assert a in b
+
+    def test_word_medial_hamza(self):
+        """غسل أموال ↔ غسل الاموال (word-medial hamza form)."""
+        from saudi_legal_mcp.tools.reasoning import normalize_phrase
+        a = normalize_phrase("غسل أموال")
+        b = normalize_phrase("جرائم غسل الاموال")
+        assert a in b
+
+    def test_orthographic_variants(self):
+        from saudi_legal_mcp.tools.reasoning import normalize_phrase
+        assert normalize_phrase("أجرًا") == normalize_phrase("اجرا")

@@ -33,7 +33,7 @@ os.environ.setdefault("REPO_PATH", str(REPO_ROOT / "saudi_legal_mcp" / "data"))
 from saudi_legal_mcp.tools.sources import read_source, VALID_REGULATIONS
 from saudi_legal_mcp.tools.skills import read_skill
 from saudi_legal_mcp.tools.search import find_risks
-from saudi_legal_mcp.tools.reasoning import find_legal_provision  # v0.3: replaces read_source in eval
+from saudi_legal_mcp.tools.reasoning import find_legal_provision, normalize_phrase  # v0.3: replaces read_source in eval
 
 # ── Corpus loading ────────────────────────────────────────────────────────────
 CORPUS_DIR = REPO_ROOT / "evals" / "corpus"
@@ -120,11 +120,19 @@ def eval_question(question: dict) -> dict:
             # Precision: did we get sections from the right source?
             metrics["citation_precision"] = 1.0 if result.get("source_id") == expected_source else 0.0
             # Recall: does any matched section body contain expected terms?
+            # v0.4.11: comparison is normalization-aware (phrase-level ال,
+            # hamza elision, orthographic variants) — the same equivalence
+            # the retrieval engine applies.  Literal comparison would punish
+            # correct retrieval for spelling variance.
             if expected_contains:
                 all_content = " ".join(
                     s.get("body", "") for s in result.get("matched_sections", [])
                 )
-                hits = sum(1 for term in expected_contains if term in all_content)
+                norm_content = normalize_phrase(all_content)
+                hits = sum(
+                    1 for term in expected_contains
+                    if normalize_phrase(term) in norm_content
+                )
                 metrics["source_recall"] = round(hits / len(expected_contains), 2)
             else:
                 metrics["source_recall"] = 1.0  # no specific terms required

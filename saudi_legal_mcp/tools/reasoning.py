@@ -93,6 +93,35 @@ def _normalize_arabic(s: str) -> str:
     return _strip_diacritics(s).translate(_HAMZA_TABLE)
 
 
+# v0.4.11 — phrase-level equivalence for the EVAL comparison layer.
+# The eval compares expected_answer_contains terms against retrieved
+# content literally, while the retrieval engine treats these forms as
+# equivalent: phrase-level definite article (تسوية وقائية ↔ التسوية
+# الوقائية), prepositional ال elision (للمحاكم ↔ المحاكم), word-medial
+# hamza (غسل أموال ↔ غسل الاموال).  The comparison must speak the same
+# normalization language as retrieval — otherwise the metric punishes
+# correct retrieval for spelling variance.
+_ARABIC_PREFIXES = ("لل", "وال", "بال", "كال", "فال", "ال")
+
+
+def normalize_phrase(s: str) -> str:
+    """Normalize Arabic text for equivalence comparison.
+
+    Diacritics + orthographic normalization, then per-word stripping of
+    leading prefixes (لل/وال/بال/كال/فال/ال).  Symmetric on both sides —
+    used by the eval runner's recall check, not by retrieval scoring.
+    """
+    normalized = _normalize_arabic(s)
+    out_words = []
+    for w in normalized.split():
+        for pref in _ARABIC_PREFIXES:
+            if w.startswith(pref) and len(w) > len(pref) + 1:
+                w = w[len(pref):]
+                break
+        out_words.append(w)
+    return " ".join(out_words)
+
+
 def _score_section(section: dict, query_terms: list[str]) -> int:
     """Return hit count of query_terms found in section heading + body.
 
