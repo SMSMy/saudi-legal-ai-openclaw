@@ -188,10 +188,14 @@ def _extract_links(text: str) -> list[dict]:
     a link in its own body returns [].  No silent fallback to the
     file-level "المصادر الرسمية" list.
 
-    Citation dict (decision v0.4.8):
+    Citation dict (decisions v0.4.8):
       - link_type: "official_source_url" for authority pages (all
         current links); "direct_article_url" reserved for future
         deep per-article links (none exist yet)
+      - label carries the distinction PROGRAMMATICALLY — a general
+        portal link must never be displayed as if it led to the
+        article text.  Labels say "بوابة عامة — ليس نص المادة".
+        The agent rendering the answer copies the label verbatim.
       - Presence of a citation does NOT affect evidence sufficiency
         in enforce_evidence (documented in legal_response_policy.md)
 
@@ -204,6 +208,8 @@ def _extract_links(text: str) -> list[dict]:
     import re
     citations: list[dict] = []
     seen_urls: set[str] = set()
+
+    _PORTAL_LABEL = "بوابة الجهة الرسمية (صفحة عامة — ليس نص المادة)"
 
     def add(url: str, label: Optional[str], link_type: str = "official_source_url") -> None:
         url = url.strip().rstrip(").")
@@ -218,14 +224,14 @@ def _extract_links(text: str) -> list[dict]:
         # 1. table row: | **الرابط الرسمي** | URL |
         m = re.search(r"\|\s*\*\*الرابط الرسمي\*\*\s*\|\s*(https?://[^\s|]+)", line)
         if m:
-            add(m.group(1), "الرابط الرسمي")
+            add(m.group(1), _PORTAL_LABEL)
             continue
         # 2. markdown link: [label](URL)  (may appear multiple per line)
         for m in re.finditer(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", line):
-            add(m.group(2), m.group(1))
+            add(m.group(2), f"{m.group(1)} (بوابة عامة — ليس نص المادة)")
         # 3. bare URL in this line if not already handled by 1/2
         for m in re.finditer(r"https?://[^\s|)\]]+", line):
-            add(m.group(0), None)
+            add(m.group(0), "بوابة عامة — ليس نص المادة")
 
     return citations
 

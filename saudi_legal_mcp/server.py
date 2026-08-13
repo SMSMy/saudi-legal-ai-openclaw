@@ -50,7 +50,12 @@ mcp = FastMCP(
         "POLICY: no legal claim is returned without a source citation. "
         "When evidence is insufficient, tools return insufficient_evidence:true. "
         "Always pair retrieval with the mandatory disclaimer: "
-        "'هذه معلومات قانونية عامة وليست استشارة قانونية.'"
+        "'هذه معلومات قانونية عامة وليست استشارة قانونية.' "
+        "CITATION WORDING RULE: citations carry link_type; an "
+        "official_source_url leads to the authority's GENERAL portal, not to "
+        "the specific article text. When rendering an answer, copy the "
+        "citation label verbatim and NEVER present a portal link as if it "
+        "opened the article directly."
     ),
 )
 
