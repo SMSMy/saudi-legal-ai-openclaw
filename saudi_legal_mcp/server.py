@@ -59,7 +59,13 @@ mcp = FastMCP(
         "STATUS WORDING RULE: never write raw internal status terms "
         "(field_tested, verification_status, unverified...) into user-facing "
         "answers. Use the provided verification_status_explanation text — "
-        "it is already plain Arabic for the user."
+        "it is already plain Arabic for the user. "
+        "ANSWER DRAFTING RULE (v0.4.14, discovery #5): facts NOT present in "
+        "any tool output are general knowledge — label them explicitly as "
+        "'معلومة عامة خارج قاعدة المعرفة الموثَّقة', never blend them with "
+        "retrieved evidence at the same confidence level. When a tool result "
+        "carries citation_note (no direct link available), relay that note "
+        "in the answer instead of silently omitting source verification."
     ),
 )
 

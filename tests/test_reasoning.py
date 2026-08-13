@@ -469,3 +469,36 @@ class TestSynonymExpansion:
         from saudi_legal_mcp.tools.reasoning import _tokenize_query
         tokens = _tokenize_query("كم يستحق الموظف إجازة في السنة؟")
         assert len(tokens) == 4  # يستحق، الموظف، إجازة، السنة — no added variants
+
+
+
+# -- v0.4.14 — citation absence is explicit, never silent ---------------------
+
+class TestCitationNote:
+
+    def test_provision_citation_note_when_no_links(self):
+        """Sections with no links in their bodies must produce an explicit
+        citation_note — the leaves table case from discovery #5."""
+        result = find_legal_provision(
+            query="الإجازة بدون أجر",
+            source_id="labor-law",
+        )
+        sections = result.get("matched_sections", [])
+        assert sections
+        if not any(s.get("citations") for s in sections):
+            note = result.get("citation_note")
+            assert note and "لا رابط مباشر" in note
+        else:
+            assert result.get("citation_note") is None
+
+    def test_read_source_citation_note_when_no_links(self):
+        from saudi_legal_mcp.tools.sources import read_source
+        result = read_source("labor-law", section="الإجازات")
+        assert result["citations"] == []
+        assert result.get("citation_note") and "لا رابط مباشر" in result["citation_note"]
+
+    def test_citation_note_absent_when_links_exist(self):
+        from saudi_legal_mcp.tools.sources import read_source
+        result = read_source("labor-law", section="الحد الأدنى للإجازة السنوية")
+        assert result["citations"], "premise: this section has a link"
+        assert result.get("citation_note") is None

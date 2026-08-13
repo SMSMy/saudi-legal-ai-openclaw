@@ -148,6 +148,16 @@ def read_source(
     # Metadata-only requests (no content) return [] — no whole-file fallback.
     citations: list[dict] = _extract_links(content) if content else []
 
+    # v0.4.14: when content was returned but carries no link, say so
+    # EXPLICITLY — the rendering agent must relay this instead of
+    # silently presenting unverifiable numbers (discovery #5 follow-up).
+    citation_note: Optional[str] = None
+    if content and not citations:
+        citation_note = (
+            "لا رابط مباشر متاح لهذا القسم تحديداً — تحقق من النص الرسمي "
+            "عبر بوابة هيئة الخبراء (boe.gov.sa) بنفسك."
+        )
+
     return {
         "source_id": regulation,
         "verification_status": verification_status,
@@ -161,6 +171,7 @@ def read_source(
             if not include_content and not section else None
         ),
         "citations": citations,
+        "citation_note": citation_note,
         "disclaimer": "هذه معلومات قانونية عامة وليست استشارة قانونية.",
     }
 

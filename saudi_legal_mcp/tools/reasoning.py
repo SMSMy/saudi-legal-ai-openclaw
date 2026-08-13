@@ -335,6 +335,16 @@ def find_legal_provision(
             "تشير إلى معلومات غير مكتملة أو لم تُراجع بعد."
         )
 
+    # v0.4.14: citation absence must be explicit, never silent
+    # (discovery #5 — the leaves table returned citations:[] and the
+    # user saw unverifiable numbers with no verification path).
+    citation_note: Optional[str] = None
+    if matched and not any(s.get("citations") for s in matched):
+        citation_note = (
+            "لا رابط مباشر متاح للأقسام المسترجعة تحديداً — تحقق من النص "
+            "الرسمي عبر بوابة هيئة الخبراء (boe.gov.sa) بنفسك."
+        )
+
     return asdict(ProvisionResponse(
         source_id=source_id,
         query=query,
@@ -342,6 +352,7 @@ def find_legal_provision(
         total_matched=len(hits),
         insufficient_evidence=False,
         placeholder_warning=placeholder_warning,
+        citation_note=citation_note,
         placeholder_dominated=all_placeholder,
     ))
 

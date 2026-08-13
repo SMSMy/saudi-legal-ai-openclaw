@@ -217,6 +217,10 @@ class ProvisionResponse:
     placeholder_dominated (v0.4.5): True when EVERY substantive section
     contains [يحتاج تحقق] markers.  This is a stronger signal than
     placeholder_warning alone — the entire retrieval result is tainted.
+
+    citation_note (v0.4.14): set when matched sections carry no direct
+    link — the rendering agent must relay this so verification-absence
+    is explicit in the user-facing answer, never silent.
     """
     source_id: str
     query: str
@@ -225,6 +229,7 @@ class ProvisionResponse:
     insufficient_evidence: bool
     placeholder_warning: Optional[str] = None
     placeholder_dominated: bool = False
+    citation_note: Optional[str] = None
     disclaimer: str = _DISCLAIMER
 
     def to_dict(self) -> dict:
