@@ -143,6 +143,10 @@ def read_source(
     if content_truncated:
         sections_index = _extract_headings(full_text)
 
+    # v0.4.8: citations extracted from retrieved content scope only.
+    # Metadata-only requests (no content) return [] — no whole-file fallback.
+    citations: list[dict] = _extract_links(content) if content else []
+
     return {
         "source_id": regulation,
         "verification_status": verification_status,
@@ -154,7 +158,7 @@ def read_source(
             "استخدم section أو include_content=True عند الحاجة للنص الكامل."
             if not include_content and not section else None
         ),
-        "citations": [],
+        "citations": citations,
         "disclaimer": "هذه معلومات قانونية عامة وليست استشارة قانونية.",
     }
 
@@ -174,6 +178,56 @@ def _load_manifest(regulation: str) -> Optional[dict]:
         return json.loads(manifest_path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return None
+
+
+def _extract_links(text: str) -> list[dict]:
+    """Extract official links from retrieved content (section-scoped).
+
+    v0.4.8 — links come ONLY from the text passed in (the retrieved
+    section or content), never from the whole file.  A section without
+    a link in its own body returns [].  No silent fallback to the
+    file-level "المصادر الرسمية" list.
+
+    Citation dict (decision v0.4.8):
+      - link_type: "official_source_url" for authority pages (all
+        current links); "direct_article_url" reserved for future
+        deep per-article links (none exist yet)
+      - Presence of a citation does NOT affect evidence sufficiency
+        in enforce_evidence (documented in legal_response_policy.md)
+
+    Patterns matched (in scope text only):
+      1. table row:  | **الرابط الرسمي** | URL |
+      2. markdown:   [label](URL)
+      3. bare URL:   https://... (no surrounding markdown)
+    Deduplicated by URL.
+    """
+    import re
+    citations: list[dict] = []
+    seen_urls: set[str] = set()
+
+    def add(url: str, label: Optional[str], link_type: str = "official_source_url") -> None:
+        url = url.strip().rstrip(").")
+        if not url.startswith(("http://", "https://")):
+            return
+        if url in seen_urls:
+            return
+        seen_urls.add(url)
+        citations.append({"url": url, "label": label, "link_type": link_type})
+
+    for line in text.splitlines():
+        # 1. table row: | **الرابط الرسمي** | URL |
+        m = re.search(r"\|\s*\*\*الرابط الرسمي\*\*\s*\|\s*(https?://[^\s|]+)", line)
+        if m:
+            add(m.group(1), "الرابط الرسمي")
+            continue
+        # 2. markdown link: [label](URL)  (may appear multiple per line)
+        for m in re.finditer(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", line):
+            add(m.group(2), m.group(1))
+        # 3. bare URL in this line if not already handled by 1/2
+        for m in re.finditer(r"https?://[^\s|)\]]+", line):
+            add(m.group(0), None)
+
+    return citations
 
 
 def _extract_headings(text: str) -> list[str]:

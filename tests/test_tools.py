@@ -198,3 +198,55 @@ def test_every_contract_type_has_field_tested_risk():
     assert not missing, (
         f"Contract types without any field_tested risk: {sorted(missing)}"
     )
+
+
+
+# ---------------------------------------------------------------------------
+# v0.4.8 — section-scoped citations (links)
+# ---------------------------------------------------------------------------
+
+def test_read_source_section_returns_its_own_link():
+    """The annual-leave section carries its own الرابط الرسمي table link."""
+    result = read_source("labor-law", section="الحد الأدنى للإجازة السنوية")
+    urls = [c["url"] for c in result["citations"]]
+    assert "https://www.boe.gov.sa" in urls
+
+def test_read_source_section_without_link_returns_empty():
+    """No whole-file fallback: a section with no link in its body → []."""
+    result = read_source("labor-law", section="نطاقات")
+    assert result["citations"] == []
+
+def test_read_source_metadata_only_no_citations():
+    """Metadata-only request retrieves no content → no citations."""
+    result = read_source("labor-law")
+    assert result["citations"] == []
+
+def test_citations_have_explicit_link_type():
+    """Every citation must carry url + label + link_type (official_source_url)."""
+    result = read_source("pdpl", include_content=True)
+    for c in result["citations"]:
+        assert "url" in c and c["url"].startswith("https://")
+        assert "link_type" in c
+        assert c["link_type"] == "official_source_url"
+
+def test_extract_links_unit_scoped_to_text():
+    """_extract_links extracts only from the passed text (no file access)."""
+    from saudi_legal_mcp.tools.sources import _extract_links
+    text = "| **الرابط الرسمي** | https://example.gov.sa |"
+    links = _extract_links(text)
+    assert links == [
+        {"url": "https://example.gov.sa",
+         "label": "الرابط الرسمي",
+         "link_type": "official_source_url"}
+    ]
+
+def test_extract_links_dedup_and_no_link_case():
+    from saudi_legal_mcp.tools.sources import _extract_links
+    text = (
+        "نص عادي بلا روابط.\n"
+        "| **الرابط الرسمي** | https://example.gov.sa |\n"
+        "| **الرابط الرسمي** | https://example.gov.sa |\n"
+    )
+    links = _extract_links(text)
+    assert len(links) == 1
+    assert _extract_links("سطر بلا أي رابط") == []
