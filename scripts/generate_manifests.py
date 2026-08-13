@@ -66,6 +66,20 @@ def generate_manifest(source_path: Path, *, overwrite: bool = False) -> dict:
 
     manifest = build_manifest(source_path, existing)
 
+    # v0.4.13 — no spurious churn: if only generated_at would change,
+    # keep the committed file untouched.  Running the generator after
+    # editing ONE source must not dirty all 20 manifests with fresh
+    # timestamps (observed during the naive-contributor lifecycle test).
+    if manifest_path.exists() and not overwrite:
+        try:
+            current = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            current = {}
+        current_cmp = {k: v for k, v in current.items() if k not in _NON_STALE_FIELDS}
+        new_cmp = {k: v for k, v in manifest.items() if k not in _NON_STALE_FIELDS}
+        if current_cmp == new_cmp:
+            return current  # substantively unchanged — do not rewrite
+
     MANIFESTS_DIR.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2),
