@@ -8,6 +8,10 @@ version = "0.4.0"
 # NOTE: v0.2/v0.3/v0.4 were internal development phase labels, not semver releases.
 # This is the first installable package release — semver starts at 0.4.0.
 # When publishing to PyPI or GitHub Releases, this version IS the official tag.
+# v0.4.13 decision (2026-08-13): commit labels v0.4.x are INTERNAL change
+# markers, not releases.  semver stays 0.4.0 until the first official
+# release, at which point it is bumped and an evidence bundle is generated
+# via scripts/generate_release_evidence.py (see README "Versioning").
 description = "Saudi Legal AI MCP Server for OpenClaw — pure retrieval, no LLM keys needed"
 readme = "README.md"
 license = { text = "MIT" }

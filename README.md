@@ -1,12 +1,17 @@
 # المنظومة القانونية السعودية للذكاء الاصطناعي 🇸🇦
 # Saudi Legal AI Framework — OpenClaw Edition
 
-[![Version](https://img.shields.io/badge/version-0.4-blue.svg)](https://github.com/SMSMy/saudi-legal-ai-openclaw)
+[![Version](https://img.shields.io/badge/version-0.4.0--pre-blue.svg)](https://github.com/SMSMy/saudi-legal-ai-openclaw)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/OpenClaw-ready-green.svg)](https://openclaw.ai)
 
 > ⚠️ للبحث الأولي فقط — ليس استشارة قانونية. يجب مراجعة مختص قانوني مرخص في المملكة العربية السعودية.
 > For preliminary research only — not legal advice. Must be reviewed by a licensed Saudi legal professional.
+
+> **ترقيم الإصدار / Versioning:** رقم semver في `pyproject.toml` هو المرجع الرسمي الوحيد
+> (حالياً `0.4.0` — قبل الإصدار الأول). أرقام `v0.4.x` في رسائل الـcommits
+> علامات تغيير داخلية، **ليست إصدارات**. عند أول إصدار رسمي يُرفع semver
+> ويُولَّد `releases/<version>-evidence.json` عبر `generate_release_evidence.py`.
 
 ---
 
@@ -58,16 +63,37 @@ openclaw mcp reload
 | الأداة | الوصف |
 |--------|---------|
 | `get_legal_skill` | استرجاع/تحميل المهارات القانونية المجالية بالكامل (أو metadata / section فقط) |
-| `get_regulation_source` | قراءة المصادر النظامية المحددة (metadata افتراضياً؛ include_content لقراءة النص) |
+| `get_regulation_source` | قراءة المصادر النظامية المحددة (metadata افتراضياً؛ include_content لقراءة النص). **روابط موثقة**: `citations[]` تحمل `link_type` يميّز رابط الجهة العامة عن رابط المادة المباشر — والـlabel يوضح الفرق نصياً |
 | `get_legal_context` | تجميع سياق قانوني موحّد (مهارة + مصدر + حالة في استدعاء واحد) |
 | `search_contract_risks` | بحث في مخاطر العقود مع policy enforcement (evidence إلزامي) |
 | `list_legal_domains` | قائمة كل المجالات والمصادر المتاحة مع حالة التحقق |
-| `get_source_status` | حالة المصدر: verification_status، freshness، تحذير منتهي الصلاحية |
+| `get_source_status` | حالة المصدر: verification_status + صياغة عربية مفهومة (لا مصطلحات داخلية) + تحذير منتهي الصلاحية |
 | `report_source_issue` | تسجيل مشكلة في مصدر (يتطلب ENABLE_LOCAL_REPORTS=true) |
-| `search_legal_provision` | بحث نصي في نصوص الأنظمة (أل التعريف aliasing). **بوابة ثقة 0.7**: الأقسام الأضعف تُستبعد برمجياً، لا تُعرض بتحذير |
-| `get_legal_brief` | مذكرة موحّدة من مهارة + نصوص + مخاطر. **بوابات إلزامية**: `insufficient_evidence` عند نقص الدليل أو هيمنة `[يحتاج تحقق]` |
+| `search_legal_provision` | بحث نصي في نصوص الأنظمة (تطبيع عربي: أل التعريف، همزات، تشكيل + ترادف موثق). **بوابة ثقة 0.7**: الأقسام الأضعف تُستبعد برمجياً. كل قسم يحمل `citations` من نطاقه هو |
+| `get_legal_brief` | مذكرة موحّدة من مهارة + نصوص + مخاطر تختتم بقسم "المصادر والروابط". **بوابات إلزامية**: `insufficient_evidence` عند نقص الدليل أو هيمنة `[يحتاج تحقق]` |
 
 **سياسة الأدلة (evidence policy):** لا ادعاء بلا citation داخل المستودع. أي نتيجة يجب أن تحمل `evidence[]` أو `insufficient_evidence: true`. عند اقتطاع المحتوى الطويل يُعاد `sections_index` (فهرس العناوين) ليكتشف الوكيل الأقسام البعيدة بدل تخمينها.
+
+---
+
+## 🚧 بوابة الإصدار | Release Gate
+
+كل تعديل على المصادر النظامية يمر عبر بوابة برمجية — الحماية **بنيوية** لا تعتمد على انضباط المساهم:
+
+```bash
+python scripts/verify_release.py
+```
+
+| البوابة | ماذا تمنع |
+|---------|-----------|
+| `generate_manifests.py --check` | تعديل مصدر بدون تحديث الـmanifest (sha256 غير متطابق → exit 1 برسالة إرشادية دقيقة) |
+| `validate_manifests.py` | manifests ناقصة/يتيمة/ذات حقول قانونية بلا مراجعة بشرية |
+| `pytest tests/ -q` | 104 اختباراً — منها حراسة تسجيل الأدوات، تغطية كل مصدر بأسئلة eval، وتفاعل بوابات الثقة |
+| مقارنة الـeval بالـbaseline المعياري | انحدار `citation_precision`/`source_recall` بأكثر من 1% → تحذير صريح |
+
+**Evidence bundle:** `generate_release_evidence.py` ينتج `releases/<version>-evidence.json` —
+مصدر الحقيقة المعلن لأي إصدار، وكل رقم فيه مسحوب من تشغيل فعلي
+(git commit، عدّ manifests، pytest حقيقي، eval منفذة، بوابات مُثبتة سلوكياً).
 
 ---
 
@@ -81,9 +107,10 @@ openclaw mcp reload
 | `datasets/` | مجموعة مخاطر تعاقدية + جدول مصادر + تعريفات المجال |
 | `examples/` | 14 مثال تفاعلي مع كل الأدوات |
 | `prompts/` | نصوص التوجيه (الإجابة الآمنة، الصياغة المقيدة، الكشف عن المخاطر) |
-| `scripts/` | generate_manifests.py، validate_manifests.py، propose_verification.py |
-| `tests/` | 65 اختباراً آلياً (بدون API خارجي) — تشمل حراسة تسجيل الأدوات وبوابات الثقة |
-| `evals/` | corpus 65 سؤالاً + eval_runner.py + baseline_v04_7_fullcover.json (recall=86.2%، precision=97.2%) |
+| `scripts/` | generate_manifests.py (مع --check) · validate_manifests.py · verify_release.py · generate_release_evidence.py · propose_verification.py · verify_all_manifests.py |
+| `tests/` | 104 اختباراً آلياً (بدون API خارجي) — تشمل حراسة تسجيل الأدوات، بوابات الثقة، release gate، و`tests/adversarial/` (حقن الأوامر) |
+| `evals/` | corpus 65 سؤالاً عبر الـ20 مصدراً + eval_runner.py — آخر أرقام: precision=97.2%، recall=90.3% |
+| `releases/` | evidence bundles (`0.4.0-evidence.json`) — المصدر المعلن للحقائق لكل إصدار |
 | `memory/` | دروس الجلسات الحرجة — ما تعلمه المشروع من اكتشافات الاستخدام الفعلي |
 
 ---
@@ -93,6 +120,7 @@ openclaw mcp reload
 - ✅ **بدون أي مفتاح API** — السيرفر لا يتصل بأي خدمة خارجية
 - ✅ **بيانات محلية** — كل الملفات نصية مقروءة محلياً
 - ✅ **مصادر رسمية** — الأنظمة منشورة على boe.gov.sa و uqn.gov.sa
+- ✅ **مُثبَت ضد حقن الأوامر** — `tests/adversarial/`: لا SDK نموذج ولا HTTP client في الحزمة (فحص بنيوي)، ونص تعليمات محقون في مصدر يُعاد كنص عادي مع بقاء الـdisclaimer الإلزامي (إثبات سلوكي)
 - ⚠️ **ليس استشارة قانونية** — للمراجعة الأولية فقط
 
 ---
