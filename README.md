@@ -88,7 +88,7 @@ python scripts/verify_release.py
 |---------|-----------|
 | `generate_manifests.py --check` | تعديل مصدر بدون تحديث الـmanifest (sha256 غير متطابق → exit 1 برسالة إرشادية دقيقة) |
 | `validate_manifests.py` | manifests ناقصة/يتيمة/ذات حقول قانونية بلا مراجعة بشرية |
-| `pytest tests/ -q` | 104 اختباراً — منها حراسة تسجيل الأدوات، تغطية كل مصدر بأسئلة eval، وتفاعل بوابات الثقة |
+| `pytest tests/ -q` | 109 اختباراً — منها حراسة تسجيل الأدوات، تغطية كل مصدر بأسئلة eval، وتفاعل بوابات الثقة |
 | مقارنة الـeval بالـbaseline المعياري | انحدار `citation_precision`/`source_recall` بأكثر من 1% → تحذير صريح |
 
 **Evidence bundle:** `generate_release_evidence.py` ينتج `releases/<version>-evidence.json` —
@@ -107,8 +107,8 @@ python scripts/verify_release.py
 | `datasets/` | مجموعة مخاطر تعاقدية + جدول مصادر + تعريفات المجال |
 | `examples/` | 14 مثال تفاعلي مع كل الأدوات |
 | `prompts/` | نصوص التوجيه (الإجابة الآمنة، الصياغة المقيدة، الكشف عن المخاطر) |
-| `scripts/` | generate_manifests.py (مع --check) · validate_manifests.py · verify_release.py · generate_release_evidence.py · propose_verification.py · verify_all_manifests.py |
-| `tests/` | 104 اختباراً آلياً (بدون API خارجي) — تشمل حراسة تسجيل الأدوات، بوابات الثقة، release gate، و`tests/adversarial/` (حقن الأوامر) |
+| `scripts/` | generate_manifests.py (مع --check) · validate_manifests.py · verify_release.py · generate_release_evidence.py · propose_verification.py · verify_all_manifests.py · audit_substring_vs_wordboundary.py |
+| `tests/` | 109 اختباراً آلياً (بدون API خارجي) — تشمل حراسة تسجيل الأدوات، بوابات الثقة، release gate، و`tests/adversarial/` (حقن الأوامر) |
 | `evals/` | corpus 65 سؤالاً عبر الـ20 مصدراً + eval_runner.py — آخر أرقام: precision=97.2%، recall=90.3% |
 | `releases/` | evidence bundles (`0.4.0-evidence.json`) — المصدر المعلن للحقائق لكل إصدار |
 | `memory/` | دروس الجلسات الحرجة — ما تعلمه المشروع من اكتشافات الاستخدام الفعلي |
@@ -166,6 +166,13 @@ python scripts/verify_release.py
 ---
 
 ## 🤝 المساهمة | Contributing
+
+> 🔴 **الأولوية القصوى — نبحث عن مراجعة قانونية بشرية:**
+> محامٍ أو مستشار قانوني مرخّص في المملكة لمراجعة دقة المصادر النظامية
+> (20 مصدراً كلها `field_tested` — أي مُجرَّبة تقنياً — بانتظار الترقية
+> إلى `verified` عبر مراجعة مختص). **هذه أثمن مساهمة ممكنة الآن**، وهي
+> الطريق الوحيد الذي يحوّل "يعمل تقنياً" إلى "صحيح قانونياً".
+> معايير الترقية موثقة في [legal_response_policy.md](legal_response_policy.md).
 
 المنظومة القانونية السعودية مشروع مفتوح المصدر. رحب بمساهماتك: إضافة أنظمة جديدة، تحسين المهارات، بيانات مخاطر، أمثلة تطبيقية.
 
